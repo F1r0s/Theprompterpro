@@ -246,6 +246,6 @@ app.get('/api/offers', async (req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`\n✦ Prompt Optimizer Server running at http://localhost:${PORT}`);
+    console.log(`\n✦ Prompter Pro Server running at http://localhost:${PORT}`);
     console.log(`  Postback URL: https://yourdomain.com/api/postback?session_id={aff_sub4}\n`);
 });

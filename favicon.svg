@@ -1,0 +1,30 @@
+<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    @keyframes blink {
+      0%, 96%, 98% { transform: scaleY(1); }
+      97% { transform: scaleY(0.1); }
+    }
+    @keyframes pulse {
+      0%, 100% { fill: #c2652a; }
+      50% { fill: #ff914d; }
+    }
+    .robot-eye { animation: blink 4s infinite; transform-origin: center; }
+    .pulse-dot { animation: pulse 2s infinite; }
+  </style>
+  <rect width="24" height="24" rx="6" fill="#1a1a1a" />
+  <!-- Antenna -->
+  <line x1="12" y1="3" x2="12" y2="6" stroke="#c2652a" stroke-width="1.5" stroke-linecap="round"/>
+  <circle class="pulse-dot" cx="12" cy="2.5" r="1.5" fill="#c2652a" />
+  <!-- Head -->
+  <rect x="5" y="6" width="14" height="11" rx="3" fill="#333" stroke="#fff" stroke-width="1.5"/>
+  <!-- Eyes -->
+  <circle class="robot-eye" cx="9" cy="11.5" r="1.8" fill="#fff"/>
+  <circle class="robot-eye" cx="15" cy="11.5" r="1.8" fill="#fff"/>
+  <!-- Mouth -->
+  <rect x="9.5" y="14" width="5" height="1.2" rx=".6" fill="#fff" opacity=".7"/>
+  <!-- Ears -->
+  <rect x="2" y="9" width="3" height="5" rx="1" fill="#fff" opacity=".5"/>
+  <rect x="19" y="9" width="3" height="5" rx="1" fill="#fff" opacity=".5"/>
+  <!-- Body -->
+  <rect x="7.5" y="18" width="9" height="5" rx="2" fill="#333" stroke="#fff" stroke-width="1.2"/>
+</svg>
