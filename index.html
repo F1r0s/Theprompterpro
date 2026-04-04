@@ -750,7 +750,8 @@ function showLockerModal(offers, sessionId) {
   modal.className = 'locker-backdrop';
   modal.innerHTML = `
     <div class="locker-modal">
-      <div class="locker-header">
+      <div class="locker-header" style="position: relative;">
+        <button class="locker-close-btn" aria-label="Close modal" style="position: absolute; top: 1rem; right: 1.25rem; background: none; border: none; font-size: 1.75rem; color: var(--c-text-mu); cursor: pointer; line-height: 1; transition: color 0.2s;">&times;</button>
         <div class="locker-badge">
           <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75"/></svg>
           One Step Required
@@ -768,6 +769,11 @@ function showLockerModal(offers, sessionId) {
     </div>`;
 
   document.body.appendChild(modal);
+
+  // Close button functionality
+  modal.querySelector('.locker-close-btn').addEventListener('click', () => {
+    modal.remove();
+  });
 
   // When user clicks an offer → show verification state and start polling
   modal.querySelectorAll('.locker-offer').forEach(link => {

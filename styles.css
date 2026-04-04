@@ -580,6 +580,7 @@ kbd{display:inline-flex;padding:1px 5px;background:var(--c-surface-lo);
   display:flex;align-items:center;justify-content:center;
   transition:all .15s}
 .locker-offer:hover .locker-offer-arrow{background:var(--c-primary);color:#fff}
+.locker-close-btn:hover{color:var(--c-text)!important}
 .locker-footer{padding:1rem 1.75rem;text-align:center;
   border-top:1px solid var(--c-border);background:var(--c-surface)}
 .locker-footer-text{font-family:var(--f-ui);font-size:.6875rem;
