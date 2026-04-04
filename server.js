@@ -245,7 +245,11 @@ app.get('/api/offers', async (req, res) => {
     }
 });
 
-app.listen(PORT, () => {
-    console.log(`\n✦ Prompter Pro Server running at http://localhost:${PORT}`);
-    console.log(`  Postback URL: https://yourdomain.com/api/postback?session_id={aff_sub4}\n`);
-});
+if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
+    app.listen(PORT, () => {
+        console.log(`\n✦ Prompter Pro Server running at http://localhost:${PORT}`);
+        console.log(`  Postback URL: https://yourdomain.com/api/postback?session_id={aff_sub4}\n`);
+    });
+}
+
+module.exports = app;
