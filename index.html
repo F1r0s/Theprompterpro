@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stitch Prompt Optimizer — Write Better Prompts, Instantly</title>
+<meta name="description" content="Free AI Prompt Optimizer — Transform vague ideas into precise instructions for ChatGPT, Claude, Gemini, and image AI. 52,000+ prompts optimized. No login needed.">
+<meta name="keywords" content="prompt optimizer, AI prompt tool, ChatGPT prompts, Claude prompts, prompt engineering, Stitch prompt optimizer">
+<meta property="og:title" content="Stitch Prompt Optimizer — Write Better Prompts, Instantly">
+<meta property="og:description" content="Transform vague ideas into precise AI instructions. Free, instant, no account needed.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#c2652a">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ── Navigation ──────────────────────────────────── -->
+<nav class="nav" id="nav">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand" aria-label="Prompt Optimizer Home">
+        <div class="nav-brand-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Antenna -->
+            <line x1="12" y1="2" x2="12" y2="5" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="12" cy="1.5" r="1.2" fill="#fff" opacity=".85"/>
+            <!-- Head -->
+            <rect x="5" y="5" width="14" height="11" rx="3" fill="#fff" opacity=".2" stroke="#fff" stroke-width="1.5"/>
+            <!-- Eyes -->
+            <circle class="robot-eye" cx="9" cy="10.5" r="1.8" fill="#fff"/>
+            <circle class="robot-eye robot-eye-right" cx="15" cy="10.5" r="1.8" fill="#fff"/>
+            <!-- Mouth -->
+            <rect x="9.5" y="13" width="5" height="1.2" rx=".6" fill="#fff" opacity=".7"/>
+            <!-- Ears -->
+            <rect x="2" y="8" width="2.5" height="4" rx="1" fill="#fff" opacity=".5"/>
+            <rect x="19.5" y="8" width="2.5" height="4" rx="1" fill="#fff" opacity=".5"/>
+            <!-- Body -->
+            <rect x="7.5" y="17" width="9" height="5" rx="2" fill="#fff" opacity=".15" stroke="#fff" stroke-width="1.2"/>
+          </svg>
+        </div>
+        <span class="nav-brand-text">Prompt Optimizer</span>
+      </a>
+      <div class="nav-links">
+        <a href="#how-it-works" class="nav-link">How It Works</a>
+        <a href="#features" class="nav-link">Features</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="history.html" class="nav-link">History</a>
+        <div class="nav-divider"></div>
+        <a href="#optimizer-panel" class="nav-cta">Optimize Now</a>
+      </div>
+      <button class="mobile-menu-btn" id="mobile-btn" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-menu hidden" id="mobile-menu">
+    <a href="#how-it-works" class="mobile-nav-link">How It Works</a>
+    <a href="#features" class="mobile-nav-link">Features</a>
+    <a href="about.html" class="mobile-nav-link">About</a>
+    <a href="history.html" class="mobile-nav-link">History</a>
+    <a href="#optimizer-panel" class="mobile-nav-cta">✦ Optimize Now</a>
+  </div>
+</nav>
+
+<main>
+<!-- ── Hero ────────────────────────────────────────── -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-eyebrow eyebrow">
+      <span class="pulse-dot"></span>
+      Sharper prompts &nbsp;·&nbsp; Cleaner outputs
+    </div>
+    <h1 class="hero-title">
+      Write better prompts,<br>
+      <span class="grad">instantly</span>
+    </h1>
+    <p class="hero-sub">
+      Transform vague ideas into precise, structured instructions for any AI — ChatGPT, Claude, Gemini, or image generators.
+    </p>
+    <div class="hero-stat">
+      <span class="pulse-dot"></span>
+      52,000+ prompts optimized and counting
+    </div>
+
+    <!-- ── Optimizer Panel ─────────────────────────── -->
+    <div class="optimizer" id="optimizer-panel">
+      <div class="mode-tabs" role="tablist">
+        <button class="mode-tab active" id="tab-text" role="tab" aria-selected="true">✦ Text AI</button>
+        <button class="mode-tab" id="tab-image" role="tab" aria-selected="false">⬡ Image AI</button>
+      </div>
+      <div class="prompt-field">
+        <textarea
+          class="prompt-textarea"
+          id="prompt-input"
+          placeholder="Write a blog post about artificial intelligence and its impact on society..."
+          maxlength="5000"
+          aria-label="Enter your prompt to optimize"
+        ></textarea>
+        <span class="char-count" id="char-count" aria-live="polite">0 / 5000</span>
+      </div>
+      <button class="optimize-btn" id="optimize-btn" aria-label="Optimize prompt">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456z"/>
+        </svg>
+        Optimize Prompt
+      </button>
+      <p class="hint">
+        <kbd>Ctrl</kbd> + <kbd>Enter</kbd> to optimize &nbsp;·&nbsp; No account required
+      </p>
+    </div>
+
+    <!-- ── Progress Bar ──────────────────────────── -->
+    <div class="progress-section hidden" id="progress-section">
+      <div class="progress-wrap">
+        <div class="progress-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10" opacity=".25"/>
+            <path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round"/>
+          </svg>
+          <span id="progress-label-text">Analyzing your prompt…</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <div class="progress-pct" id="progress-pct">0%</div>
+        <div class="progress-steps">
+          <div class="progress-step active" id="pstep-1"><span class="progress-step-dot"></span> Scanning for semantic gaps</div>
+          <div class="progress-step" id="pstep-2"><span class="progress-step-dot"></span> Applying optimization framework</div>
+          <div class="progress-step" id="pstep-3"><span class="progress-step-dot"></span> Structuring output format</div>
+          <div class="progress-step" id="pstep-4"><span class="progress-step-dot"></span> Quality validation</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Result Panel (with blur + claim) ──────── -->
+    <div class="result-section hidden" id="result-section" aria-live="polite">
+      <div class="result-card">
+        <div class="result-header">
+          <div class="result-label">
+            <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
+            </svg>
+            Optimized Prompt
+          </div>
+          <button class="copy-btn hidden" id="copy-btn" aria-label="Copy optimized prompt">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+            </svg>
+            Copy
+          </button>
+        </div>
+        <div class="result-blur-wrap locked" id="result-blur-wrap">
+          <pre class="result-output" id="result-output"></pre>
+          <!-- Claim Overlay -->
+          <div class="claim-overlay" id="claim-overlay">
+            <div class="claim-overlay-bg"></div>
+            <div class="claim-icon">
+              <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/>
+              </svg>
+            </div>
+            <button class="claim-btn" id="claim-btn">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5V6.75a4.5 4.5 0 119 0v3.75M3.75 21.75h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H3.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/>
+              </svg>
+              Claim Your Prompt
+            </button>
+            <p class="claim-hint">Complete one quick step to unlock your optimized prompt</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Proof Strip ──────────────────────────────────── -->
+<div class="proof-strip">
+  <div class="container">
+    <div class="proof-items">
+      <div class="proof-item">
+        <span class="proof-dot"></span>
+        <span class="proof-text"><strong>52,000+</strong> prompts optimized</span>
+      </div>
+      <div class="proof-item">
+        <span class="proof-dot"></span>
+        <span class="proof-text"><strong>Free</strong> forever, no account needed</span>
+      </div>
+      <div class="proof-item">
+        <span class="proof-dot"></span>
+        <span class="proof-text">Works with <strong>ChatGPT, Claude, Gemini</strong></span>
+      </div>
+      <div class="proof-item">
+        <span class="proof-dot"></span>
+        <span class="proof-text"><strong>Privacy first</strong> — prompts never stored</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── How It Works ─────────────────────────────────── -->
+<section class="section section--alt" id="how-it-works">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow section-eyebrow">The Process</div>
+      <h2 class="section-title">The path to precision</h2>
+      <p class="section-sub">Optimization is a disciplined process. We've distilled it into three core movements.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <span class="step-num">01</span>
+        <div>
+          <div class="step-title">Input &amp; Analysis</div>
+          <p class="step-desc">Paste your raw prompt into the tool. Our engine scans for semantic gaps, missing context, vague instructions, and structural weaknesses that cause AI models to produce generic results.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step-num">02</span>
+        <div>
+          <div class="step-title">Collaborative Refinement</div>
+          <p class="step-desc">Select Text AI or Image AI mode. The optimizer restructures your input using role, task, style, and constraint framing — the same methodology used by professional prompt engineers.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step-num">03</span>
+        <div>
+          <div class="step-title">Validated Output</div>
+          <p class="step-desc">Receive a fully structured, production-ready prompt. Copy it directly into any AI tool. Every token serves a purpose — no filler, no ambiguity, just clear instruction your AI can act on.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Features Bento ───────────────────────────────── -->
+<section class="section" id="features">
+  <div class="container">
+    <div class="section-head center">
+      <div class="eyebrow section-eyebrow">What We Do</div>
+      <h2 class="section-title">Every feature, stitched with intent</h2>
+      <p class="section-sub center">From vague to precise in one click. Here's what powers the transformation.</p>
+    </div>
+    <div class="bento">
+      <div class="bento-card wide">
+        <div class="bento-icon icon-accent">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456z"/>
+          </svg>
+        </div>
+        <div class="bento-title">AI-Powered Analysis</div>
+        <p class="bento-desc">Our engine dissects your prompt for ambiguity, tonal inconsistencies, and structural gaps. It then rebuilds it using the [ROLE] [TASK] [STYLE] [INSTRUCTIONS] framework — the gold standard in prompt engineering.</p>
+        <div class="bento-stat">−70% trial-and-error</div>
+      </div>
+      <div class="bento-card accent-card">
+        <div class="bento-icon icon-white">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/>
+          </svg>
+        </div>
+        <div class="bento-title">Template Library</div>
+        <p class="bento-desc">Access curated prompt architectures for writing, coding, design, and marketing — ready to use or optimize.</p>
+      </div>
+      <div class="bento-card">
+        <div class="bento-icon icon-tertiary">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"/>
+          </svg>
+        </div>
+        <div class="bento-title">Before &amp; After</div>
+        <p class="bento-desc">See the exact transformation. Visualize what changed and why — so you learn the patterns, not just copy the output.</p>
+      </div>
+      <div class="bento-card dark-card">
+        <div class="bento-icon icon-white">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941"/>
+          </svg>
+        </div>
+        <div class="bento-title">Text &amp; Image Modes</div>
+        <p class="bento-desc">Specialized optimization for language models and diffusion models alike. Each mode uses model-specific framing for maximum output quality.</p>
+      </div>
+      <div class="bento-card">
+        <div class="bento-icon icon-primary">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/>
+          </svg>
+        </div>
+        <div class="bento-title">Privacy First</div>
+        <p class="bento-desc">Your prompts are never logged or stored. Zero authentication required. Use it and leave — your ideas stay yours.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA Section ──────────────────────────────────── -->
+<section class="cta-section">
+  <div class="container">
+    <h2 class="cta-title">Start optimizing today.</h2>
+    <p class="cta-sub">Join thousands of developers, writers, and creators who have mastered the art of the perfect AI prompt.</p>
+    <div class="cta-actions">
+      <a href="#optimizer-panel" class="btn btn-primary btn-lg">✦ Optimize Your First Prompt</a>
+      <a href="about.html" class="btn btn-ghost btn-lg">Learn More</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ── Footer ───────────────────────────────────────── -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-brand-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="12" y1="2" x2="12" y2="5" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="12" cy="1.5" r="1.2" fill="#fff" opacity=".85"/>
+            <rect x="5" y="5" width="14" height="11" rx="3" fill="#fff" opacity=".2" stroke="#fff" stroke-width="1.5"/>
+            <circle cx="9" cy="10.5" r="1.8" fill="#fff"/>
+            <circle cx="15" cy="10.5" r="1.8" fill="#fff"/>
+            <rect x="9.5" y="13" width="5" height="1.2" rx=".6" fill="#fff" opacity=".7"/>
+            <rect x="2" y="8" width="2.5" height="4" rx="1" fill="#fff" opacity=".5"/>
+            <rect x="19.5" y="8" width="2.5" height="4" rx="1" fill="#fff" opacity=".5"/>
+            <rect x="7.5" y="17" width="9" height="5" rx="2" fill="#fff" opacity=".15" stroke="#fff" stroke-width="1.2"/>
+          </svg>
+        </div>
+        <span class="footer-brand-text">Prompt Optimizer</span>
+      </div>
+      <div class="footer-links">
+        <a href="#how-it-works" class="footer-link">How It Works</a>
+        <a href="#features" class="footer-link">Features</a>
+        <a href="about.html" class="footer-link">About</a>
+        <a href="history.html" class="footer-link">History</a>
+        <a href="privacy.html" class="footer-link">Privacy</a>
+        <a href="terms.html" class="footer-link">Terms</a>
+      </div>
+      <p class="footer-copy">© 2026 Prompt Optimizer · Every word stitched with intent.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+const textarea    = document.getElementById('prompt-input');
+const charCount   = document.getElementById('char-count');
+const optimizeBtn = document.getElementById('optimize-btn');
+const tabText     = document.getElementById('tab-text');
+const tabImage    = document.getElementById('tab-image');
+const resultSec   = document.getElementById('result-section');
+const resultOut   = document.getElementById('result-output');
+const copyBtn     = document.getElementById('copy-btn');
+const mobileBtn   = document.getElementById('mobile-btn');
+const mobileMenu  = document.getElementById('mobile-menu');
+const progressSec = document.getElementById('progress-section');
+const progressFill= document.getElementById('progress-fill');
+const progressPct = document.getElementById('progress-pct');
+const progressLbl = document.getElementById('progress-label-text');
+const blurWrap    = document.getElementById('result-blur-wrap');
+const claimOverlay= document.getElementById('claim-overlay');
+const claimBtn    = document.getElementById('claim-btn');
+
+let mode = 'text';
+let currentOptimized = '';
+
+// Mobile menu
+mobileBtn.addEventListener('click', () => {
+  const open = mobileMenu.classList.contains('hidden');
+  mobileMenu.classList.toggle('hidden', !open);
+  mobileBtn.setAttribute('aria-expanded', String(open));
+});
+mobileMenu.querySelectorAll('a').forEach(a =>
+  a.addEventListener('click', () => mobileMenu.classList.add('hidden'))
+);
+
+// Tab switching
+function setMode(m) {
+  mode = m;
+  tabText.classList.toggle('active', m === 'text');
+  tabImage.classList.toggle('active', m === 'image');
+  textarea.classList.toggle('img-mode', m === 'image');
+  textarea.placeholder = m === 'text'
+    ? 'Write a blog post about artificial intelligence and its impact on society...'
+    : 'A futuristic city skyline at golden hour, aerial view, ultra-detailed...';
+}
+tabText.addEventListener('click', () => setMode('text'));
+tabImage.addEventListener('click', () => setMode('image'));
+
+// Char count
+textarea.addEventListener('input', () => {
+  const n = textarea.value.length;
+  charCount.textContent = `${n} / 5000`;
+  charCount.className = 'char-count' + (n > 4500 ? ' danger' : n > 4000 ? ' warn' : '');
+});
+
+// Copy
+copyBtn.addEventListener('click', () => {
+  navigator.clipboard.writeText(resultOut.textContent);
+  const orig = copyBtn.innerHTML;
+  copyBtn.innerHTML = `<svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="13" height="13"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> Copied!`;
+  // Hide the copy button after a short feedback delay
+  setTimeout(() => {
+    copyBtn.classList.add('hidden');
+    copyBtn.innerHTML = orig;
+  }, 1500);
+});
+
+// ─── Optimization Engine ────────────────────────────────────────────
+// Helpers
+function capitalize(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+function pickRandom(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+function detectKeywords(text, wordList) {
+  const low = text.toLowerCase();
+  return wordList.filter(w => low.includes(w));
+}
+
+// ─── TEXT AI Optimizer ──────────────────────────────────────────────
+function buildTextOutput(raw) {
+  const topic = raw.trim();
+  const low = topic.toLowerCase();
+  const words = low.split(/\s+/);
+  const wordCount = words.length;
+
+  const domainMap = {
+    writing:    ['blog', 'article', 'essay', 'story', 'write', 'writing', 'post', 'content', 'copywriting', 'script', 'novel', 'poem', 'narrative', 'newsletter', 'editorial'],
+    coding:     ['code', 'coding', 'program', 'api', 'function', 'app', 'website', 'software', 'algorithm', 'debug', 'database', 'frontend', 'backend', 'python', 'javascript', 'react', 'developer', 'html', 'css'],
+    marketing:  ['marketing', 'brand', 'campaign', 'seo', 'social media', 'ads', 'advertisement', 'landing page', 'conversion', 'growth', 'audience', 'funnel', 'email marketing', 'influencer'],
+    business:   ['business', 'strategy', 'plan', 'startup', 'revenue', 'pitch', 'investor', 'market', 'product', 'launch', 'competitive', 'swot', 'roi', 'kpi', 'stakeholder'],
+    education:  ['teach', 'learn', 'explain', 'lesson', 'course', 'tutorial', 'student', 'education', 'curriculum', 'training', 'workshop', 'lecture', 'quiz', 'assessment'],
+    research:   ['research', 'study', 'analysis', 'data', 'report', 'findings', 'methodology', 'literature', 'hypothesis', 'survey', 'statistics', 'experiment', 'peer-reviewed'],
+    creative:   ['creative', 'design', 'art', 'brainstorm', 'idea', 'concept', 'innovation', 'inspiration', 'imagine', 'vision', 'mood board', 'aesthetic'],
+    health:     ['health', 'medical', 'fitness', 'nutrition', 'wellness', 'diet', 'exercise', 'mental health', 'therapy', 'diagnosis', 'symptoms', 'treatment'],
+    legal:      ['legal', 'law', 'contract', 'compliance', 'regulation', 'policy', 'attorney', 'liability', 'intellectual property', 'terms of service'],
+    finance:    ['finance', 'investment', 'stock', 'budget', 'accounting', 'tax', 'crypto', 'portfolio', 'banking', 'financial planning']
+  };
+
+  let detectedDomain = 'general';
+  let maxHits = 0;
+  for (const [domain, keywords] of Object.entries(domainMap)) {
+    const hits = detectKeywords(low, keywords).length;
+    if (hits > maxHits) { maxHits = hits; detectedDomain = domain; }
+  }
+
+  const actionVerbs = {
+    create:    ['write', 'create', 'build', 'make', 'generate', 'draft', 'compose', 'develop', 'produce', 'craft'],
+    explain:   ['explain', 'describe', 'teach', 'clarify', 'break down', 'illustrate', 'define', 'elaborate', 'outline'],
+    analyze:   ['analyze', 'compare', 'evaluate', 'assess', 'review', 'examine', 'critique', 'investigate', 'audit'],
+    summarize: ['summarize', 'condense', 'shorten', 'brief', 'recap', 'abstract', 'tldr', 'overview'],
+    persuade:  ['convince', 'persuade', 'argue', 'pitch', 'sell', 'promote', 'advocate'],
+    fix:       ['fix', 'debug', 'solve', 'troubleshoot', 'repair', 'resolve', 'correct', 'improve', 'optimize', 'refactor']
+  };
+
+  let actionType = 'create';
+  for (const [action, verbs] of Object.entries(actionVerbs)) {
+    if (verbs.some(v => low.includes(v))) { actionType = action; break; }
+  }
+
+  let audience = 'a knowledgeable general audience';
+  if (/beginner|intro|basic|101|newbie|getting started/i.test(low)) audience = 'beginners with no prior experience';
+  else if (/advanced|expert|senior|deep dive|in-depth/i.test(low)) audience = 'advanced practitioners and domain experts';
+  else if (/developer|engineer|programmer/i.test(low)) audience = 'software developers and engineers';
+  else if (/business|executive|ceo|manager|leader/i.test(low)) audience = 'business leaders and decision-makers';
+  else if (/student|learner|kid|child/i.test(low)) audience = 'students and learners';
+
+  let tone = 'professional, authoritative, and clear';
+  if (/casual|fun|friendly|conversational|informal/i.test(low)) tone = 'conversational, engaging, and approachable';
+  else if (/formal|academic|scholarly|scientific/i.test(low)) tone = 'formal, academic, and rigorously structured';
+  else if (/witty|humor|funny|entertaining/i.test(low)) tone = 'witty, sharp, and entertaining while staying informative';
+  else if (/inspiring|motivat|empower/i.test(low)) tone = 'inspirational, empowering, and action-oriented';
+
+  const roleMap = {
+    writing:   'You are a senior content strategist and professional writer with 15+ years of experience crafting high-impact content. You understand narrative structure, audience psychology, and SEO-driven writing.',
+    coding:    'You are a senior software architect and full-stack developer with deep expertise in modern frameworks, clean code principles, and scalable system design. You write production-grade code with clear documentation.',
+    marketing: 'You are a senior growth marketing strategist with expertise in digital campaigns, conversion optimization, audience segmentation, and data-driven content strategies across all platforms.',
+    business:  'You are a senior business strategist and management consultant with experience advising Fortune 500 companies and startups. You combine analytical rigor with practical, actionable recommendations.',
+    education: 'You are an expert instructional designer and educator who specializes in breaking down complex topics into clear, engaging, and progressive learning experiences with practical exercises.',
+    research:  'You are a senior research analyst with expertise in systematic methodology, data interpretation, and evidence-based conclusions. You present findings with academic rigor and practical implications.',
+    creative:  'You are a senior creative director with a multidisciplinary background spanning design thinking, concept development, and innovation frameworks. You think in original, non-obvious ways.',
+    health:    'You are a health communication specialist with clinical knowledge and the ability to translate medical concepts into clear, accurate, and actionable guidance for the intended audience.',
+    legal:     'You are a legal analyst with expertise in regulatory frameworks, contract analysis, and compliance strategy. You communicate legal concepts clearly while noting when professional counsel is needed.',
+    finance:   'You are a senior financial analyst with deep expertise in market dynamics, portfolio strategy, and financial modeling. You provide data-backed insights with clear risk assessments.',
+    general:   'You are a senior expert and specialist in the subject matter discussed below. You combine deep domain knowledge with clear, structured communication and a focus on actionable outcomes.'
+  };
+
+  const formatMap = {
+    create:    '• Start with a compelling hook or executive summary (2–3 sentences)\n• Use H2/H3 headers to organize major sections logically\n• Include concrete examples, data points, or case studies in each section\n• Use bullet points for lists of 3+ items\n• End with a clear conclusion, next steps, or call-to-action\n• Target length: comprehensive but efficient — every sentence must earn its place',
+    explain:   '• Open with a one-paragraph overview that frames the "why" before the "what"\n• Break the explanation into progressive layers (foundational → intermediate → nuanced)\n• Use analogies or real-world comparisons to anchor abstract concepts\n• Include a "Common Misconceptions" section if relevant\n• Conclude with a practical summary and further resources\n• Use diagrams or structured lists where visual hierarchy aids understanding',
+    analyze:   '• Begin with a clear thesis or analytical framework\n• Present evidence systematically using a consistent structure per point\n• Compare and contrast with specific criteria clearly stated\n• Include a "Key Findings" or "Insights" summary section\n• Note limitations, caveats, and areas for further investigation\n• Use data tables or comparison matrices where helpful',
+    summarize: '• Lead with the single most important takeaway\n• Use a structured format: Key Points → Supporting Details → Implications\n• Keep each point to 1–2 sentences maximum\n• Maintain the original tone and intent of the source material\n• Highlight any nuances or caveats that must not be lost in compression\n• End with what this means for the reader',
+    persuade:  '• Open with an attention-grabbing hook that frames the problem or opportunity\n• Present the core argument with supporting evidence and emotional resonance\n• Address likely objections proactively and turn them into strengths\n• Use social proof, data, or case studies to build credibility\n• Build to a clear, specific call-to-action\n• Close with urgency or vision that motivates immediate action',
+    fix:       '• State the problem clearly with reproduction steps or context\n• Identify root cause(s) with technical precision\n• Provide step-by-step solution with code blocks or exact instructions\n• Explain WHY the fix works, not just what to change\n• Include edge cases, potential pitfalls, and testing guidance\n• Suggest preventive measures to avoid recurrence'
+  };
+
+  const constraintsByDomain = {
+    writing:   '• Do not use generic filler phrases ("In today\'s world…", "It\'s important to note…")\n• Every paragraph must advance the reader\'s understanding or provide new value\n• Use active voice predominantly; passive voice only when the actor is genuinely unknown\n• Cite specific examples, names, or data — avoid vague references\n• Vary sentence length for rhythm: short for impact, longer for explanation',
+    coding:    '• Write clean, production-ready code with descriptive variable names\n• Include inline comments for complex logic only — the code should be self-documenting\n• Handle edge cases and error states explicitly\n• Follow current best practices and idiomatic patterns for the language/framework\n• Include type annotations where the language supports them\n• Note performance considerations and time/space complexity where relevant',
+    marketing: '• Ground all claims in data or specific evidence — no unsupported superlatives\n• Focus on customer pain points and outcomes, not feature lists\n• Include specific metrics, benchmarks, or KPIs where possible\n• Consider the full funnel: awareness → consideration → conversion → retention\n• All recommendations must include implementation priority and estimated impact',
+    business:  '• Include specific financial implications or ROI estimates where possible\n• Consider multiple stakeholder perspectives\n• Provide both short-term actions and long-term strategic direction\n• Support recommendations with market data, case studies, or competitive analysis\n• Flag risks and dependencies explicitly with mitigation strategies',
+    general:   '• Do not pad with generic filler or hedging language\n• Provide original analysis and insights, not summaries of common knowledge\n• Use specific examples, data points, or case studies to support every claim\n• Maintain intellectual honesty: state limitations and uncertainties clearly\n• Prioritize actionable takeaways the reader can apply immediately'
+  };
+
+  const role = roleMap[detectedDomain] || roleMap.general;
+  const format = formatMap[actionType] || formatMap.create;
+  const constraints = constraintsByDomain[detectedDomain] || constraintsByDomain.general;
+
+  const sections = [];
+  sections.push(`═══════════════════════════════════════════════════════\n  ✦  OPTIMIZED PROMPT — TEXT AI\n═══════════════════════════════════════════════════════`);
+  sections.push(`[ROLE]\n${role}`);
+  sections.push(`[TASK]\n${capitalize(topic)}\n\nDeliver a thorough, well-structured response that demonstrates genuine expertise. The output should be immediately useful and actionable — not a surface-level overview.`);
+  sections.push(`[TARGET AUDIENCE]\n${capitalize(audience)}.`);
+  sections.push(`[CONTEXT & BACKGROUND]\n• The user needs an expert-level response on this specific topic\n• Assume the audience is ${audience}\n• The goal is a response that is ${actionType === 'create' ? 'comprehensive, original, and publication-ready' : actionType === 'explain' ? 'crystal clear, progressive in complexity, and genuinely illuminating' : actionType === 'analyze' ? 'rigorous, evidence-based, and strategically insightful' : actionType === 'summarize' ? 'concise yet complete, preserving all critical nuances' : actionType === 'persuade' ? 'compelling, evidence-backed, and action-driving' : 'precise, thorough, and immediately implementable'}\n• Prioritize depth and specificity over breadth\n• Include real-world examples, data, or case studies where they strengthen the response`);
+  sections.push(`[TONE & STYLE]\n• Voice: ${tone}\n• Use concrete language — replace abstractions with specifics\n• Vary sentence structure for readability and engagement\n• Use transition phrases that advance the argument, not just connect paragraphs\n• Eliminate weasel words ("some people say", "it could be argued")`);
+  sections.push(`[OUTPUT FORMAT]\n${format}`);
+  sections.push(`[CONSTRAINTS & QUALITY STANDARDS]\n${constraints}`);
+  sections.push(`[SUCCESS CRITERIA]\nA reader should finish this response feeling they received expert-level guidance that they could not have easily found elsewhere. The output should be specific enough to act on immediately, structured enough to reference later, and polished enough to share professionally.`);
+  sections.push(`═══════════════════════════════════════════════════════`);
+  return sections.join('\n\n');
+}
+
+// ─── IMAGE AI Optimizer ─────────────────────────────────────────────
+function buildImageOutput(raw) {
+  const desc = raw.trim();
+  const low = desc.toLowerCase();
+
+  const styleMap = {
+    photorealistic: ['photo', 'realistic', 'real', 'photograph', 'camera', 'portrait', 'landscape photo', 'street photography', 'documentary'],
+    cinematic:      ['cinematic', 'movie', 'film', 'scene', 'dramatic', 'epic', 'theatrical', 'blockbuster'],
+    anime:          ['anime', 'manga', 'japanese', 'studio ghibli', 'cel-shaded', 'webtoon'],
+    painting:       ['painting', 'oil', 'watercolor', 'acrylic', 'impressionist', 'canvas', 'brush', 'van gogh', 'monet'],
+    digital_art:    ['digital art', 'concept art', 'illustration', 'digital painting', 'cg', 'artstation', 'deviantart'],
+    '3d_render':    ['3d', 'render', 'blender', 'cinema 4d', 'octane', 'isometric', 'voxel', 'low poly'],
+    pixel_art:      ['pixel', 'retro', '8-bit', '16-bit', 'sprite', 'game boy'],
+    fantasy:        ['fantasy', 'magical', 'enchanted', 'mythical', 'dragon', 'wizard', 'elf', 'medieval', 'fairy'],
+    scifi:          ['sci-fi', 'futuristic', 'cyberpunk', 'space', 'robot', 'neon', 'dystopian', 'holographic', 'alien'],
+    minimalist:     ['minimalist', 'minimal', 'clean', 'simple', 'flat', 'geometric'],
+    surreal:        ['surreal', 'dreamlike', 'abstract', 'dali', 'impossible', 'psychedelic', 'trippy']
+  };
+
+  let visualStyle = 'photorealistic';
+  let maxStyleHits = 0;
+  for (const [style, keywords] of Object.entries(styleMap)) {
+    const hits = detectKeywords(low, keywords).length;
+    if (hits > maxStyleHits) { maxStyleHits = hits; visualStyle = style; }
+  }
+
+  let lighting = 'soft natural lighting with balanced exposure and gentle shadows';
+  if (/golden hour|sunset|dawn|sunrise/i.test(low)) lighting = 'golden hour warm light with long directional shadows, rich amber tones bleeding into soft purple sky';
+  else if (/night|dark|midnight|moonlit|starry/i.test(low)) lighting = 'dramatic moonlight with deep blue shadows, subtle rim lighting from ambient city glow or starlight';
+  else if (/neon|cyberpunk|city night/i.test(low)) lighting = 'vivid neon lighting in magenta, cyan, and electric blue, reflections on wet surfaces, high contrast with deep blacks';
+  else if (/bright|sunny|daylight|midday/i.test(low)) lighting = 'bright high-key natural daylight, crisp shadows, high clarity with vivid true-to-life colors';
+  else if (/moody|fog|mist|overcast|cloudy/i.test(low)) lighting = 'diffused overcast light, atmospheric fog, muted tones with subtle volumetric haze, soft even illumination';
+  else if (/studio|portrait|professional/i.test(low)) lighting = 'professional three-point studio lighting: key light at 45°, fill light at 30%, hair light for separation, gradient background';
+  else if (/dramatic|contrast|chiaroscuro/i.test(low)) lighting = 'dramatic chiaroscuro lighting with deep shadows and isolated highlights, cinematic contrast ratio';
+  else if (/underwater|ocean|sea/i.test(low)) lighting = 'caustic underwater light patterns, dappled turquoise illumination filtering through the surface, bioluminescent accents';
+  else if (/fire|flame|candle|warm/i.test(low)) lighting = 'warm firelight with flickering amber highlights, deep rich shadows, intimate and atmospheric warmth';
+
+  let mood = 'captivating, immersive, visually striking';
+  if (/peaceful|calm|serene|tranquil|gentle/i.test(low)) mood = 'serene, contemplative, deeply peaceful — a moment of perfect stillness';
+  else if (/dark|horror|scary|creepy|ominous/i.test(low)) mood = 'ominous, unsettling, tension-filled — something lurks beneath the surface';
+  else if (/epic|grand|majestic|powerful|heroic/i.test(low)) mood = 'awe-inspiring, monumental, epic scale — the viewer feels small against grandeur';
+  else if (/romantic|love|intimate|tender/i.test(low)) mood = 'intimate, tender, romantically charged — warmth and emotional closeness';
+  else if (/energetic|dynamic|action|intense|fast/i.test(low)) mood = 'high-energy, kinetic, pulse-pounding — frozen mid-action with implied motion';
+  else if (/mystical|mysterious|enigma|secret/i.test(low)) mood = 'enigmatic, otherworldly, hauntingly beautiful — inviting endless interpretation';
+  else if (/happy|joy|bright|cheerful|playful/i.test(low)) mood = 'joyful, vibrant, radiantly alive — infectious positivity and warmth';
+  else if (/melanchol|sad|lonely|nostalgi|wistful/i.test(low)) mood = 'wistful, nostalgic, hauntingly beautiful — bittersweet emotional resonance';
+
+  let palette = 'rich, naturally saturated color palette with harmonious complementary tones';
+  if (/dark|night|gothic|noir/i.test(low)) palette = 'deep blacks, charcoal grays, midnight blues with selective accent colors for visual punctuation';
+  else if (/vibrant|colorful|bright|vivid|rainbow/i.test(low)) palette = 'highly saturated, bold primary and secondary colors with maximum visual impact and chromatic diversity';
+  else if (/pastel|soft|gentle|dreamy/i.test(low)) palette = 'soft pastels — blush pink, powder blue, lavender, mint — with low saturation and high luminance';
+  else if (/warm|autumn|earth|rustic|cozy/i.test(low)) palette = 'warm earth tones — burnt sienna, amber, terracotta, deep olive — with golden undertones';
+  else if (/cool|winter|ice|frost|blue/i.test(low)) palette = 'cool palette — steel blue, arctic white, silver, frost — with subtle cyan undertones';
+  else if (/monochrome|bw|black and white|grayscale/i.test(low)) palette = 'monochromatic grayscale with full tonal range from pure black to bright white, emphasis on texture and contrast';
+  else if (/neon|cyber|electric/i.test(low)) palette = 'electric neon palette — hot magenta, electric cyan, acid green, deep purple — against dark backgrounds';
+  else if (/sunset|golden|warm light/i.test(low)) palette = 'golden hour palette — warm amber, coral, peach, with purple and blue gradient transitions';
+
+  const renderMap = {
+    photorealistic: 'Photorealistic, hyperdetailed, 8K UHD resolution, shot on Hasselblad X2D with 45mm f/3.5 lens, shallow depth of field, natural film grain, color graded in Capture One',
+    cinematic:      'Cinematic widescreen, anamorphic lens flares, 2.39:1 aspect ratio, Arri Alexa LF quality, color graded by Roger Deakins, film grain, blockbuster production value',
+    anime:          'High-quality anime illustration, detailed cel shading, Studio Ghibli / Makoto Shinkai inspired, vibrant color palette, expressive character design, detailed backgrounds',
+    painting:       'Fine art quality, visible brushwork with intentional texture, rich impasto technique, museum-grade color mixing, masterful composition following classical principles',
+    digital_art:    'Professional digital illustration, trending on ArtStation, high detail concept art, clean linework with painterly rendering, 4K resolution, by leading concept artists',
+    '3d_render':    'Professional 3D render, Octane Render / Cinema 4D quality, physically accurate materials and reflections, global illumination, subsurface scattering, 8K output',
+    pixel_art:      'Detailed pixel art, carefully crafted pixel-by-pixel, limited color palette with expert dithering, retro aesthetic with modern design sensibility, clean readable sprites',
+    fantasy:        'High fantasy illustration, richly detailed, epic atmosphere, luminous magical effects, influenced by Frank Frazetta and Craig Mullins, painterly with sharp focal points',
+    scifi:          'High-concept science fiction, sleek futuristic design language, holographic UI elements, advanced material rendering, influenced by Syd Mead and Simon Stålenhag',
+    minimalist:     'Clean minimalist design, thoughtful negative space, geometric precision, limited but impactful color usage, Swiss design principles, maximum clarity',
+    surreal:        'Surrealist composition, impossible geometry, dreamlike juxtaposition, influenced by Salvador Dalí and René Magritte, hyperdetailed rendering of impossible scenes'
+  };
+
+  let composition = 'Rule of thirds, strong focal point with guided eye movement, layered foreground-midground-background for depth';
+  if (/portrait|face|person|character|headshot/i.test(low)) composition = 'Centered portrait composition, 85mm equivalent framing, subject fills 60% of frame, eyes at upper third, subtle background separation via bokeh';
+  else if (/landscape|panorama|vista|wide|scenery/i.test(low)) composition = 'Wide panoramic composition, leading lines drawing eye to vanishing point, strong foreground interest, layered depth planes, expansive sky for atmosphere';
+  else if (/close-?up|macro|detail|texture/i.test(low)) composition = 'Extreme close-up with razor-thin focal plane, every micro-texture visible, abstract quality from proximity, rich detail fills entire frame';
+  else if (/aerial|bird.?s?.eye|drone|top.?down/i.test(low)) composition = 'Aerial top-down perspective, graphic quality from altitude, patterns and geometry visible from above, sense of scale through context elements';
+  else if (/symmetr|mirror|reflect/i.test(low)) composition = 'Perfect bilateral symmetry, mirror-like precision, centered vanishing point, Wes Anderson inspired geometric balance';
+  else if (/action|dynamic|motion|running|flying/i.test(low)) composition = 'Dynamic diagonal composition implying motion, dutch angle, motion blur on peripheral elements, frozen peak action, high energy framing';
+
+  const subjectEnhanced = capitalize(desc);
+  const sections = [];
+  sections.push(`═══════════════════════════════════════════════════════\n  ⬡  OPTIMIZED PROMPT — IMAGE AI\n═══════════════════════════════════════════════════════`);
+  sections.push(`[SUBJECT & SCENE]\n${subjectEnhanced}\n— Rendered with meticulous attention to detail, every element carefully composed to serve the overall visual narrative.`);
+  sections.push(`[VISUAL STYLE & RENDERING]\n${renderMap[visualStyle] || renderMap.photorealistic}`);
+  sections.push(`[LIGHTING]\n${lighting}`);
+  sections.push(`[COLOR PALETTE]\n${palette}`);
+  sections.push(`[COMPOSITION & CAMERA]\n${composition}`);
+  sections.push(`[ATMOSPHERE & MOOD]\n${mood}`);
+  sections.push(`[FINE DETAILS TO INCLUDE]\n• Micro-textures: surface imperfections, fabric weave, skin pores, material grain — the details that sell realism\n• Environmental particles: dust motes, atmospheric haze, light shafts, or ambient particles appropriate to the scene\n• Depth cues: atmospheric perspective, progressive blur, scale references, overlapping elements\n• Material accuracy: physically correct reflections, refraction, subsurface scattering where applicable\n• Edge quality: natural edge transitions, no harsh cutouts, organic interaction between elements`);
+  sections.push(`[NEGATIVE PROMPT — EXCLUDE THESE]\nblurry, low resolution, pixelated, watermark, signature, text overlay, logo, out of frame, cropped, deformed, disfigured, bad anatomy, extra limbs, mutated hands, poorly drawn face, overexposed, underexposed, oversaturated, artifacts, compression noise, duplicate, morbid, ugly, tiling, poorly drawn, extra fingers, fused fingers, too many fingers, long neck, cross-eyed`);
+  sections.push(`[QUALITY BOOSTERS]\nmasterpiece, best quality, highly detailed, professional, award-winning, featured on ArtStation, editorial quality, trending, exceptional craftsmanship`);
+  sections.push(`═══════════════════════════════════════════════════════`);
+  return sections.join('\n\n');
+}
+
+// ─── Progress Bar Animation ─────────────────────────────────────────
+function animateProgress(durationMs) {
+  return new Promise(resolve => {
+    const steps = [
+      { at: 15, step: 1, label: 'Scanning for semantic gaps…' },
+      { at: 35, step: 2, label: 'Applying optimization framework…' },
+      { at: 65, step: 3, label: 'Structuring output format…' },
+      { at: 85, step: 4, label: 'Quality validation…' }
+    ];
+    const start = Date.now();
+    let currentStep = 0;
+
+    function tick() {
+      const elapsed = Date.now() - start;
+      const pct = Math.min(100, (elapsed / durationMs) * 100);
+
+      progressFill.style.width = pct + '%';
+      progressPct.textContent = Math.floor(pct) + '%';
+
+      // Update steps
+      while (currentStep < steps.length && pct >= steps[currentStep].at) {
+        const s = steps[currentStep];
+        progressLbl.textContent = s.label;
+        for (let i = 1; i <= 4; i++) {
+          const el = document.getElementById('pstep-' + i);
+          el.className = 'progress-step' + (i < s.step ? ' done' : i === s.step ? ' active' : '');
+        }
+        currentStep++;
+      }
+
+      if (pct < 100) {
+        requestAnimationFrame(tick);
+      } else {
+        progressLbl.textContent = 'Optimization complete!';
+        for (let i = 1; i <= 4; i++) {
+          document.getElementById('pstep-' + i).className = 'progress-step done';
+        }
+        setTimeout(resolve, 400);
+      }
+    }
+    tick();
+  });
+}
+
+// ─── Content Locker with Completion Verification ────────────────────
+function escapeHtml(str) {
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+let currentSessionId = null;
+let pollInterval = null;
+
+// Get a unique session token from the server
+async function getSession() {
+  try {
+    const resp = await fetch('/api/session');
+    const data = await resp.json();
+    return data.session_id;
+  } catch (e) {
+    console.error('Failed to get session:', e);
+    return null;
+  }
+}
+
+// Fetch offers with session tracking
+async function fetchOffers(sessionId) {
+  try {
+    const ua = encodeURIComponent(navigator.userAgent);
+    const resp = await fetch(`/api/offers?user_agent=${ua}&max=6&session_id=${sessionId}`);
+    const data = await resp.json();
+    if (data && data.offers && data.offers.length > 0) {
+      return data.offers;
+    }
+    return null;
+  } catch (e) {
+    console.error('Failed to fetch offers:', e);
+    return null;
+  }
+}
+
+// Poll for completion status — no timeout, waits until offer is truly completed
+function startCompletionPolling(sessionId, modal) {
+  const POLL_INTERVAL = 3000;   // Check every 3 seconds
+
+  pollInterval = setInterval(async () => {
+    try {
+      const resp = await fetch(`/api/check-completion?session_id=${sessionId}`);
+      const data = await resp.json();
+
+      if (data.completed) {
+        // ✓ Offer completed! Unlock the prompt
+        clearInterval(pollInterval);
+        pollInterval = null;
+        unlockPrompt();
+        if (modal) modal.remove();
+        return;
+      }
+    } catch (e) {
+      console.error('Polling error:', e);
+    }
+    // Keep polling forever until completed — no timeout
+  }, POLL_INTERVAL);
+}
+
+function showLockerModal(offers, sessionId) {
+  // Remove existing modal if any
+  const existing = document.getElementById('locker-backdrop');
+  if (existing) existing.remove();
+
+  const offersHtml = offers.map(offer => {
+    const icon = offer.picture
+      ? `<img src="${escapeHtml(offer.picture)}" alt="" loading="lazy">`
+      : `<svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3"/></svg>`;
+    const desc = offer.adcopy || offer.description || 'Complete this quick step to continue';
+    const name = offer.name_short || offer.name || 'Complete Offer';
+
+    return `
+      <a href="${escapeHtml(offer.link)}" target="_blank" rel="noopener" class="locker-offer" data-offerid="${offer.offerid}">
+        <div class="locker-offer-icon">${icon}</div>
+        <div class="locker-offer-info">
+          <div class="locker-offer-name">${escapeHtml(name)}</div>
+          <div class="locker-offer-desc">${escapeHtml(desc)}</div>
+        </div>
+        <div class="locker-offer-arrow">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/>
+          </svg>
+        </div>
+      </a>`;
+  }).join('');
+
+  const modal = document.createElement('div');
+  modal.id = 'locker-backdrop';
+  modal.className = 'locker-backdrop';
+  modal.innerHTML = `
+    <div class="locker-modal">
+      <div class="locker-header">
+        <div class="locker-badge">
+          <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75"/></svg>
+          One Step Required
+        </div>
+        <div class="locker-title">Unlock Your Prompt</div>
+        <div class="locker-subtitle">Complete one of the steps below to reveal your optimized prompt</div>
+      </div>
+      <div class="locker-offers" id="locker-offers-list">${offersHtml}</div>
+      <div class="locker-footer">
+        <div class="locker-footer-text">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg>
+          Your data stays private · Secure verification
+        </div>
+      </div>
+    </div>`;
+
+  document.body.appendChild(modal);
+
+  // When user clicks an offer → show verification state and start polling
+  modal.querySelectorAll('.locker-offer').forEach(link => {
+    link.addEventListener('click', () => {
+      // Replace the offers list with a verification message
+      const offersList = document.getElementById('locker-offers-list');
+      offersList.innerHTML = `
+        <div style="text-align:center; padding: 2rem 1rem;">
+          <div style="margin-bottom: 1rem;">
+            <svg class="spin" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent, #c2652a)" stroke-width="2">
+              <circle cx="12" cy="12" r="10" opacity=".25"/>
+              <path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div style="font-weight: 600; font-size: 1.05rem; color: var(--text-primary, #1a1a1a); margin-bottom: 0.5rem;">
+            Verifying completion…
+          </div>
+          <div style="font-size: 0.85rem; color: var(--text-muted, #888); line-height: 1.5;">
+            Please complete the offer in the new tab.<br>
+            This will update automatically once verified.
+          </div>
+          <div style="margin-top: 1.25rem; font-size: 0.78rem; color: var(--text-muted, #aaa); display: flex; align-items: center; justify-content: center; gap: 0.4rem;">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+            </svg>
+            Checking every few seconds…
+          </div>
+        </div>`;
+
+      // Update modal title
+      modal.querySelector('.locker-title').textContent = 'Waiting for Completion';
+      modal.querySelector('.locker-subtitle').textContent = 'Complete the offer to unlock your prompt';
+
+      // Start polling for completion
+      startCompletionPolling(sessionId, modal);
+    });
+  });
+
+  // Do NOT allow closing by clicking backdrop — user must complete an offer
+  // (removed backdrop click-to-close)
+}
+
+function unlockPrompt() {
+  blurWrap.classList.remove('locked');
+  claimOverlay.classList.add('hidden');
+  copyBtn.classList.remove('hidden');
+
+  // Save to localStorage for history
+  try {
+    const raw = textarea.value.trim();
+    const history = JSON.parse(localStorage.getItem('prompt_history') || '[]');
+    history.unshift({
+      original: raw,
+      optimized: currentOptimized,
+      mode: mode,
+      date: new Date().toISOString()
+    });
+    if (history.length > 50) history.length = 50;
+    localStorage.setItem('prompt_history', JSON.stringify(history));
+  } catch(e) { /* localStorage full or unavailable */ }
+}
+
+// ─── Main Optimize Flow ─────────────────────────────────────────────
+async function runOptimize() {
+  const raw = textarea.value.trim();
+  if (!raw) { textarea.focus(); return; }
+
+  const origBtn = optimizeBtn.innerHTML;
+  optimizeBtn.disabled = true;
+  optimizeBtn.innerHTML = `<svg class="spin" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10" opacity=".25"/><path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round"/></svg> Analyzing…`;
+
+  // Reset UI
+  resultSec.classList.add('hidden');
+  progressSec.classList.remove('hidden');
+  progressFill.style.width = '0%';
+  progressPct.textContent = '0%';
+  blurWrap.classList.add('locked');
+  claimOverlay.classList.remove('hidden');
+  copyBtn.classList.add('hidden');
+
+  // Clear any previous polling
+  if (pollInterval) { clearInterval(pollInterval); pollInterval = null; }
+
+  // Scroll to progress
+  progressSec.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+  // Random duration between 10-15 seconds
+  const duration = 10000 + Math.random() * 5000;
+
+  // Build the optimized prompt while the progress bar runs
+  currentOptimized = mode === 'text' ? buildTextOutput(raw) : buildImageOutput(raw);
+
+  // Animate progress bar
+  await animateProgress(duration);
+
+  // Hide progress, show blurred result
+  progressSec.classList.add('hidden');
+  resultOut.textContent = currentOptimized;
+  resultSec.classList.remove('hidden');
+  resultSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  optimizeBtn.disabled = false;
+  optimizeBtn.innerHTML = origBtn;
+}
+
+// ─── Claim Button → Get Session → Open Locker ──────────────────────
+claimBtn.addEventListener('click', async () => {
+  claimBtn.disabled = true;
+  claimBtn.innerHTML = `<svg class="spin" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10" opacity=".25"/><path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round"/></svg> Loading…`;
+
+  // Step 1: Get a unique session token
+  currentSessionId = await getSession();
+
+  if (!currentSessionId) {
+    // If session creation fails, fall back to direct unlock
+    unlockPrompt();
+    claimBtn.disabled = false;
+    claimBtn.innerHTML = `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5V6.75a4.5 4.5 0 119 0v3.75M3.75 21.75h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H3.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg> Claim Your Prompt`;
+    return;
+  }
+
+  // Step 2: Fetch offers with session ID
+  const offers = await fetchOffers(currentSessionId);
+
+  if (offers && offers.length > 0) {
+    showLockerModal(offers, currentSessionId);
+  } else {
+    // Fallback: if API fails, unlock anyway
+    unlockPrompt();
+  }
+
+  claimBtn.disabled = false;
+  claimBtn.innerHTML = `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5V6.75a4.5 4.5 0 119 0v3.75M3.75 21.75h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H3.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg> Claim Your Prompt`;
+});
+
+optimizeBtn.addEventListener('click', runOptimize);
+document.addEventListener('keydown', e => {
+  if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') { e.preventDefault(); runOptimize(); }
+});
+</script>
+</body>
+</html>

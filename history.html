@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prompt History — Stitch Prompt Optimizer</title>
+<meta name="description" content="View your recent optimized prompts. All history is stored locally in your browser — private and secure.">
+<meta name="keywords" content="prompt history, saved prompts, prompt optimizer history, local history">
+<meta property="og:title" content="Prompt History — Stitch Prompt Optimizer">
+<meta property="og:description" content="Browse your recent prompt optimizations. All data stays local in your browser.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#c2652a">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ── Navigation ──────────────────────────────────── -->
+<nav class="nav" id="nav">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand" aria-label="Prompt Optimizer Home">
+        <div class="nav-brand-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="12" y1="2" x2="12" y2="5" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="12" cy="1.5" r="1.2" fill="#fff" opacity=".85"/>
+            <rect x="5" y="5" width="14" height="11" rx="3" fill="#fff" opacity=".2" stroke="#fff" stroke-width="1.5"/>
+            <circle class="robot-eye" cx="9" cy="10.5" r="1.8" fill="#fff"/>
+            <circle class="robot-eye robot-eye-right" cx="15" cy="10.5" r="1.8" fill="#fff"/>
+            <rect x="9.5" y="13" width="5" height="1.2" rx=".6" fill="#fff" opacity=".7"/>
+            <rect x="2" y="8" width="2.5" height="4" rx="1" fill="#fff" opacity=".5"/>
+            <rect x="19.5" y="8" width="2.5" height="4" rx="1" fill="#fff" opacity=".5"/>
+            <rect x="7.5" y="17" width="9" height="5" rx="2" fill="#fff" opacity=".15" stroke="#fff" stroke-width="1.2"/>
+          </svg>
+        </div>
+        <span class="nav-brand-text">Prompt Optimizer</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html#how-it-works" class="nav-link">How It Works</a>
+        <a href="index.html#features" class="nav-link">Features</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="history.html" class="nav-link" aria-current="page" style="color:var(--c-primary);font-weight:600">History</a>
+        <div class="nav-divider"></div>
+        <a href="index.html#optimizer-panel" class="nav-cta">Optimize Now</a>
+      </div>
+      <button class="mobile-menu-btn" id="mobile-btn" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-menu hidden" id="mobile-menu">
+    <a href="index.html#how-it-works" class="mobile-nav-link">How It Works</a>
+    <a href="index.html#features" class="mobile-nav-link">Features</a>
+    <a href="about.html" class="mobile-nav-link">About</a>
+    <a href="history.html" class="mobile-nav-link" style="color:var(--c-primary)">History</a>
+    <a href="index.html#optimizer-panel" class="mobile-nav-cta">✦ Optimize Now</a>
+  </div>
+</nav>
+
+<main>
+<!-- ── History Hero ────────────────────────────────── -->
+<section class="about-hero" style="padding-block:4rem 2rem">
+  <div class="container container--narrow">
+    <div class="eyebrow" style="justify-content:center;margin-bottom:1.25rem">
+      <span class="pulse-dot"></span>
+      Stored Locally · Private
+    </div>
+    <h1 class="about-hero-title" style="font-size:clamp(2rem,5vw,3rem)">
+      Prompt <span class="grad">History</span>
+    </h1>
+    <p class="about-hero-body" style="font-size:1rem">
+      Your recent optimizations — stored only in your browser. Nothing is sent to any server.
+    </p>
+  </div>
+</section>
+
+<!-- ── History Content ────────────────────────────── -->
+<section class="section" style="padding-top:1rem">
+  <div class="container" style="max-width:860px">
+
+    <!-- Toolbar -->
+    <div class="history-toolbar" id="history-toolbar">
+      <div class="history-count" id="history-count"></div>
+      <button class="history-clear-btn" id="clear-all-btn" title="Clear all history">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"/>
+        </svg>
+        Clear All
+      </button>
+    </div>
+
+    <!-- Empty State -->
+    <div class="history-empty" id="history-empty">
+      <div class="history-empty-icon">
+        <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+      </div>
+      <div class="history-empty-title">No prompts yet</div>
+      <p class="history-empty-text">Your optimized prompts will appear here. Go optimize your first prompt!</p>
+      <a href="index.html#optimizer-panel" class="btn btn-primary btn-md" style="margin-top:1.25rem">✦ Optimize a Prompt</a>
+    </div>
+
+    <!-- History List -->
+    <div class="history-list" id="history-list"></div>
+
+  </div>
+</section>
+</main>
+
+<!-- ── Footer ───────────────────────────────────────── -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-brand-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="12" y1="2" x2="12" y2="5" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="12" cy="1.5" r="1.2" fill="#fff" opacity=".85"/>
+            <rect x="5" y="5" width="14" height="11" rx="3" fill="#fff" opacity=".2" stroke="#fff" stroke-width="1.5"/>
+            <circle cx="9" cy="10.5" r="1.8" fill="#fff"/>
+            <circle cx="15" cy="10.5" r="1.8" fill="#fff"/>
+            <rect x="9.5" y="13" width="5" height="1.2" rx=".6" fill="#fff" opacity=".7"/>
+            <rect x="2" y="8" width="2.5" height="4" rx="1" fill="#fff" opacity=".5"/>
+            <rect x="19.5" y="8" width="2.5" height="4" rx="1" fill="#fff" opacity=".5"/>
+            <rect x="7.5" y="17" width="9" height="5" rx="2" fill="#fff" opacity=".15" stroke="#fff" stroke-width="1.2"/>
+          </svg>
+        </div>
+        <span class="footer-brand-text">Prompt Optimizer</span>
+      </div>
+      <div class="footer-links">
+        <a href="index.html" class="footer-link">Home</a>
+        <a href="index.html#features" class="footer-link">Features</a>
+        <a href="about.html" class="footer-link">About</a>
+        <a href="history.html" class="footer-link">History</a>
+        <a href="privacy.html" class="footer-link">Privacy</a>
+        <a href="terms.html" class="footer-link">Terms</a>
+      </div>
+      <p class="footer-copy">© 2026 Prompt Optimizer · Every word stitched with intent.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── Mobile menu ──
+const mobileBtn  = document.getElementById('mobile-btn');
+const mobileMenu = document.getElementById('mobile-menu');
+mobileBtn.addEventListener('click', () => {
+  const open = mobileMenu.classList.contains('hidden');
+  mobileMenu.classList.toggle('hidden', !open);
+  mobileBtn.setAttribute('aria-expanded', String(open));
+});
+mobileMenu.querySelectorAll('a').forEach(a =>
+  a.addEventListener('click', () => mobileMenu.classList.add('hidden'))
+);
+
+// ── History Logic ──
+const historyList  = document.getElementById('history-list');
+const historyEmpty = document.getElementById('history-empty');
+const historyCount = document.getElementById('history-count');
+const historyToolbar = document.getElementById('history-toolbar');
+const clearAllBtn  = document.getElementById('clear-all-btn');
+
+function getHistory() {
+  try {
+    return JSON.parse(localStorage.getItem('prompt_history') || '[]');
+  } catch { return []; }
+}
+
+function saveHistory(items) {
+  localStorage.setItem('prompt_history', JSON.stringify(items));
+}
+
+function formatDate(iso) {
+  const d = new Date(iso);
+  const now = new Date();
+  const diff = now - d;
+  const mins = Math.floor(diff / 60000);
+  const hrs = Math.floor(diff / 3600000);
+  const days = Math.floor(diff / 86400000);
+
+  if (mins < 1) return 'Just now';
+  if (mins < 60) return `${mins}m ago`;
+  if (hrs < 24) return `${hrs}h ago`;
+  if (days < 7) return `${days}d ago`;
+
+  return d.toLocaleDateString('en-US', {
+    month: 'short', day: 'numeric', year: d.getFullYear() !== now.getFullYear() ? 'numeric' : undefined
+  });
+}
+
+function truncate(str, max) {
+  if (str.length <= max) return str;
+  return str.slice(0, max).trim() + '…';
+}
+
+function renderHistory() {
+  const items = getHistory();
+
+  if (items.length === 0) {
+    historyEmpty.style.display = 'flex';
+    historyList.innerHTML = '';
+    historyToolbar.style.display = 'none';
+    return;
+  }
+
+  historyEmpty.style.display = 'none';
+  historyToolbar.style.display = 'flex';
+  historyCount.textContent = `${items.length} prompt${items.length !== 1 ? 's' : ''} saved`;
+
+  historyList.innerHTML = items.map((item, i) => `
+    <div class="history-card" data-index="${i}">
+      <div class="history-card-header">
+        <div class="history-card-meta">
+          <span class="history-mode-badge ${item.mode === 'image' ? 'badge-image' : 'badge-text'}">
+            ${item.mode === 'image' ? '⬡ Image AI' : '✦ Text AI'}
+          </span>
+          <span class="history-time">${formatDate(item.date)}</span>
+        </div>
+        <div class="history-card-actions">
+          <button class="history-action-btn copy-result-btn" title="Copy optimized prompt" data-index="${i}">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+            </svg>
+          </button>
+          <button class="history-action-btn delete-btn" title="Delete this entry" data-index="${i}">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="history-card-input">
+        <div class="history-label">Original</div>
+        <p class="history-input-text">${escapeHtml(truncate(item.original, 180))}</p>
+      </div>
+      <details class="history-details">
+        <summary class="history-summary">View optimized prompt</summary>
+        <pre class="history-output">${escapeHtml(item.optimized)}</pre>
+      </details>
+    </div>
+  `).join('');
+
+  // Copy buttons
+  document.querySelectorAll('.copy-result-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const idx = parseInt(btn.dataset.index);
+      const item = getHistory()[idx];
+      navigator.clipboard.writeText(item.optimized);
+      btn.innerHTML = '<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>';
+      setTimeout(() => {
+        btn.innerHTML = '<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>';
+      }, 1500);
+    });
+  });
+
+  // Delete buttons
+  document.querySelectorAll('.delete-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const idx = parseInt(btn.dataset.index);
+      const items = getHistory();
+      items.splice(idx, 1);
+      saveHistory(items);
+      renderHistory();
+    });
+  });
+}
+
+function escapeHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+// Clear all
+clearAllBtn.addEventListener('click', () => {
+  if (confirm('Clear all prompt history? This cannot be undone.')) {
+    localStorage.removeItem('prompt_history');
+    renderHistory();
+  }
+});
+
+// Initial render
+renderHistory();
+</script>
+</body>
+</html>
