@@ -426,6 +426,7 @@ kbd{display:inline-flex;padding:1px 5px;background:var(--c-surface-lo);
   padding:.2rem .6rem;border-radius:var(--r-full);letter-spacing:.03em}
 .badge-text{background:var(--c-accent-bg);color:var(--c-accent)}
 .badge-image{background:var(--c-primary-bg);color:var(--c-primary)}
+.badge-video{background:rgba(235,50,50,.09);color:#d13030}
 .history-time{font-family:var(--f-mono);font-size:.6875rem;color:var(--c-text-sub)}
 .history-card-actions{display:flex;gap:.25rem}
 .history-action-btn{width:30px;height:30px;border-radius:var(--r-sm);
@@ -574,7 +575,7 @@ kbd{display:inline-flex;padding:1px 5px;background:var(--c-surface-lo);
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .locker-offer-desc{font-family:var(--f-ui);font-size:.75rem;
   color:var(--c-text-mu);line-height:1.5;
-  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .locker-offer-arrow{flex-shrink:0;width:32px;height:32px;border-radius:var(--r-full);
   background:var(--c-primary-bg);color:var(--c-primary);
   display:flex;align-items:center;justify-content:center;

@@ -11,6 +11,7 @@
 <meta property="og:description" content="Transform vague ideas into precise AI instructions. Free, instant, no account needed.">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#c2652a">
+<link rel="canonical" href="https://promptoptimizer.tools/">
 <link rel="stylesheet" href="styles.css">
     <meta name="google-site-verification" content="rVWM-Vm0Rm5J1SF6ifzLJM9b-hEveastPGLQ16iEw4k" />
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -93,6 +94,7 @@
       <div class="mode-tabs" role="tablist">
         <button class="mode-tab active" id="tab-text" role="tab" aria-selected="true">✦ Text AI</button>
         <button class="mode-tab" id="tab-image" role="tab" aria-selected="false">⬡ Image AI</button>
+        <button class="mode-tab" id="tab-video" role="tab" aria-selected="false">▶ Video AI</button>
       </div>
       <div class="prompt-field">
         <textarea
@@ -111,7 +113,7 @@
         Optimize Prompt
       </button>
       <p class="hint">
-        <kbd>Ctrl</kbd> + <kbd>Enter</kbd> to optimize &nbsp;·&nbsp; No account required
+        <kbd>E</kbd> to optimize - No account required
       </p>
     </div>
 
@@ -348,6 +350,7 @@ const charCount   = document.getElementById('char-count');
 const optimizeBtn = document.getElementById('optimize-btn');
 const tabText     = document.getElementById('tab-text');
 const tabImage    = document.getElementById('tab-image');
+const tabVideo    = document.getElementById('tab-video');
 const resultSec   = document.getElementById('result-section');
 const resultOut   = document.getElementById('result-output');
 const copyBtn     = document.getElementById('copy-btn');
@@ -379,13 +382,19 @@ function setMode(m) {
   mode = m;
   tabText.classList.toggle('active', m === 'text');
   tabImage.classList.toggle('active', m === 'image');
-  textarea.classList.toggle('img-mode', m === 'image');
-  textarea.placeholder = m === 'text'
-    ? 'Write a blog post about artificial intelligence and its impact on society...'
-    : 'A futuristic city skyline at golden hour, aerial view, ultra-detailed...';
+  tabVideo.classList.toggle('active', m === 'video');
+  textarea.classList.toggle('img-mode', m === 'image' || m === 'video');
+  if (m === 'text') {
+    textarea.placeholder = 'Write a blog post about artificial intelligence and its impact on society...';
+  } else if (m === 'image') {
+    textarea.placeholder = 'A futuristic city skyline at golden hour, aerial view, ultra-detailed...';
+  } else {
+    textarea.placeholder = 'A cinematic drone shot flying over a futuristic city at sunset, 4k...';
+  }
 }
 tabText.addEventListener('click', () => setMode('text'));
 tabImage.addEventListener('click', () => setMode('image'));
+tabVideo.addEventListener('click', () => setMode('video'));
 
 // Char count
 textarea.addEventListener('input', () => {
@@ -609,6 +618,63 @@ function buildImageOutput(raw) {
   sections.push(`[FINE DETAILS TO INCLUDE]\n• Micro-textures: surface imperfections, fabric weave, skin pores, material grain — the details that sell realism\n• Environmental particles: dust motes, atmospheric haze, light shafts, or ambient particles appropriate to the scene\n• Depth cues: atmospheric perspective, progressive blur, scale references, overlapping elements\n• Material accuracy: physically correct reflections, refraction, subsurface scattering where applicable\n• Edge quality: natural edge transitions, no harsh cutouts, organic interaction between elements`);
   sections.push(`[NEGATIVE PROMPT — EXCLUDE THESE]\nblurry, low resolution, pixelated, watermark, signature, text overlay, logo, out of frame, cropped, deformed, disfigured, bad anatomy, extra limbs, mutated hands, poorly drawn face, overexposed, underexposed, oversaturated, artifacts, compression noise, duplicate, morbid, ugly, tiling, poorly drawn, extra fingers, fused fingers, too many fingers, long neck, cross-eyed`);
   sections.push(`[QUALITY BOOSTERS]\nmasterpiece, best quality, highly detailed, professional, award-winning, featured on ArtStation, editorial quality, trending, exceptional craftsmanship`);
+  sections.push(`═══════════════════════════════════════════════════════`);
+  return sections.join('\n\n');
+}
+
+// ─── VIDEO AI Optimizer ─────────────────────────────────────────────
+function buildVideoOutput(raw) {
+  const desc = raw.trim();
+  const low = desc.toLowerCase();
+
+  const styleMap = {
+    cinematic:      ['cinematic', 'movie', 'film', 'scene', 'dramatic', 'epic', 'theatrical', 'blockbuster', 'hollywood'],
+    anime:          ['anime', 'manga', 'japanese', 'studio ghibli', 'cel-shaded', 'webtoon', 'animation'],
+    '3d_animation': ['3d', 'render', 'blender', 'octane', 'unreal engine', 'pixar', 'disney', 'cg'],
+    documentary:    ['documentary', 'realistic', 'nature', 'wildlife', 'real', 'footage', 'camcorder', 'vlog'],
+    music_video:    ['music video', 'mtv', 'dynamic', 'glitch', 'neon', 'trippy', 'psychedelic']
+  };
+
+  let visualStyle = 'cinematic';
+  let maxStyleHits = 0;
+  for (const [style, keywords] of Object.entries(styleMap)) {
+    const hits = detectKeywords(low, keywords).length;
+    if (hits > maxStyleHits) { maxStyleHits = hits; visualStyle = style; }
+  }
+
+  let movement = 'smooth tracking shot, stable camera movement';
+  if (/drone|aerial|fly/i.test(low)) movement = 'high-altitude drone shot, smooth forward push, expansive aerial view';
+  else if (/pan|sweep/i.test(low)) movement = 'slow cinematic pan from left to right, revealing the landscape';
+  else if (/zoom/i.test(low)) movement = 'slow continuous zoom in, increasing tension';
+  else if (/handheld|shaky/i.test(low)) movement = 'handheld camera movement, slight shake, documentary style realism';
+  else if (/orbit|circle/i.test(low)) movement = 'dynamic orbital tracking, camera circles the subject smoothly';
+  else if (/static|still|fixed/i.test(low)) movement = 'locked-off tripod shot, zero camera movement, action occurs within frame';
+  else if (/timelapse|time-lapse/i.test(low)) movement = 'fast-paced beautiful timelapse, rapidly changing lighting and accelerated motion';
+  else if (/slow motion|slowmo/i.test(low)) movement = 'ultra slow-motion, 1000fps, frozen details in motion';
+
+  let lighting = 'cinematic lighting, dramatic shadows';
+  if (/golden hour|sunset|dawn/i.test(low)) lighting = 'golden hour warm lighting, long directional shadows, lens flares';
+  else if (/night|dark|midnight/i.test(low)) lighting = 'moody night lighting, deep blues, subtle rim light from ambient sources';
+  else if (/neon|cyberpunk/i.test(low)) lighting = 'vivid neon lighting, high contrast magenta and cyan reflections';
+  else if (/bright|day/i.test(low)) lighting = 'bright daylight, crisp exposure, natural sunlight';
+
+  const renderMap = {
+    cinematic:      'Cinematic movie scene, Arri Alexa 65mm quality, 24fps motion blur, color graded by professional studio',
+    anime:          'High-quality 2D anime animation, smooth 24fps, Studio Ghibli style, vibrant colors, detailed backgrounds',
+    '3d_animation': 'High-end 3D animation, Unreal Engine 5 render, global illumination, raytraced reflections, highly detailed textures',
+    documentary:    'Realistic documentary footage, 4k 60fps, sharp focus, natural color grading, hyperrealistic',
+    music_video:    'Highly stylized music video footage, dynamic contrast, creative color grading, highly engaging visual aesthetic'
+  };
+
+  const subjectEnhanced = capitalize(desc);
+  const sections = [];
+  sections.push(`═══════════════════════════════════════════════════════\n  ▶  OPTIMIZED PROMPT — VIDEO AI\n═══════════════════════════════════════════════════════`);
+  sections.push(`[SUBJECT & ACTION]\n${subjectEnhanced}\n— Describe the core action clearly, focusing on what happens sequentially over the duration of the clip.`);
+  sections.push(`[CAMERA MOVEMENT & FRAMING]\n${movement}`);
+  sections.push(`[VISUAL STYLE & RENDERING]\n${renderMap[visualStyle] || renderMap.cinematic}`);
+  sections.push(`[LIGHTING & ATMOSPHERE]\n${lighting}`);
+  sections.push(`[NEGATIVE PROMPT — EXCLUDE THESE]\nblurry, low resolution, static, poorly animated, distorted movement, artifacts, watermark, text, out of frame, bad anatomy, jittery, morphing`);
+  sections.push(`[QUALITY PARAMETERS]\n4k resolution, smooth frame rate, masterpiece, highly detailed, visually stunning, trending on artstation`);
   sections.push(`═══════════════════════════════════════════════════════`);
   return sections.join('\n\n');
 }
@@ -865,7 +931,7 @@ async function runOptimize() {
   const duration = 10000 + Math.random() * 5000;
 
   // Build the optimized prompt while the progress bar runs
-  currentOptimized = mode === 'text' ? buildTextOutput(raw) : buildImageOutput(raw);
+  currentOptimized = mode === 'text' ? buildTextOutput(raw) : (mode === 'image' ? buildImageOutput(raw) : buildVideoOutput(raw));
 
   // Animate progress bar
   await animateProgress(duration);
@@ -912,7 +978,7 @@ claimBtn.addEventListener('click', async () => {
 
 optimizeBtn.addEventListener('click', runOptimize);
 document.addEventListener('keydown', e => {
-  if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') { e.preventDefault(); runOptimize(); }
+  if ((e.ctrlKey || e.metaKey) && (e.key === 'Enter' || e.key.toLowerCase() === 'e')) { e.preventDefault(); runOptimize(); }
 });
 </script>
 </body>

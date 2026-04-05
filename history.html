@@ -10,6 +10,7 @@
 <meta property="og:description" content="Browse your recent prompt optimizations. All data stays local in your browser.">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#c2652a">
+<link rel="canonical" href="https://promptoptimizer.tools/history.html">
 <link rel="stylesheet" href="styles.css">
     <meta name="google-site-verification" content="rVWM-Vm0Rm5J1SF6ifzLJM9b-hEveastPGLQ16iEw4k" />
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -216,8 +217,8 @@ function renderHistory() {
     <div class="history-card" data-index="${i}">
       <div class="history-card-header">
         <div class="history-card-meta">
-          <span class="history-mode-badge ${item.mode === 'image' ? 'badge-image' : 'badge-text'}">
-            ${item.mode === 'image' ? '⬡ Image AI' : '✦ Text AI'}
+          <span class="history-mode-badge ${item.mode === 'image' ? 'badge-image' : item.mode === 'video' ? 'badge-video' : 'badge-text'}">
+            ${item.mode === 'image' ? '⬡ Image AI' : item.mode === 'video' ? '▶ Video AI' : '✦ Text AI'}
           </span>
           <span class="history-time">${formatDate(item.date)}</span>
         </div>
