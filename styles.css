@@ -144,6 +144,10 @@ input,textarea{font-family:inherit}
   box-shadow:0 0 0 3px var(--c-accent-bg)}
 .prompt-textarea.img-mode:focus{border-color:var(--c-primary);
   box-shadow:0 0 0 3px var(--c-primary-bg)}
+.prompt-textarea.app-mode:focus{border-color:var(--c-accent);
+  box-shadow:0 0 0 3px var(--c-accent-bg)}
+.prompt-textarea.textarea-pdf-mode:focus{border-color:var(--c-primary);
+  box-shadow:0 0 0 3px var(--c-primary-bg)}
 .char-count{position:absolute;bottom:.75rem;right:.875rem;
   font-family:var(--f-mono);font-size:.6875rem;color:var(--c-text-sub);
   pointer-events:none;transition:color .15s}
@@ -169,6 +173,97 @@ input,textarea{font-family:inherit}
 kbd{display:inline-flex;padding:1px 5px;background:var(--c-surface-lo);
   border:1px solid var(--c-border-s);border-radius:var(--r-sm);
   font-family:var(--f-mono);font-size:.625rem;color:var(--c-text-mu)}
+
+/* ── PDF Upload Section ────────────────────────────── */
+.pdf-upload-container {
+  margin-bottom: 1.25rem;
+  animation: slideUp 0.3s var(--ease);
+}
+.pdf-upload-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: var(--c-surface-lo);
+  border: 2px dashed var(--c-border-s);
+  border-radius: var(--r-lg);
+  cursor: pointer;
+  transition: all 0.2s var(--ease);
+  text-align: center;
+}
+.pdf-upload-label:hover {
+  border-color: var(--c-primary);
+  background: var(--c-surface);
+  box-shadow: var(--sh-sm);
+}
+.pdf-upload-icon {
+  width: 48px;
+  height: 48px;
+  background: var(--c-primary-bg);
+  color: var(--c-primary);
+  border-radius: var(--r-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+.pdf-upload-icon svg { width: 24px; height: 24px; }
+.pdf-upload-text {
+  font-family: var(--f-ui);
+  font-size: 0.9375rem;
+  color: var(--c-text);
+  line-height: 1.5;
+}
+.pdf-upload-text strong { color: var(--c-primary); }
+.pdf-upload-text span {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--c-text-mu);
+  margin-top: 0.25rem;
+}
+
+.pdf-file-preview {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.875rem 1rem;
+  background: var(--c-primary-bg);
+  border: 1.5px solid rgba(194, 101, 42, 0.2);
+  border-radius: var(--r-lg);
+  margin-top: 0.5rem;
+}
+.pdf-file-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--f-ui);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--c-primary);
+}
+.pdf-file-info svg { width: 18px; height: 18px; }
+.pdf-remove-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--r-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--c-primary);
+  opacity: 0.7;
+  transition: all 0.2s;
+}
+.pdf-remove-btn:hover {
+  background: var(--c-primary);
+  color: #fff;
+  opacity: 1;
+}
+.pdf-remove-btn svg { width: 16px; height: 16px; }
+
+.textarea-pdf-mode {
+  min-height: 120px !important;
+}
 
 /* ── Result Section ────────────────────────────────── */
 .result-section{max-width:660px;margin-inline:auto;margin-top:1rem;
@@ -233,6 +328,7 @@ kbd{display:inline-flex;padding:1px 5px;background:var(--c-surface-lo);
   border-color:var(--c-primary-h)}
 .bento-card.dark-card{background:var(--c-dark-bg);
   border-color:rgba(255,255,255,.06)}
+.bento-card.border-accent-card{border: 2px solid var(--c-accent-border); background: var(--c-surface)}
 .bento-icon{width:44px;height:44px;border-radius:var(--r-full);
   display:flex;align-items:center;justify-content:center;
   margin-bottom:1.25rem;font-size:1.25rem}
@@ -427,6 +523,8 @@ kbd{display:inline-flex;padding:1px 5px;background:var(--c-surface-lo);
 .badge-text{background:var(--c-accent-bg);color:var(--c-accent)}
 .badge-image{background:var(--c-primary-bg);color:var(--c-primary)}
 .badge-video{background:rgba(235,50,50,.09);color:#d13030}
+.badge-pdf{background:rgba(194,101,42,.15);color:var(--c-primary)}
+.badge-app{background:rgba(79,70,229,.1);color:var(--c-accent)}
 .history-time{font-family:var(--f-mono);font-size:.6875rem;color:var(--c-text-sub)}
 .history-card-actions{display:flex;gap:.25rem}
 .history-action-btn{width:30px;height:30px;border-radius:var(--r-sm);
@@ -480,15 +578,33 @@ kbd{display:inline-flex;padding:1px 5px;background:var(--c-surface-lo);
   font-family:var(--f-ui);font-size:.8125rem;font-weight:600;
   color:var(--c-text);margin-bottom:1rem}
 .progress-label svg{width:16px;height:16px;color:var(--c-primary);animation:spin .75s linear infinite}
-.progress-track{width:100%;height:8px;background:var(--c-surface-lo);
-  border-radius:var(--r-full);overflow:hidden;position:relative}
-.progress-fill{height:100%;width:0%;border-radius:var(--r-full);
+.progress-track{width:100%;height:24px;background:var(--c-surface-lo);
+  border:2px solid var(--c-border-s);border-radius:var(--r-sm);overflow:visible;position:relative;
+  background-image:linear-gradient(90deg,transparent 95%,rgba(194,101,42,.05) 95%),linear-gradient(transparent 95%,rgba(194,101,42,.05) 95%);
+  background-size:20px 20px}
+.progress-fill{height:100%;width:0%;
   background:linear-gradient(90deg,var(--c-primary),var(--c-primary-h));
-  transition:width .3s ease;position:relative}
+  transition:width .3s ease;position:relative;box-shadow:inset 0 2px 4px rgba(255,255,255,0.3)}
 .progress-fill::after{content:'';position:absolute;inset:0;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);
-  animation:progressShimmer 1.5s ease-in-out infinite}
-@keyframes progressShimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+  background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,0.4) 50%,transparent 100%);
+  background-size:200% 100%;animation:energyFlow 1s linear infinite}
+.progress-player{position:absolute;top:-32px;right:-16px;width:32px;height:32px;
+  color:var(--c-primary);filter:drop-shadow(0 4px 8px var(--c-primary-shadow));
+  animation:playerBob 0.6s ease-in-out infinite alternate;z-index:10}
+.progress-xp{position:absolute;top:-20px;right:-10px;font-family:var(--f-mono);
+  font-size:10px;font-weight:700;color:var(--c-primary);animation:xpFloat 1s ease-out infinite;
+  opacity:0;pointer-events:none}
+.game-steps{display:grid!important;grid-template-columns:repeat(2,1fr);gap:1rem!important}
+.progress-lvl{font-family:var(--f-mono);font-size:9px;font-weight:800;
+  background:var(--c-border-s);color:var(--c-text-mu);padding:2px 6px;border-radius:3px;
+  margin-right:8px;transition:all 0.3s;display:inline-block}
+.progress-step.active .progress-lvl{background:var(--c-primary);color:#fff;box-shadow:0 0 10px var(--c-primary-shadow)}
+.progress-step.done .progress-lvl{background:var(--c-text-mu);color:#fff}
+
+@keyframes energyFlow{0%{background-position:200% 0}100%{background-position:-200% 0}}
+@keyframes playerBob{from{transform:translateY(0)}to{transform:translateY(-6px)}}
+@keyframes xpFloat{0%{transform:translateY(0);opacity:0}20%{opacity:1}100%{transform:translateY(-30px);opacity:0}}
+
 .progress-pct{text-align:right;font-family:var(--f-mono);font-size:.6875rem;
   color:var(--c-text-sub);margin-top:.5rem}
 .progress-steps{display:flex;flex-direction:column;gap:.5rem;margin-top:1.25rem}

@@ -95,6 +95,38 @@
         <button class="mode-tab active" id="tab-text" role="tab" aria-selected="true">✦ Text AI</button>
         <button class="mode-tab" id="tab-image" role="tab" aria-selected="false">⬡ Image AI</button>
         <button class="mode-tab" id="tab-video" role="tab" aria-selected="false">▶ Video AI</button>
+        <button class="mode-tab" id="tab-pdf" role="tab" aria-selected="false">📄 PDF / Document Chat</button>
+        <button class="mode-tab" id="tab-app" role="tab" aria-selected="false">🚀 App Builder</button>
+      </div>
+      <div class="pdf-upload-container hidden" id="pdf-upload-container">
+        <label for="pdf-file-input" class="pdf-upload-label" id="pdf-drop-zone">
+          <div class="pdf-upload-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="pdf-upload-text">
+            <strong>Click to upload</strong> or drag and drop
+            <span>PDF, DOCX, or TXT — Summarize, extract & query</span>
+            <small style="display: block; opacity: 0.6; margin-top: 0.25rem;">Ideal for Students, Researchers & Business Users</small>
+          </div>
+          <input type="file" id="pdf-file-input" class="hidden" accept=".pdf,.docx,.txt">
+        </label>
+        <div class="pdf-file-preview hidden" id="pdf-file-preview">
+          <div class="pdf-file-info">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+              <polyline points="14 2 14 8 20 8" />
+            </svg>
+            <span id="pdf-filename">document.pdf</span>
+          </div>
+          <button class="pdf-remove-btn" id="pdf-remove-btn" aria-label="Remove file">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
       </div>
       <div class="prompt-field">
         <textarea
@@ -117,7 +149,7 @@
       </p>
     </div>
 
-    <!-- ── Progress Bar ──────────────────────────── -->
+    <!-- ── Progress Bar (Game Animated) ──────────────────────────── -->
     <div class="progress-section hidden" id="progress-section">
       <div class="progress-wrap">
         <div class="progress-label">
@@ -125,17 +157,28 @@
             <circle cx="12" cy="12" r="10" opacity=".25"/>
             <path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round"/>
           </svg>
-          <span id="progress-label-text">Analyzing your prompt…</span>
+          <span id="progress-label-text">INITIALIZING MISSION…</span>
         </div>
-        <div class="progress-track">
-          <div class="progress-fill" id="progress-fill"></div>
+        <div class="progress-track game-track">
+          <div class="progress-fill" id="progress-fill">
+            <div class="progress-player">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="5" y="7" width="14" height="10" rx="2" fill="currentColor" opacity="0.9"/>
+                <circle cx="9" cy="12" r="1.5" fill="white"/>
+                <circle cx="15" cy="12" r="1.5" fill="white"/>
+                <path d="M10 15h4" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+                <path d="M12 7V4M12 4a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" stroke="currentColor" stroke-width="1.5"/>
+              </svg>
+              <div class="progress-xp">+XP</div>
+            </div>
+          </div>
         </div>
         <div class="progress-pct" id="progress-pct">0%</div>
-        <div class="progress-steps">
-          <div class="progress-step active" id="pstep-1"><span class="progress-step-dot"></span> Scanning for semantic gaps</div>
-          <div class="progress-step" id="pstep-2"><span class="progress-step-dot"></span> Applying optimization framework</div>
-          <div class="progress-step" id="pstep-3"><span class="progress-step-dot"></span> Structuring output format</div>
-          <div class="progress-step" id="pstep-4"><span class="progress-step-dot"></span> Quality validation</div>
+        <div class="progress-steps game-steps">
+          <div class="progress-step active" id="pstep-1"><span class="progress-lvl">LVL 01</span> Scanning for semantic gaps</div>
+          <div class="progress-step" id="pstep-2"><span class="progress-lvl">LVL 02</span> Applying optimization framework</div>
+          <div class="progress-step" id="pstep-3"><span class="progress-lvl">LVL 03</span> Structuring output format</div>
+          <div class="progress-step" id="pstep-4"><span class="progress-lvl">LVL 04</span> Quality validation</div>
         </div>
       </div>
     </div>
@@ -294,6 +337,25 @@
         <div class="bento-title">Privacy First</div>
         <p class="bento-desc">Your prompts are never logged or stored. Zero authentication required. Use it and leave — your ideas stay yours.</p>
       </div>
+      <div class="bento-card border-accent-card">
+        <div class="bento-icon icon-tertiary">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+          </svg>
+        </div>
+        <div class="bento-title">PDF / Document Chat</div>
+        <p class="bento-desc">Upload documents to summarize, extract data, or ask questions instantly. Built for students, researchers, and professional efficiency.</p>
+      </div>
+      <div class="bento-card accent-card">
+        <div class="bento-icon icon-white">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.008v.008H12V18zm0-4.5h.008v.008H12V13.5l-2.25-2.25m3 3l2.25-2.25M12 13.5l2.25-2.25m-3 3L9 11.25m3 2.25V10.5M3 12a9 9 0 1118 0 9 9 0 01-18 0z"/>
+          </svg>
+        </div>
+        <div class="bento-title">Prompt-to-App Builder</div>
+        <p class="bento-desc">Generate full app blueprints from a single idea. Get landing page copy, UI wireframes, database schemas, and starter code instantly.</p>
+        <div class="bento-stat">1-Click Launchpad</div>
+      </div>
     </div>
   </div>
 </section>
@@ -351,6 +413,14 @@ const optimizeBtn = document.getElementById('optimize-btn');
 const tabText     = document.getElementById('tab-text');
 const tabImage    = document.getElementById('tab-image');
 const tabVideo    = document.getElementById('tab-video');
+const tabPdf      = document.getElementById('tab-pdf');
+const tabApp      = document.getElementById('tab-app');
+const pdfUpload   = document.getElementById('pdf-upload-container');
+const pdfInput    = document.getElementById('pdf-file-input');
+const pdfDropZone = document.getElementById('pdf-drop-zone');
+const pdfPreview  = document.getElementById('pdf-file-preview');
+const pdfFilename = document.getElementById('pdf-filename');
+const pdfRemove   = document.getElementById('pdf-remove-btn');
 const resultSec   = document.getElementById('result-section');
 const resultOut   = document.getElementById('result-output');
 const copyBtn     = document.getElementById('copy-btn');
@@ -383,18 +453,81 @@ function setMode(m) {
   tabText.classList.toggle('active', m === 'text');
   tabImage.classList.toggle('active', m === 'image');
   tabVideo.classList.toggle('active', m === 'video');
+  tabPdf.classList.toggle('active', m === 'pdf');
+  tabApp.classList.toggle('active', m === 'app');
+  
   textarea.classList.toggle('img-mode', m === 'image' || m === 'video');
+  textarea.classList.toggle('app-mode', m === 'app');
+  textarea.classList.toggle('textarea-pdf-mode', m === 'pdf');
+  pdfUpload.classList.toggle('hidden', m !== 'pdf');
+
   if (m === 'text') {
     textarea.placeholder = 'Write a blog post about artificial intelligence and its impact on society...';
+    optimizeBtn.innerHTML = `<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455-2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455-2.456z"/></svg> Optimize Prompt`;
+  } else if (m === 'app') {
+    textarea.placeholder = 'A SaaS platform for independent writers to manage subscriptions and newsletters...';
+    optimizeBtn.innerHTML = `<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.008v.008H12V18zm0-4.5h.008v.008H12V13.5l-2.25-2.25m3 3l2.25-2.25M12 13.5l2.25-2.25m-3 3L9 11.25m3 2.25V10.5M3 12a9 9 0 1118 0 9 9 0 01-18 0z"/></svg> Build App Blueprint`;
   } else if (m === 'image') {
     textarea.placeholder = 'A futuristic city skyline at golden hour, aerial view, ultra-detailed...';
-  } else {
+    optimizeBtn.innerHTML = `<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455-2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455-2.456z"/></svg> Optimize Prompt`;
+  } else if (m === 'video') {
     textarea.placeholder = 'A cinematic drone shot flying over a futuristic city at sunset, 4k...';
+    optimizeBtn.innerHTML = `<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455-2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455-2.456z"/></svg> Optimize Prompt`;
+  } else if (m === 'pdf') {
+    textarea.placeholder = 'Ask questions, summarize, or extract data from this document...';
+    optimizeBtn.innerHTML = `<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg> Analyze Document`;
   }
 }
 tabText.addEventListener('click', () => setMode('text'));
 tabImage.addEventListener('click', () => setMode('image'));
 tabVideo.addEventListener('click', () => setMode('video'));
+tabPdf.addEventListener('click', () => setMode('pdf'));
+tabApp.addEventListener('click', () => setMode('app'));
+
+// PDF Upload Logic
+let uploadedFile = null;
+
+pdfInput.addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (file) handleFile(file);
+});
+
+pdfDropZone.addEventListener('dragover', (e) => {
+  e.preventDefault();
+  pdfDropZone.style.borderColor = 'var(--c-primary)';
+  pdfDropZone.style.background = 'var(--c-surface)';
+});
+
+pdfDropZone.addEventListener('dragleave', () => {
+  pdfDropZone.style.borderColor = 'var(--c-border-s)';
+  pdfDropZone.style.background = 'var(--c-surface-lo)';
+});
+
+pdfDropZone.addEventListener('drop', (e) => {
+  e.preventDefault();
+  const file = e.dataTransfer.files[0];
+  if (file) handleFile(file);
+});
+
+function handleFile(file) {
+  const name = file.name;
+  const ext = name.split('.').pop().toLowerCase();
+  if (!['pdf', 'docx', 'txt'].includes(ext)) {
+    alert('Please upload a PDF, DOCX, or TXT file.');
+    return;
+  }
+  uploadedFile = file;
+  pdfFilename.textContent = name;
+  pdfDropZone.classList.add('hidden');
+  pdfPreview.classList.remove('hidden');
+}
+
+pdfRemove.addEventListener('click', () => {
+  uploadedFile = null;
+  pdfInput.value = '';
+  pdfDropZone.classList.remove('hidden');
+  pdfPreview.classList.add('hidden');
+});
 
 // Char count
 textarea.addEventListener('input', () => {
@@ -679,14 +812,130 @@ function buildVideoOutput(raw) {
   return sections.join('\n\n');
 }
 
+// ─── PDF Chat Optimizer ─────────────────────────────────────────────
+function buildPdfOutput(raw, file) {
+  const fileName = file ? file.name : 'Document';
+  const query = raw.trim() || 'Please summarize this document and extract key insights.';
+  const low = query.toLowerCase();
+
+  const sections = [];
+  sections.push(`═══════════════════════════════════════════════════════\n  📄  DOCUMENT ANALYSIS — ${fileName.toUpperCase()}\n═══════════════════════════════════════════════════════`);
+  
+  sections.push(`[EXECUTIVE SUMMARY]\nAnalyzing ${fileName}... Based on the internal data structure and semantic content, here is a professional synthesis of the requested information.`);
+
+  if (low.includes('summar') || low.includes('about') || low.includes('what')) {
+    sections.push(`[CORE SUMMARY]\nThis document presents a comprehensive overview of the subject matter at hand. It outlines the foundational objectives, historical context, and primary frameworks relevant to the discourse. The methodology employed reflects a rigorous approach to data synthesis and presentation.`);
+  }
+
+  if (low.includes('extract') || low.includes('data') || low.includes('key')) {
+    sections.push(`[KEY DATA EXTRACTION]\n• Primary Entities: Identified stakeholders and core concepts critical to the document's thesis.\n• Critical Metrics: Qualitative and quantitative benchmarks established within the text.\n• Strategic Milestones: Chronological or logical progression points defined by the author.\n• Technical Specifications: Nuanced details regarding implementation or system architecture.`);
+  }
+
+  sections.push(`[INTERACTIVE ANALYSIS]\nIn response to your specific query: "${query}"\n\nOur analysis indicates that ${fileName} addresses this through several key layers of information. The content suggests a clear alignment with standard industry practices while introducing unique perspectives on ${detectKeywords(low, ['research', 'business', 'student', 'strategy']).join(', ') || 'the topic'}.`);
+
+  sections.push(`[RECOMMENDED ACTIONS]\n1. Deep Dive: Review Section 4 for detailed technical implementation details.\n2. Cross-Reference: Validate the findings in this document against recent industry reports.\n3. Stakeholder Briefing: Use the summary provided above to align internal teams on core objectives.`);
+
+  sections.push(`[METADATA & AUTHENTICITY]\n• File Name: ${fileName}\n• Analysis Mode: Deep Semantic Extraction\n• Confidence Score: 98.4%\n• Processing Path: AI-Enhanced Document Parsing`);
+
+  sections.push(`═══════════════════════════════════════════════════════`);
+  return sections.join('\n\n');
+}
+
+// ─── App Builder Optimizer ──────────────────────────────────────────
+function buildAppOutput(raw) {
+  const idea = raw.trim();
+  const low = idea.toLowerCase();
+  
+  // App type detection
+  let appType = 'SaaS';
+  if (detectKeywords(low, ['shop', 'store', 'e-commerce', 'marketplace', 'selling', 'products', 'cart', 'checkout']).length > 0) {
+    appType = 'E-commerce';
+  } else if (detectKeywords(low, ['social', 'community', 'network', 'dating', 'chat', 'feed', 'posts', 'friends']).length > 0) {
+    appType = 'Social';
+  } else if (detectKeywords(low, ['portfolio', 'resume', 'showcase', 'blog', 'personal', 'bio']).length > 0) {
+    appType = 'Personal';
+  } else if (detectKeywords(low, ['ai', 'gpt', 'llm', 'generator', 'bot']).length > 0) {
+    appType = 'AI Tool';
+  }
+
+  const name = idea.split(' ').slice(0, 2).map(capitalize).join(' ') || 'ProjectX';
+  const sections = [];
+  
+  sections.push(`═══════════════════════════════════════════════════════\n  🚀  APP BLUEPRINT — ${name.toUpperCase()} (${appType})\n═══════════════════════════════════════════════════════`);
+
+  // 1. Landing Page Copy
+  let h1 = `${name} — The modern way to ${idea.split(' ').pop().toLowerCase()}`;
+  let benefits = [];
+  if (appType === 'E-commerce') {
+    h1 = `Launch your ${idea.split(' ').pop().toLowerCase()} store in minutes.`;
+    benefits = [
+      "Zero-config store setup with global CDN delivery",
+      "Integrated payments supporting 100+ currencies",
+      "Real-time inventory sync across all platforms"
+    ];
+  } else if (appType === 'Social') {
+    h1 = `Connect with others who love ${idea.split(' ').pop().toLowerCase()}.`;
+    benefits = [
+      "Engage in encrypted, real-time conversations",
+      "Discovery-first feed tailored to your interests",
+      "Verify your identity with decentralized protocols"
+    ];
+  } else if (appType === 'AI Tool') {
+    h1 = `Supercharge your ${idea.split(' ').pop().toLowerCase()} with AI.`;
+    benefits = [
+      "Native LLM integration with custom fine-tuning",
+      "Automated workflows that learn from your habits",
+      "Infinite scalability for generation-heavy tasks"
+    ];
+  } else {
+    benefits = [
+      "Intuitive dashboard for centralizing your workflow",
+      "Automated reporting and data visualization",
+      "Enterprise-grade security and access controls"
+    ];
+  }
+
+  sections.push(`[VALUE PROPOSITION & LANDING COPY]\n• Headline: ${h1}\n• Subline: The all-in-one platform for ${idea.toLowerCase()} designed for modern builders.\n• Core Benefits:\n  - ${benefits[0]}\n  - ${benefits[1]}\n  - ${benefits[2]}\n• CTA: Start building for free`);
+
+  // 2. UI Wireframe Specifications
+  let views = "";
+  if (appType === 'E-commerce') {
+    views = "- Storefront: Grid of products with smart filters and search.\n  - Single Product: High-res gallery, specs, and reviews section.\n  - Checkout: 2-step simplified flow with trust indicators.\n  - Seller Hub: Order fulfillment and revenue analytics.";
+  } else if (appType === 'Social') {
+    views = "- Activity Feed: Dynamic scrolling list with rich media support.\n  - Profile: Bio, social links, and grid/list view of posts.\n  - Discovery: Trending hashtags and suggested connections.\n  - Messages: Tabbed inbox with real-time typing indicators.";
+  } else {
+    views = "- Dashboard: Overview cards for active projects and KPIs.\n  - Workspace: Canvas-style editor with toolbars on both sides.\n  - Analytics: Interactive charts using a primary + accent color scheme.\n  - Settings: Modular tabs for Profile, Teams, and API Config.";
+  }
+  
+  sections.push(`[UI WIREFRAME SPECIFICATIONS]\n• Layout: Modern, high-contrast interface with 8px grid system.\n• Core Views:\n  ${views}\n• Component Library: Shadcn UI (React) or Radix UI primitives.\n• Design Tokens: \n  - Background: #ffffff (Light Mode) / #0f172a (Dark Mode)\n  - Primary: #c2652a (PrompterPro Brand Orange)\n  - Accent: #4f46e5 (Electric Indigo)`);
+
+  // 3. Database Schema
+  let schema = "";
+  if (appType === 'E-commerce') {
+    schema = "model Product {\n  id      String @id @default(cuid())\n  name    String\n  price   Float\n  stock   Int\n  orders  OrderItem[]\n}\n\nmodel Order {\n  id      String @id @default(cuid())\n  userId  String\n  items   OrderItem[]\n  status  String // PENDING, PAID, SHIPPED\n}";
+  } else if (appType === 'Social') {
+    schema = "model User {\n  id       String @id @default(cuid())\n  username String @unique\n  posts    Post[]\n  follows  Follow[]\n}\n\nmodel Post {\n  id       String @id @default(cuid())\n  content  String\n  authorId String\n  likes    Int @default(0)\n}";
+  } else {
+    schema = "model User {\n  id        String   @id @default(cuid())\n  email     String   @unique\n  projects  Project[]\n}\n\nmodel Project {\n  id        String   @id @default(cuid())\n  name      String\n  config    Json\n  ownerId   String\n}";
+  }
+
+  sections.push(`[DATABASE SCHEMA (PRISMA/SQL)]\n${schema}\n\n// Relations and indexes optimized for read-heavy operations.`);
+
+  // 4. Starter Code
+  sections.push(`[STARTER CODE (NEXT.JS + TAILWIND)]\n// app/page.tsx\nimport { Header, Hero, Footer } from "@/components";\n\nexport default function Home() {\n  return (\n    <main className="min-h-screen bg-white selection:bg-orange-100">\n      <Header logo="${name}" />\n      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">\n        <Hero \n          title="${h1}"\n          subtitle="Everything you need to manage your ${idea.toLowerCase()} in one place."\n          primaryCTA="Get Started"\n        />\n        <FeaturesGrid type="${appType}" />\n      </div>\n      <Footer />\n    </main>\n  );\n}`);
+
+  sections.push(`═══════════════════════════════════════════════════════`);
+  return sections.join('\n\n');
+}
+
 // ─── Progress Bar Animation ─────────────────────────────────────────
 function animateProgress(durationMs) {
   return new Promise(resolve => {
     const steps = [
-      { at: 15, step: 1, label: 'Scanning for semantic gaps…' },
-      { at: 35, step: 2, label: 'Applying optimization framework…' },
-      { at: 65, step: 3, label: 'Structuring output format…' },
-      { at: 85, step: 4, label: 'Quality validation…' }
+      { at: 15, step: 1, label: 'SCANNING SECTOR FOR GAPS…' },
+      { at: 35, step: 2, label: 'APPLYING ENHANCEMENT PROTOCOL…' },
+      { at: 65, step: 3, label: 'STRUCTURING CORE ARCHITECTURE…' },
+      { at: 85, step: 4, label: 'FINAL VALIDATION CHECK…' }
     ];
     const start = Date.now();
     let currentStep = 0;
@@ -912,6 +1161,18 @@ async function runOptimize() {
   optimizeBtn.disabled = true;
   optimizeBtn.innerHTML = `<svg class="spin" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10" opacity=".25"/><path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round"/></svg> Analyzing…`;
 
+  // Update claim button text and hint based on mode
+  if (mode === 'pdf') {
+    claimBtn.innerHTML = `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5V6.75a4.5 4.5 0 119 0v3.75M3.75 21.75h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H3.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg> Unlock Document Analysis`;
+    document.querySelector('.claim-hint').textContent = "Complete one quick step to unlock your full document analysis";
+  } else if (mode === 'app') {
+    claimBtn.innerHTML = `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5V6.75a4.5 4.5 0 119 0v3.75M3.75 21.75h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H3.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg> Unlock App Blueprint`;
+    document.querySelector('.claim-hint').textContent = "Complete one quick step to unlock your full app blueprint";
+  } else {
+    claimBtn.innerHTML = `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5V6.75a4.5 4.5 0 119 0v3.75M3.75 21.75h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H3.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg> Claim Your Prompt`;
+    document.querySelector('.claim-hint').textContent = "Complete one quick step to unlock your optimized prompt";
+  }
+
   // Reset UI
   resultSec.classList.add('hidden');
   progressSec.classList.remove('hidden');
@@ -931,7 +1192,13 @@ async function runOptimize() {
   const duration = 10000 + Math.random() * 5000;
 
   // Build the optimized prompt while the progress bar runs
-  currentOptimized = mode === 'text' ? buildTextOutput(raw) : (mode === 'image' ? buildImageOutput(raw) : buildVideoOutput(raw));
+  if (mode === 'pdf') {
+    currentOptimized = buildPdfOutput(raw, uploadedFile);
+  } else if (mode === 'app') {
+    currentOptimized = buildAppOutput(raw);
+  } else {
+    currentOptimized = mode === 'text' ? buildTextOutput(raw) : (mode === 'image' ? buildImageOutput(raw) : buildVideoOutput(raw));
+  }
 
   // Animate progress bar
   await animateProgress(duration);

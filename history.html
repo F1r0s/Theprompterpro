@@ -217,8 +217,8 @@ function renderHistory() {
     <div class="history-card" data-index="${i}">
       <div class="history-card-header">
         <div class="history-card-meta">
-          <span class="history-mode-badge ${item.mode === 'image' ? 'badge-image' : item.mode === 'video' ? 'badge-video' : 'badge-text'}">
-            ${item.mode === 'image' ? '⬡ Image AI' : item.mode === 'video' ? '▶ Video AI' : '✦ Text AI'}
+          <span class="history-mode-badge ${item.mode === 'image' ? 'badge-image' : item.mode === 'video' ? 'badge-video' : item.mode === 'pdf' ? 'badge-pdf' : item.mode === 'app' ? 'badge-app' : 'badge-text'}">
+            ${item.mode === 'image' ? '⬡ Image AI' : item.mode === 'video' ? '▶ Video AI' : item.mode === 'pdf' ? '📄 PDF / Document Chat' : item.mode === 'app' ? '🚀 App Builder' : '✦ Text AI'}
           </span>
           <span class="history-time">${formatDate(item.date)}</span>
         </div>
