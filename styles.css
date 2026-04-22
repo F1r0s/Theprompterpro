@@ -127,7 +127,7 @@ input,textarea{font-family:inherit}
   border-radius:var(--r-xl);padding:1.5rem;box-shadow:var(--sh-lg);
   max-width:660px;margin-inline:auto}
 .mode-tabs{display:flex;gap:.25rem;background:var(--c-surface-lo);
-  border-radius:var(--r-md);padding:3px;width:fit-content;margin-bottom:1.25rem}
+  border-radius:var(--r-md);padding:3px;max-width:100%;margin-bottom:1.25rem;flex-wrap:wrap;justify-content:center}
 .mode-tab{font-family:var(--f-ui);font-size:.75rem;font-weight:600;
   padding:.375rem .875rem;border-radius:calc(var(--r-md) - 2px);
   color:var(--c-text-mu);transition:all .2s var(--ease);cursor:pointer}

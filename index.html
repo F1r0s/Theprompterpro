@@ -65,6 +65,7 @@
     <a href="#features" class="mobile-nav-link">Features</a>
     <a href="about.html" class="mobile-nav-link">About</a>
     <a href="history.html" class="mobile-nav-link">History</a>
+    <button id="mobile-auth-btn" class="mobile-nav-cta">Sign In</button>
   </div>
 </nav>
 
@@ -1341,6 +1342,7 @@ document.addEventListener('keydown', e => {
   window.isUserLoggedIn = false;
 
   const navAuthBtn = document.getElementById('nav-auth-btn');
+  const mobileAuthBtn = document.getElementById('mobile-auth-btn');
   const authModal = document.getElementById('auth-modal');
   const authBackdrop = document.getElementById('auth-backdrop');
   const authClose = document.getElementById('auth-close');
@@ -1359,6 +1361,15 @@ document.addEventListener('keydown', e => {
     if (auth.currentUser) signOut(auth);
     else openModal();
   });
+  
+  if (mobileAuthBtn) {
+    mobileAuthBtn.addEventListener('click', () => {
+      mobileMenu.classList.add('hidden');
+      mobileBtn.setAttribute('aria-expanded', 'false');
+      if (auth.currentUser) signOut(auth);
+      else openModal();
+    });
+  }
   
   authBackdrop.addEventListener('click', closeModal);
   authClose.addEventListener('click', closeModal);
@@ -1392,11 +1403,13 @@ document.addEventListener('keydown', e => {
     if (user) {
       window.isUserLoggedIn = true;
       navAuthBtn.textContent = "Sign Out";
+      if (mobileAuthBtn) mobileAuthBtn.textContent = "Sign Out";
       closeModal();
       await syncLocalWithCloud(user);
     } else {
       window.isUserLoggedIn = false;
       navAuthBtn.textContent = "Sign In";
+      if (mobileAuthBtn) mobileAuthBtn.textContent = "Sign In";
     }
   });
 
