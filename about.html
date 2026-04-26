@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>About — PromptPulse</title>
-<meta name="description" content="Learn about PromptPulse — a free AI prompt optimization tool that helps you get better results from ChatGPT, Claude, Gemini, and all other large language models. Privacy-first. No login needed.">
+<meta name="description" content="Learn about PromptPulse — a free AI prompt optimization tool that helps you get better results from ChatGPT, Claude, Gemini, and all other large language models. Privacy-first.">
 <meta name="keywords" content="about prompt optimizer, AI prompt tool, prompt engineering, free AI tool, Stitch prompt optimizer">
 <meta property="og:title" content="About — PromptPulse">
 <meta property="og:description" content="Refining the conversation between human and machine. Free, privacy-first AI prompt optimization.">
@@ -22,6 +22,7 @@
   <link rel="mask-icon" href="favicon.svg" color="#c2652a">
 </head>
 <body>
+<div class="scroll-progress" id="scroll-progress" style="position:fixed;top:0;left:0;height:3px;background:var(--c-primary);z-index:9999;width:0%;transition:width 0.1s ease-out;"></div>
 
 <!-- ── Navigation ──────────────────────────────────── -->
 <nav class="nav" id="nav">
@@ -230,8 +231,8 @@
         <p class="commit-desc">Your prompts are never stored on our servers. We collect minimal data and respect your privacy — always and without exception.</p>
       </div>
       <div class="commit-card">
-        <div class="commit-title">⚡ No Account Required</div>
-        <p class="commit-desc">Start optimizing immediately without creating an account or providing personal information. Open the tool, paste your prompt, get results.</p>
+        <div class="commit-title">☁️ Cloud Synced</div>
+        <p class="commit-desc">Your prompt history and settings are securely synchronized across all your devices, ready when you need them.</p>
       </div>
       <div class="commit-card">
         <div class="commit-title">◎ Transparent</div>
@@ -314,6 +315,14 @@ mobileBtn.addEventListener('click', () => {
 mobileMenu.querySelectorAll('a').forEach(a =>
   a.addEventListener('click', () => mobileMenu.classList.add('hidden'))
 );
+
+window.addEventListener('scroll', () => {
+  const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+  const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  const scrolled = (winScroll / height) * 100;
+  const pb = document.getElementById('scroll-progress');
+  if (pb) pb.style.width = scrolled + '%';
+});
 </script>
 </body>
 </html>

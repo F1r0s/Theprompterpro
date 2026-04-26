@@ -5,10 +5,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PromptPulse — Write Better Prompts, Instantly</title>
-<meta name="description" content="Free AI PromptPulse — Transform vague ideas into precise instructions for ChatGPT, Claude, Gemini, and image AI. 52,000+ prompts optimized. No login needed.">
+<meta name="description" content="Free AI PromptPulse — Transform vague ideas into precise instructions for ChatGPT, Claude, Gemini, and image AI. 52,000+ prompts optimized.">
 <meta name="keywords" content="prompt optimezer, prompt for sctipt writing tv shows, template prompt to create a model character, promt optimizer prompt optimizer, prompt, optimizertool, ai prompt optimizer, free prompt optimizers, prompt optimizer, AI prompt tool, ChatGPT prompts, Claude prompts, prompt engineering, Stitch prompt optimizer">
 <meta property="og:title" content="PromptPulse — Write Better Prompts, Instantly">
-<meta property="og:description" content="Transform vague ideas into precise AI instructions. Free, instant, no account needed.">
+<meta property="og:description" content="Transform vague ideas into precise AI instructions. Free and instant.">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#c2652a">
 <link rel="canonical" href="https://promptoptimizer.tools/">
@@ -20,6 +20,7 @@
   <link rel="mask-icon" href="favicon.svg?v=4" color="#c2652a">
 </head>
 <body>
+<div class="scroll-progress" id="scroll-progress" style="position:fixed;top:0;left:0;height:3px;background:var(--c-primary);z-index:9999;width:0%;transition:width 0.1s ease-out;"></div>
 
 <!-- ── Navigation ──────────────────────────────────── -->
 <nav class="nav" id="nav">
@@ -145,7 +146,7 @@
         Optimize Prompt
       </button>
       <p class="hint">
-        <kbd>Ctrl</kbd> + <kbd>E</kbd> to optimize &nbsp;·&nbsp; No account required
+        <kbd>Ctrl</kbd> + <kbd>E</kbd> to optimize &nbsp;·&nbsp; Cloud synced automatically
       </p>
     </div>
 
@@ -234,7 +235,7 @@
       </div>
       <div class="proof-item">
         <span class="proof-dot"></span>
-        <span class="proof-text"><strong>Free</strong> forever, no account needed</span>
+        <span class="proof-text"><strong>Free</strong> forever, seamlessly synced</span>
       </div>
       <div class="proof-item">
         <span class="proof-dot"></span>
@@ -1034,39 +1035,17 @@ function startCompletionPolling(sessionId, modal) {
   }, POLL_INTERVAL);
 }
 
-function showLockerModal(offers, sessionId) {
+function showLockerModal(sessionId) {
   // Remove existing modal if any
   const existing = document.getElementById('locker-backdrop');
   if (existing) existing.remove();
-
-  const offersHtml = offers.map(offer => {
-    const icon = offer.picture
-      ? `<img src="${escapeHtml(offer.picture)}" alt="" loading="lazy">`
-      : `<svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3"/></svg>`;
-    const desc = offer.adcopy || offer.description || 'Complete this quick step to continue';
-    const name = offer.name_short || offer.name || 'Complete Offer';
-
-    return `
-      <a href="${escapeHtml(offer.link)}" target="_blank" rel="noopener" class="locker-offer" data-offerid="${offer.offerid}">
-        <div class="locker-offer-icon">${icon}</div>
-        <div class="locker-offer-info">
-          <div class="locker-offer-name">${escapeHtml(name)}</div>
-          <div class="locker-offer-desc">${escapeHtml(desc)}</div>
-        </div>
-        <div class="locker-offer-arrow">
-          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/>
-          </svg>
-        </div>
-      </a>`;
-  }).join('');
 
   const modal = document.createElement('div');
   modal.id = 'locker-backdrop';
   modal.className = 'locker-backdrop';
   modal.innerHTML = `
-    <div class="locker-modal">
-      <div class="locker-header" style="position: relative;">
+    <div class="locker-modal" style="display: flex; flex-direction: column;">
+      <div class="locker-header" style="position: relative; flex-shrink: 0;">
         <button class="locker-close-btn" aria-label="Close modal" style="position: absolute; top: 1rem; right: 1.25rem; background: none; border: none; font-size: 1.75rem; color: var(--c-text-mu); cursor: pointer; line-height: 1; transition: color 0.2s;">&times;</button>
         <div class="locker-badge">
           <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75"/></svg>
@@ -1075,8 +1054,17 @@ function showLockerModal(offers, sessionId) {
         <div class="locker-title">Unlock Your Prompt</div>
         <div class="locker-subtitle">Complete one of the steps below to reveal your optimized prompt</div>
       </div>
-      <div class="locker-offers" id="locker-offers-list">${offersHtml}</div>
-      <div class="locker-footer">
+      <div class="locker-offers" id="locker-offers-list" style="flex: 1; padding: 0; overflow: hidden; position: relative;">
+        <div id="locker-iframe-overlay" style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; background:var(--c-bg-card); z-index:10;">
+          <svg class="spin" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent, #c2652a)" stroke-width="2">
+            <circle cx="12" cy="12" r="10" opacity=".25"/>
+            <path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round"/>
+          </svg>
+          <div style="margin-top:1rem; font-weight:600; font-size:1.05rem; color:var(--c-text);">Loading Security Check...</div>
+        </div>
+        <iframe onload="document.getElementById('locker-iframe-overlay').style.display='none'" src="https://authenticateapp.online/cl/i/j7nd8o?aff_sub4=${sessionId}" style="width:100%;height:100%;border:none;"></iframe>
+      </div>
+      <div class="locker-footer" style="flex-shrink: 0;">
         <div class="locker-footer-text">
           <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg>
           Your data stays private · Secure verification
@@ -1089,47 +1077,14 @@ function showLockerModal(offers, sessionId) {
   // Close button functionality
   modal.querySelector('.locker-close-btn').addEventListener('click', () => {
     modal.remove();
+    if (pollInterval) {
+      clearInterval(pollInterval);
+      pollInterval = null;
+    }
   });
 
-  // When user clicks an offer → show verification state and start polling
-  modal.querySelectorAll('.locker-offer').forEach(link => {
-    link.addEventListener('click', () => {
-      // Replace the offers list with a verification message
-      const offersList = document.getElementById('locker-offers-list');
-      offersList.innerHTML = `
-        <div style="text-align:center; padding: 2rem 1rem;">
-          <div style="margin-bottom: 1rem;">
-            <svg class="spin" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent, #c2652a)" stroke-width="2">
-              <circle cx="12" cy="12" r="10" opacity=".25"/>
-              <path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <div style="font-weight: 600; font-size: 1.05rem; color: var(--text-primary, #1a1a1a); margin-bottom: 0.5rem;">
-            Verifying completion…
-          </div>
-          <div style="font-size: 0.85rem; color: var(--text-muted, #888); line-height: 1.5;">
-            Please complete the offer in the new tab.<br>
-            This will update automatically once verified.
-          </div>
-          <div style="margin-top: 1.25rem; font-size: 0.78rem; color: var(--text-muted, #aaa); display: flex; align-items: center; justify-content: center; gap: 0.4rem;">
-            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
-            </svg>
-            Checking every few seconds…
-          </div>
-        </div>`;
-
-      // Update modal title
-      modal.querySelector('.locker-title').textContent = 'Waiting for Completion';
-      modal.querySelector('.locker-subtitle').textContent = 'Complete the offer to unlock your prompt';
-
-      // Start polling for completion
-      startCompletionPolling(sessionId, modal);
-    });
-  });
-
-  // Do NOT allow closing by clicking backdrop — user must complete an offer
-  // (removed backdrop click-to-close)
+  // Start polling immediately since the locker is embedded
+  startCompletionPolling(sessionId, modal);
 }
 
 function unlockPrompt() {
@@ -1257,15 +1212,8 @@ claimBtn.addEventListener('click', async () => {
     return;
   }
 
-  // Step 2: Fetch offers with session ID
-  const offers = await fetchOffers(currentSessionId);
-
-  if (offers && offers.length > 0) {
-    showLockerModal(offers, currentSessionId);
-  } else {
-    // Fallback: if API fails, unlock anyway
-    unlockPrompt();
-  }
+  // Step 2: Show the iframe locker directly
+  showLockerModal(currentSessionId);
 
   claimBtn.disabled = false;
   claimBtn.innerHTML = `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5V6.75a4.5 4.5 0 119 0v3.75M3.75 21.75h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H3.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg> Claim Your Prompt`;
@@ -1303,6 +1251,22 @@ document.addEventListener('keydown', e => {
   </div>
 </div>
 
+<!-- ── Username Modal ──────────────────────────────────────── -->
+<div class="modal hidden" id="username-modal">
+  <div class="modal-backdrop" id="username-backdrop"></div>
+  <div class="modal-content auth-content">
+    <div class="auth-header">
+      <h3 style="color: white; margin-bottom: 0.5rem; font-size: 1.5rem;">Choose a Username</h3>
+      <p style="color: #888; font-size: 0.9rem; margin-bottom: 1.5rem;">Pick a unique username to continue.</p>
+    </div>
+    <div class="auth-form">
+      <input type="text" id="auth-username" placeholder="Username" class="auth-input">
+      <button id="auth-username-btn" class="btn auth-submit-btn">Save Username</button>
+      <p id="username-error" class="auth-error hidden" style="color: #ff4b4b; font-size: 0.8rem; margin-top: 1rem; text-align: center;"></p>
+    </div>
+  </div>
+</div>
+
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
   import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
@@ -1312,7 +1276,7 @@ document.addEventListener('keydown', e => {
     signOut, onAuthStateChanged 
   } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
   import { 
-    getFirestore, doc, setDoc, getDoc 
+    getFirestore, doc, setDoc, getDoc, collection, query, where, getDocs 
   } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
   const firebaseConfig = {
@@ -1375,41 +1339,126 @@ document.addEventListener('keydown', e => {
   authClose.addEventListener('click', closeModal);
 
   async function syncLocalWithCloud(user) {
-    const docRef = doc(db, "users", user.uid);
-    const docSnap = await getDoc(docRef);
-    let cloudHistory = [];
-    if (docSnap.exists() && docSnap.data().history) {
-      cloudHistory = docSnap.data().history;
+    try {
+      const docRef = doc(db, "users", user.uid);
+      const docSnap = await getDoc(docRef);
+      let cloudHistory = [];
+      if (docSnap.exists() && docSnap.data().history) {
+        cloudHistory = docSnap.data().history;
+      }
+      
+      let localHistory = [];
+      try { localHistory = JSON.parse(localStorage.getItem('prompt_history') || '[]'); } catch(e){}
+
+      const combined = [...cloudHistory, ...localHistory];
+      const unique = [];
+      const seen = new Set();
+      combined.forEach(p => {
+        const id = p.date + p.original;
+        if (!seen.has(id)) { seen.add(id); unique.push(p); }
+      });
+
+      unique.sort((a,b) => new Date(b.date) - new Date(a.date));
+      
+      localStorage.setItem('prompt_history', JSON.stringify(unique.slice(0, 50)));
+      await setDoc(docRef, { history: unique.slice(0, 50) }, { merge: true });
+    } catch(e) {
+      console.warn("Firestore sync skipped:", e.message);
+    }
+  }
+
+  const usernameModal = document.getElementById('username-modal');
+  const usernameInput = document.getElementById('auth-username');
+  const usernameBtn = document.getElementById('auth-username-btn');
+  const usernameError = document.getElementById('username-error');
+  
+  let pendingUser = null;
+
+  async function checkUsernameUnique(username) {
+    const q = query(collection(db, "users"), where("username", "==", username));
+    const querySnapshot = await getDocs(q);
+    return querySnapshot.empty;
+  }
+
+  usernameBtn.addEventListener('click', async () => {
+    const un = usernameInput.value.trim().toLowerCase();
+    if (!un) {
+      usernameError.textContent = "Username cannot be empty";
+      usernameError.classList.remove('hidden');
+      return;
+    }
+    if (un.length < 3) {
+      usernameError.textContent = "Username must be at least 3 characters";
+      usernameError.classList.remove('hidden');
+      return;
     }
     
-    let localHistory = [];
-    try { localHistory = JSON.parse(localStorage.getItem('prompt_history') || '[]'); } catch(e){}
-
-    const combined = [...cloudHistory, ...localHistory];
-    const unique = [];
-    const seen = new Set();
-    combined.forEach(p => {
-      const id = p.date + p.original;
-      if (!seen.has(id)) { seen.add(id); unique.push(p); }
-    });
-
-    unique.sort((a,b) => new Date(b.date) - new Date(a.date));
+    usernameBtn.disabled = true;
+    usernameBtn.textContent = "Checking...";
     
-    localStorage.setItem('prompt_history', JSON.stringify(unique.slice(0, 50)));
-    await setDoc(docRef, { history: unique.slice(0, 50) });
+    try {
+      const isUnique = await checkUsernameUnique(un);
+      if (!isUnique) {
+        usernameError.textContent = "Username is already taken";
+        usernameError.classList.remove('hidden');
+        usernameBtn.disabled = false;
+        usernameBtn.textContent = "Save Username";
+        return;
+      }
+      
+      // Save it
+      await setDoc(doc(db, "users", pendingUser.uid), { username: un }, { merge: true });
+      usernameModal.classList.add('hidden');
+      completeLogin(pendingUser, un);
+    } catch(e) {
+      usernameError.textContent = "Error saving username: " + e.message;
+      usernameError.classList.remove('hidden');
+      usernameBtn.disabled = false;
+      usernameBtn.textContent = "Save Username";
+    }
+  });
+
+  async function completeLogin(user, username = "") {
+    window.isUserLoggedIn = true;
+    
+    let btnHtml = "Sign Out";
+    if (username) {
+      btnHtml = `<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="vertical-align: text-bottom; margin-right: 4px; color: var(--c-primary);"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span style="color:var(--c-primary); margin-right:6px; font-weight:700;">@${username}</span> <span style="opacity:0.5; font-size:0.75rem;">Log Out</span>`;
+    }
+    
+    navAuthBtn.innerHTML = btnHtml;
+    navAuthBtn.title = "Click to log out";
+    if (mobileAuthBtn) mobileAuthBtn.innerHTML = btnHtml;
+    
+    closeModal();
+    await syncLocalWithCloud(user);
   }
 
   onAuthStateChanged(auth, async (user) => {
     if (user) {
-      window.isUserLoggedIn = true;
-      navAuthBtn.textContent = "Sign Out";
-      if (mobileAuthBtn) mobileAuthBtn.textContent = "Sign Out";
-      closeModal();
-      await syncLocalWithCloud(user);
+      try {
+        const docRef = doc(db, "users", user.uid);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists() && docSnap.data().username) {
+          completeLogin(user, docSnap.data().username);
+        } else {
+          closeModal(); // close login modal
+          pendingUser = user;
+          usernameModal.classList.remove('hidden');
+        }
+      } catch (e) {
+        // If Firestore is disabled or permissions fail, still prompt for username
+        // The save will fail visually, alerting the user to the config issue.
+        closeModal(); 
+        pendingUser = user;
+        usernameModal.classList.remove('hidden');
+        console.error("Firestore error on login:", e.message);
+      }
     } else {
       window.isUserLoggedIn = false;
       navAuthBtn.textContent = "Sign In";
       if (mobileAuthBtn) mobileAuthBtn.textContent = "Sign In";
+      if (usernameModal) usernameModal.classList.add('hidden');
     }
   });
 
@@ -1436,6 +1485,14 @@ document.addEventListener('keydown', e => {
     } catch (e) {
       errorMsg.textContent = e.message; errorMsg.classList.remove('hidden');
     }
+  });
+
+  window.addEventListener('scroll', () => {
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    const pb = document.getElementById('scroll-progress');
+    if (pb) pb.style.width = scrolled + '%';
   });
 </script>
 </body>
