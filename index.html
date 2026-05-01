@@ -1014,6 +1014,102 @@ claimBtn.addEventListener('click', () => {
   showLockerModal();
 });
 
+// ─── Main Optimize Flow ─────────────────────────────────────────────
+async function runOptimize() {
+
+  const raw = textarea.value.trim();
+  if (!raw) { textarea.focus(); return; }
+
+  const origBtn = optimizeBtn.innerHTML;
+  optimizeBtn.disabled = true;
+  optimizeBtn.innerHTML = `<svg class="spin" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10" opacity=".25"/><path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round"/></svg> Analyzing…`;
+
+  // Update claim button text and hint based on mode
+  if (mode === 'pdf') {
+    claimBtn.innerHTML = `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5V6.75a4.5 4.5 0 119 0v3.75M3.75 21.75h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H3.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg> Unlock Document Analysis`;
+    document.querySelector('.claim-hint').textContent = "Complete one quick step to unlock your full document analysis";
+  } else if (mode === 'app') {
+    claimBtn.innerHTML = `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5V6.75a4.5 4.5 0 119 0v3.75M3.75 21.75h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H3.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg> Unlock App Blueprint`;
+    document.querySelector('.claim-hint').textContent = "Complete one quick step to unlock your full app blueprint";
+  } else {
+    claimBtn.innerHTML = `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5V6.75a4.5 4.5 0 119 0v3.75M3.75 21.75h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H3.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg> Claim Your Prompt`;
+    document.querySelector('.claim-hint').textContent = "Complete one quick step to unlock your optimized prompt";
+  }
+
+  // Reset UI
+  resultSec.classList.add('hidden');
+  progressSec.classList.remove('hidden');
+  progressFill.style.width = '0%';
+  progressPct.textContent = '0%';
+  blurWrap.classList.add('locked');
+  claimOverlay.classList.remove('hidden');
+  copyBtn.classList.add('hidden');
+
+  // Scroll to progress
+  progressSec.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+  // Random duration between 10-15 seconds
+  const duration = 10000 + Math.random() * 5000;
+
+  // Build the optimized prompt while the progress bar runs
+  if (mode === 'pdf') {
+    currentOptimized = buildPdfOutput(raw, uploadedFile);
+  } else if (mode === 'app') {
+    currentOptimized = buildAppOutput(raw);
+  } else {
+    // ── Call Gemini via secure backend ─────────────────────────────
+    try {
+      const apiRes = await fetch('/api/optimize', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt: raw, mode })
+      });
+      const data = await apiRes.json();
+      if (data.optimized) {
+        currentOptimized = data.optimized;
+      } else {
+        // Fallback to local builders if API fails
+        console.warn('[PromptEnhance] API fallback:', data.error);
+        currentOptimized = mode === 'text' ? buildTextOutput(raw) : (mode === 'image' ? buildImageOutput(raw) : buildVideoOutput(raw));
+      }
+    } catch (err) {
+      console.warn('[PromptEnhance] Network error, using local builder:', err);
+      currentOptimized = mode === 'text' ? buildTextOutput(raw) : (mode === 'image' ? buildImageOutput(raw) : buildVideoOutput(raw));
+    }
+  }
+
+  // Animate progress bar
+  await animateProgress(duration);
+
+  // Hide progress, show blurred result
+  progressSec.classList.add('hidden');
+  resultOut.textContent = currentOptimized;
+  resultSec.classList.remove('hidden');
+  
+  blurWrap.classList.add('locked');
+  claimOverlay.classList.remove('hidden');
+  copyBtn.classList.add('hidden');
+
+  resultSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  // Save to history immediately since they might be redirected
+  try {
+    const raw = textarea.value.trim();
+    const history = JSON.parse(localStorage.getItem('prompt_history') || '[]');
+    history.unshift({
+      original: raw,
+      optimized: currentOptimized,
+      mode: mode,
+      date: new Date().toISOString()
+    });
+    if (history.length > 50) history.length = 50;
+    localStorage.setItem('prompt_history', JSON.stringify(history));
+  } catch(e) {}
+
+  optimizeBtn.disabled = false;
+  optimizeBtn.innerHTML = origBtn;
+}
+
 optimizeBtn.addEventListener('click', runOptimize);
 document.addEventListener('keydown', e => {
   if ((e.ctrlKey || e.metaKey) && (e.key === 'Enter' || e.key.toLowerCase() === 'e')) { e.preventDefault(); runOptimize(); }
