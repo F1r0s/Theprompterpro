@@ -1053,6 +1053,9 @@ async function runOptimize() {
   // Random duration between 10-15 seconds
   const duration = 10000 + Math.random() * 5000;
 
+  // Start progress bar animation concurrently
+  const animPromise = animateProgress(duration);
+
   // Build the optimized prompt while the progress bar runs
   if (mode === 'pdf') {
     currentOptimized = buildPdfOutput(raw, uploadedFile);
@@ -1080,8 +1083,8 @@ async function runOptimize() {
     }
   }
 
-  // Animate progress bar
-  await animateProgress(duration);
+  // Ensure progress bar animation finishes
+  await animPromise;
 
   // Hide progress, show blurred result
   progressSec.classList.add('hidden');
