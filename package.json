@@ -1,7 +1,7 @@
 {
   "name": "prompt-optimizer",
   "version": "1.0.0",
-  "description": "Stitch Prompt Optimizer with OGAds content locker",
+  "description": "Stitch Prompt Optimizer",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

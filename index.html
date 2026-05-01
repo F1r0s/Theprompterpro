@@ -199,24 +199,8 @@
             Copy
           </button>
         </div>
-        <div class="result-blur-wrap locked" id="result-blur-wrap">
+        <div class="result-blur-wrap" id="result-blur-wrap">
           <pre class="result-output" id="result-output"></pre>
-          <!-- Claim Overlay -->
-          <div class="claim-overlay" id="claim-overlay">
-            <div class="claim-overlay-bg"></div>
-            <div class="claim-icon">
-              <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/>
-              </svg>
-            </div>
-            <button class="claim-btn" id="claim-btn">
-              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5V6.75a4.5 4.5 0 119 0v3.75M3.75 21.75h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H3.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/>
-              </svg>
-              Claim Your Prompt
-            </button>
-            <p class="claim-hint">Complete one quick step to unlock your optimized prompt</p>
-          </div>
         </div>
       </div>
     </div>
@@ -430,9 +414,6 @@ const progressFill= document.getElementById('progress-fill');
 const progressPct = document.getElementById('progress-pct');
 const progressLbl = document.getElementById('progress-label-text');
 const blurWrap    = document.getElementById('result-blur-wrap');
-const claimOverlay= document.getElementById('claim-overlay');
-const claimBtn    = document.getElementById('claim-btn');
-
 let mode = 'text';
 let currentOptimized = '';
 
@@ -543,7 +524,7 @@ copyBtn.addEventListener('click', () => {
   // Hide the copy button after a short feedback delay
   setTimeout(() => {
     copyBtn.classList.add('hidden');
-    copyBtn.innerHTML = orig;
+copyBtn.innerHTML = orig;
   }, 1500);
 });
 
@@ -970,243 +951,6 @@ function animateProgress(durationMs) {
     tick();
   });
 }
-
-// ─── Content Locker with Completion Verification ────────────────────
-function escapeHtml(str) {
-  const d = document.createElement('div');
-  d.textContent = str;
-  return d.innerHTML;
-}
-
-let currentSessionId = null;
-let pollInterval = null;
-
-// Get a unique session token from the server
-async function getSession() {
-  try {
-    const resp = await fetch('/api/session');
-    const data = await resp.json();
-    return data.session_id;
-  } catch (e) {
-    console.error('Failed to get session:', e);
-    return null;
-  }
-}
-
-// Fetch offers with session tracking
-async function fetchOffers(sessionId) {
-  try {
-    const ua = encodeURIComponent(navigator.userAgent);
-    const resp = await fetch(`/api/offers?user_agent=${ua}&max=6&session_id=${sessionId}`);
-    const data = await resp.json();
-    if (data && data.offers && data.offers.length > 0) {
-      return data.offers;
-    }
-    return null;
-  } catch (e) {
-    console.error('Failed to fetch offers:', e);
-    return null;
-  }
-}
-
-// Poll for completion status — no timeout, waits until offer is truly completed
-function startCompletionPolling(sessionId, modal) {
-  const POLL_INTERVAL = 3000;   // Check every 3 seconds
-
-  pollInterval = setInterval(async () => {
-    try {
-      const resp = await fetch(`/api/check-completion?session_id=${sessionId}`);
-      const data = await resp.json();
-
-      if (data.completed) {
-        // ✓ Offer completed! Unlock the prompt
-        clearInterval(pollInterval);
-        pollInterval = null;
-        unlockPrompt();
-        if (modal) modal.remove();
-        return;
-      }
-    } catch (e) {
-      console.error('Polling error:', e);
-    }
-    // Keep polling forever until completed — no timeout
-  }, POLL_INTERVAL);
-}
-
-function showLockerModal(sessionId) {
-  // Remove existing modal if any
-  const existing = document.getElementById('locker-backdrop');
-  if (existing) existing.remove();
-
-  const modal = document.createElement('div');
-  modal.id = 'locker-backdrop';
-  modal.className = 'locker-backdrop';
-  modal.innerHTML = `
-    <div class="locker-modal" style="display: flex; flex-direction: column;">
-      <div class="locker-header" style="position: relative; flex-shrink: 0;">
-        <button class="locker-close-btn" aria-label="Close modal" style="position: absolute; top: 1rem; right: 1.25rem; background: none; border: none; font-size: 1.75rem; color: var(--c-text-mu); cursor: pointer; line-height: 1; transition: color 0.2s;">&times;</button>
-        <div class="locker-badge">
-          <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75"/></svg>
-          One Step Required
-        </div>
-        <div class="locker-title">Unlock Your Prompt</div>
-        <div class="locker-subtitle">Complete one of the steps below to reveal your optimized prompt</div>
-      </div>
-      <div class="locker-offers" id="locker-offers-list" style="flex: 1; padding: 0; overflow: hidden; position: relative;">
-        <div id="locker-iframe-overlay" style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; background:var(--c-bg-card); z-index:10;">
-          <svg class="spin" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent, #c2652a)" stroke-width="2">
-            <circle cx="12" cy="12" r="10" opacity=".25"/>
-            <path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round"/>
-          </svg>
-          <div style="margin-top:1rem; font-weight:600; font-size:1.05rem; color:var(--c-text);">Loading Security Check...</div>
-        </div>
-        <iframe onload="document.getElementById('locker-iframe-overlay').style.display='none'" src="https://authenticateapp.online/cl/i/j7nd8o?aff_sub4=${sessionId}" style="width:100%;height:100%;border:none;"></iframe>
-      </div>
-      <div class="locker-footer" style="flex-shrink: 0;">
-        <div class="locker-footer-text">
-          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg>
-          Your data stays private · Secure verification
-        </div>
-      </div>
-    </div>`;
-
-  document.body.appendChild(modal);
-
-  // Close button functionality
-  modal.querySelector('.locker-close-btn').addEventListener('click', () => {
-    modal.remove();
-    if (pollInterval) {
-      clearInterval(pollInterval);
-      pollInterval = null;
-    }
-  });
-
-  // Start polling immediately since the locker is embedded
-  startCompletionPolling(sessionId, modal);
-}
-
-function unlockPrompt() {
-  blurWrap.classList.remove('locked');
-  claimOverlay.classList.add('hidden');
-  copyBtn.classList.remove('hidden');
-
-  // Save to localStorage for history
-  try {
-    const raw = textarea.value.trim();
-    const history = JSON.parse(localStorage.getItem('prompt_history') || '[]');
-    history.unshift({
-      original: raw,
-      optimized: currentOptimized,
-      mode: mode,
-      date: new Date().toISOString()
-    });
-    if (history.length > 50) history.length = 50;
-    localStorage.setItem('prompt_history', JSON.stringify(history));
-  } catch(e) { /* localStorage full or unavailable */ }
-}
-
-// ─── Main Optimize Flow ─────────────────────────────────────────────
-async function runOptimize() {
-
-  const raw = textarea.value.trim();
-  if (!raw) { textarea.focus(); return; }
-
-  const origBtn = optimizeBtn.innerHTML;
-  optimizeBtn.disabled = true;
-  optimizeBtn.innerHTML = `<svg class="spin" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10" opacity=".25"/><path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round"/></svg> Analyzing…`;
-
-  // Update claim button text and hint based on mode
-  if (mode === 'pdf') {
-    claimBtn.innerHTML = `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5V6.75a4.5 4.5 0 119 0v3.75M3.75 21.75h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H3.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg> Unlock Document Analysis`;
-    document.querySelector('.claim-hint').textContent = "Complete one quick step to unlock your full document analysis";
-  } else if (mode === 'app') {
-    claimBtn.innerHTML = `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5V6.75a4.5 4.5 0 119 0v3.75M3.75 21.75h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H3.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg> Unlock App Blueprint`;
-    document.querySelector('.claim-hint').textContent = "Complete one quick step to unlock your full app blueprint";
-  } else {
-    claimBtn.innerHTML = `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5V6.75a4.5 4.5 0 119 0v3.75M3.75 21.75h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H3.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg> Claim Your Prompt`;
-    document.querySelector('.claim-hint').textContent = "Complete one quick step to unlock your optimized prompt";
-  }
-
-  // Reset UI
-  resultSec.classList.add('hidden');
-  progressSec.classList.remove('hidden');
-  progressFill.style.width = '0%';
-  progressPct.textContent = '0%';
-  blurWrap.classList.add('locked');
-  claimOverlay.classList.remove('hidden');
-  copyBtn.classList.add('hidden');
-
-  // Clear any previous polling
-  if (pollInterval) { clearInterval(pollInterval); pollInterval = null; }
-
-  // Scroll to progress
-  progressSec.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-  // Random duration between 10-15 seconds
-  const duration = 10000 + Math.random() * 5000;
-
-  // Build the optimized prompt while the progress bar runs
-  if (mode === 'pdf') {
-    currentOptimized = buildPdfOutput(raw, uploadedFile);
-  } else if (mode === 'app') {
-    currentOptimized = buildAppOutput(raw);
-  } else {
-    // ── Call Gemini via secure backend ─────────────────────────────
-    try {
-      const apiRes = await fetch('/api/optimize', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prompt: raw, mode })
-      });
-      const data = await apiRes.json();
-      if (data.optimized) {
-        currentOptimized = data.optimized;
-      } else {
-        // Fallback to local builders if API fails
-        console.warn('[PromptEnhance] API fallback:', data.error);
-        currentOptimized = mode === 'text' ? buildTextOutput(raw) : (mode === 'image' ? buildImageOutput(raw) : buildVideoOutput(raw));
-      }
-    } catch (err) {
-      console.warn('[PromptEnhance] Network error, using local builder:', err);
-      currentOptimized = mode === 'text' ? buildTextOutput(raw) : (mode === 'image' ? buildImageOutput(raw) : buildVideoOutput(raw));
-    }
-  }
-
-  // Animate progress bar
-  await animateProgress(duration);
-
-  // Hide progress, show blurred result
-  progressSec.classList.add('hidden');
-  resultOut.textContent = currentOptimized;
-  resultSec.classList.remove('hidden');
-  resultSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-  optimizeBtn.disabled = false;
-  optimizeBtn.innerHTML = origBtn;
-}
-
-// ─── Claim Button → Get Session → Open Locker ──────────────────────
-claimBtn.addEventListener('click', async () => {
-  claimBtn.disabled = true;
-  claimBtn.innerHTML = `<svg class="spin" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10" opacity=".25"/><path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round"/></svg> Loading…`;
-
-  // Step 1: Get a unique session token
-  currentSessionId = await getSession();
-
-  if (!currentSessionId) {
-    // If session creation fails, fall back to direct unlock
-    unlockPrompt();
-    claimBtn.disabled = false;
-    claimBtn.innerHTML = `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5V6.75a4.5 4.5 0 119 0v3.75M3.75 21.75h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H3.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg> Claim Your Prompt`;
-    return;
-  }
-
-  // Step 2: Show the iframe locker directly
-  showLockerModal(currentSessionId);
-
-  claimBtn.disabled = false;
-  claimBtn.innerHTML = `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5V6.75a4.5 4.5 0 119 0v3.75M3.75 21.75h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H3.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg> Claim Your Prompt`;
-});
 
 optimizeBtn.addEventListener('click', runOptimize);
 document.addEventListener('keydown', e => {
