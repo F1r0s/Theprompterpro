@@ -1,13 +1,13 @@
-<!-- Updated for PromptPulse verifications -->
+<!-- Updated for PromptEnhance verifications -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PromptPulse — Write Better Prompts, Instantly</title>
-<meta name="description" content="Free AI PromptPulse — Transform vague ideas into precise instructions for ChatGPT, Claude, Gemini, and image AI. 52,000+ prompts optimized.">
+<title>PromptEnhance — Write Better Prompts, Instantly</title>
+<meta name="description" content="Free AI PromptEnhance — Transform vague ideas into precise instructions for ChatGPT, Claude, Gemini, and image AI. 52,000+ prompts optimized.">
 <meta name="keywords" content="prompt optimezer, prompt for sctipt writing tv shows, template prompt to create a model character, promt optimizer prompt optimizer, prompt, optimizertool, ai prompt optimizer, free prompt optimizers, prompt optimizer, AI prompt tool, ChatGPT prompts, Claude prompts, prompt engineering, Stitch prompt optimizer">
-<meta property="og:title" content="PromptPulse — Write Better Prompts, Instantly">
+<meta property="og:title" content="PromptEnhance — Write Better Prompts, Instantly">
 <meta property="og:description" content="Transform vague ideas into precise AI instructions. Free and instant.">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#c2652a">
@@ -26,7 +26,7 @@
 <nav class="nav" id="nav">
   <div class="container">
     <div class="nav-inner">
-      <a href="index.html" class="nav-brand" aria-label="PromptPulse Home">
+      <a href="index.html" class="nav-brand" aria-label="PromptEnhance Home">
         <div class="nav-brand-icon">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <!-- Antenna -->
@@ -46,7 +46,7 @@
             <rect x="7.5" y="17" width="9" height="5" rx="2" fill="#fff" opacity=".15" stroke="#fff" stroke-width="1.2"/>
           </svg>
         </div>
-        <span class="nav-brand-text">PromptPulse</span>
+        <span class="nav-brand-text">PromptEnhance</span>
       </a>
       <div class="nav-links">
         <a href="#how-it-works" class="nav-link">How It Works</a>
@@ -392,7 +392,7 @@
             <rect x="7.5" y="17" width="9" height="5" rx="2" fill="#fff" opacity=".15" stroke="#fff" stroke-width="1.2"/>
           </svg>
         </div>
-        <span class="footer-brand-text">PromptPulse</span>
+        <span class="footer-brand-text">PromptEnhance</span>
       </div>
       <div class="footer-links">
         <a href="#how-it-works" class="footer-link">How It Works</a>
@@ -402,7 +402,7 @@
         <a href="privacy.html" class="footer-link">Privacy</a>
         <a href="terms.html" class="footer-link">Terms</a>
       </div>
-      <p class="footer-copy">© 2026 PromptPulse · Every word stitched with intent.</p>
+      <p class="footer-copy">© 2026 PromptEnhance · Every word stitched with intent.</p>
     </div>
   </div>
 </footer>
@@ -1174,11 +1174,11 @@ async function runOptimize() {
         currentOptimized = data.optimized;
       } else {
         // Fallback to local builders if API fails
-        console.warn('[PromptPulse] API fallback:', data.error);
+        console.warn('[PromptEnhance] API fallback:', data.error);
         currentOptimized = mode === 'text' ? buildTextOutput(raw) : (mode === 'image' ? buildImageOutput(raw) : buildVideoOutput(raw));
       }
     } catch (err) {
-      console.warn('[PromptPulse] Network error, using local builder:', err);
+      console.warn('[PromptEnhance] Network error, using local builder:', err);
       currentOptimized = mode === 'text' ? buildTextOutput(raw) : (mode === 'image' ? buildImageOutput(raw) : buildVideoOutput(raw));
     }
   }

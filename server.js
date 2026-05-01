@@ -260,7 +260,7 @@ app.post('/api/optimize', async (req, res) => {
 
   // ── System Instructions per mode ───────────────────────────────────
   const systemInstructions = {
-    text: `You are PromptPulse, an expert AI prompt engineer. Your job is to take the user's brief, vague input and expand it into a highly professional, structured prompt template.
+    text: `You are PromptEnhance, an expert AI prompt engineer. Your job is to take the user's brief, vague input and expand it into a highly professional, structured prompt template.
 
 You must adapt the role, context variables, and instructions to perfectly match the THEME and TOPIC of what the user asked for.
 
@@ -285,7 +285,7 @@ Instructions:
 
 Output Format: A structured report with the sections: {List the specific sections the AI should use in its final output based on the topic}.`,
 
-    image: `You are PromptPulse, an expert AI prompt engineer. Your job is to take the user's brief image idea and expand it into a highly professional, structured prompt template for Midjourney or DALL-E.
+    image: `You are PromptEnhance, an expert AI prompt engineer. Your job is to take the user's brief image idea and expand it into a highly professional, structured prompt template for Midjourney or DALL-E.
 
 You must adapt the role, context variables, and instructions to perfectly match the THEME and TOPIC of what the user asked for.
 
@@ -309,7 +309,7 @@ Instructions:
 
 Output Format: A structured prompt with the sections: {List specific sections like Subject Description, Camera & Lighting, Rendering Parameters, and Negative Prompt}.`,
 
-    video: `You are PromptPulse, an expert AI prompt engineer. Your job is to take the user's brief video idea and expand it into a highly professional, structured prompt template for AI video generators like Sora or Runway.
+    video: `You are PromptEnhance, an expert AI prompt engineer. Your job is to take the user's brief video idea and expand it into a highly professional, structured prompt template for AI video generators like Sora or Runway.
 
 You must adapt the role, context variables, and instructions to perfectly match the THEME and TOPIC of what the user asked for.
 
@@ -333,7 +333,7 @@ Instructions:
 
 Output Format: A structured prompt with the sections: {List specific sections like Scene Action, Camera Dynamics, Lighting & Atmosphere, and Technical Parameters}.`,
 
-    pdf: `You are PromptPulse, an expert AI prompt engineer. Your job is to take the user's brief document query and expand it into a highly professional, structured prompt template for analyzing a PDF or document.
+    pdf: `You are PromptEnhance, an expert AI prompt engineer. Your job is to take the user's brief document query and expand it into a highly professional, structured prompt template for analyzing a PDF or document.
 
 You must adapt the role, context variables, and instructions to perfectly match the THEME and TOPIC of what the user asked for.
 
@@ -357,7 +357,7 @@ Instructions:
 
 Output Format: A structured report with the sections: {List specific sections like Executive Summary, Key Findings, Data Extraction, and Conclusions}.`,
 
-    app: `You are PromptPulse, an expert AI prompt engineer. Your job is to take the user's brief app idea and expand it into a highly professional, structured prompt template for an AI coding assistant (like Cursor or Copilot).
+    app: `You are PromptEnhance, an expert AI prompt engineer. Your job is to take the user's brief app idea and expand it into a highly professional, structured prompt template for an AI coding assistant (like Cursor or Copilot).
 
 You must adapt the role, context variables, and instructions to perfectly match the THEME and TOPIC of what the user asked for.
 
@@ -425,7 +425,7 @@ Output Format: A structured blueprint with the sections: {List specific sections
 
 if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
     app.listen(PORT, () => {
-        console.log(`\n✦ PromptPulse Server running at http://localhost:${PORT}`);
+        console.log(`\n✦ PromptEnhance Server running at http://localhost:${PORT}`);
         console.log(`  Postback URL: https://yourdomain.com/api/postback?session_id={aff_sub4}\n`);
     });
 }
