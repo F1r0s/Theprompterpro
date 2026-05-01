@@ -54,8 +54,7 @@
         <a href="about.html" class="nav-link">About</a>
         <a href="history.html" class="nav-link">History</a>
         <div class="nav-divider"></div>
-        <button id="nav-auth-btn" class="nav-auth-btn">Sign In</button>
-      </div>
+        </div>
       <button class="mobile-menu-btn" id="mobile-btn" aria-label="Toggle menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -66,8 +65,7 @@
     <a href="#features" class="mobile-nav-link">Features</a>
     <a href="about.html" class="mobile-nav-link">About</a>
     <a href="history.html" class="mobile-nav-link">History</a>
-    <button id="mobile-auth-btn" class="mobile-nav-cta">Sign In</button>
-  </div>
+    </div>
 </nav>
 
 <main>
@@ -1104,20 +1102,11 @@ function unlockPrompt() {
     });
     if (history.length > 50) history.length = 50;
     localStorage.setItem('prompt_history', JSON.stringify(history));
-    
-    // Sync with cloud if logged in
-    if (window.saveToCloud) {
-      window.saveToCloud(history);
-    }
   } catch(e) { /* localStorage full or unavailable */ }
 }
 
 // ─── Main Optimize Flow ─────────────────────────────────────────────
 async function runOptimize() {
-  if (!window.isUserLoggedIn) {
-    if (window.openAuthModal) window.openAuthModal();
-    return;
-  }
 
   const raw = textarea.value.trim();
   if (!raw) { textarea.focus(); return; }
@@ -1224,269 +1213,7 @@ document.addEventListener('keydown', e => {
   if ((e.ctrlKey || e.metaKey) && (e.key === 'Enter' || e.key.toLowerCase() === 'e')) { e.preventDefault(); runOptimize(); }
 });
 </script>
-<!-- ── Auth Modal ──────────────────────────────────────── -->
-<div class="modal hidden" id="auth-modal">
-  <div class="modal-backdrop" id="auth-backdrop"></div>
-  <div class="modal-content auth-content">
-    <button class="modal-close" id="auth-close">✕</button>
-    <div class="auth-header">
-      <h3 style="color: white; margin-bottom: 0.5rem; font-size: 1.5rem;">Save Your Prompts</h3>
-      <p style="color: #888; font-size: 0.9rem; margin-bottom: 1.5rem;">Sign in to sync your prompt history across all your devices.</p>
-    </div>
-    
-    <button id="auth-google-btn" class="btn google-auth-btn">
-      <svg viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg" style="margin-right: 10px;"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/><path d="M1 1h22v22H1z" fill="none"/></svg>
-      Continue with Google
-    </button>
-    
-    <div class="auth-divider"><span>or email</span></div>
-    
-    <div class="auth-form">
-      <input type="email" id="auth-email" placeholder="Email address" class="auth-input">
-      <input type="password" id="auth-pass" placeholder="Password" class="auth-input">
-      <button id="auth-email-signin-btn" class="btn auth-submit-btn">Sign In</button>
-      <button id="auth-email-signup-btn" class="btn auth-submit-btn" style="background: transparent; border: 1px solid rgba(255,255,255,0.2); margin-top: 0;">Create Account</button>
-      <p id="auth-error" class="auth-error hidden" style="color: #ff4b4b; font-size: 0.8rem; margin-top: 1rem; text-align: center;"></p>
-    </div>
-  </div>
-</div>
-
-<!-- ── Username Modal ──────────────────────────────────────── -->
-<div class="modal hidden" id="username-modal">
-  <div class="modal-backdrop" id="username-backdrop"></div>
-  <div class="modal-content auth-content">
-    <div class="auth-header">
-      <h3 style="color: white; margin-bottom: 0.5rem; font-size: 1.5rem;">Choose a Username</h3>
-      <p style="color: #888; font-size: 0.9rem; margin-bottom: 1.5rem;">Pick a unique username to continue.</p>
-    </div>
-    <div class="auth-form">
-      <input type="text" id="auth-username" placeholder="Username" class="auth-input">
-      <button id="auth-username-btn" class="btn auth-submit-btn">Save Username</button>
-      <p id="username-error" class="auth-error hidden" style="color: #ff4b4b; font-size: 0.8rem; margin-top: 1rem; text-align: center;"></p>
-    </div>
-  </div>
-</div>
-
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
-  import { 
-    getAuth, signInWithPopup, GoogleAuthProvider, 
-    signInWithEmailAndPassword, createUserWithEmailAndPassword, 
-    signOut, onAuthStateChanged 
-  } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-  import { 
-    getFirestore, doc, setDoc, getDoc, collection, query, where, getDocs 
-  } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyDFauoXQhuySUUxSHrFlab8nkxZud5g4Jg",
-    authDomain: "promptpulse-76394.firebaseapp.com",
-    projectId: "promptpulse-76394",
-    storageBucket: "promptpulse-76394.firebasestorage.app",
-    messagingSenderId: "177300361537",
-    appId: "1:177300361537:web:41f1248f44939ebcfad1c0",
-    measurementId: "G-NSZQF6D7RX"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
-
-  window.saveToCloud = async (history) => {
-    if (!auth.currentUser) return;
-    try {
-      await setDoc(doc(db, "users", auth.currentUser.uid), { history }, { merge: true });
-    } catch (e) {
-      console.error("Error saving history to cloud:", e);
-    }
-  };
-
-  window.isUserLoggedIn = false;
-
-  const navAuthBtn = document.getElementById('nav-auth-btn');
-  const mobileAuthBtn = document.getElementById('mobile-auth-btn');
-  const authModal = document.getElementById('auth-modal');
-  const authBackdrop = document.getElementById('auth-backdrop');
-  const authClose = document.getElementById('auth-close');
-  const googleBtn = document.getElementById('auth-google-btn');
-  const signinBtn = document.getElementById('auth-email-signin-btn');
-  const signupBtn = document.getElementById('auth-email-signup-btn');
-  const emailInput = document.getElementById('auth-email');
-  const passInput = document.getElementById('auth-pass');
-  const errorMsg = document.getElementById('auth-error');
-
-  const openModal = () => { authModal.classList.remove('hidden'); errorMsg.classList.add('hidden'); };
-  const closeModal = () => authModal.classList.add('hidden');
-  window.openAuthModal = openModal;
-  
-  navAuthBtn.addEventListener('click', () => {
-    if (auth.currentUser) signOut(auth);
-    else openModal();
-  });
-  
-  if (mobileAuthBtn) {
-    mobileAuthBtn.addEventListener('click', () => {
-      mobileMenu.classList.add('hidden');
-      mobileBtn.setAttribute('aria-expanded', 'false');
-      if (auth.currentUser) signOut(auth);
-      else openModal();
-    });
-  }
-  
-  authBackdrop.addEventListener('click', closeModal);
-  authClose.addEventListener('click', closeModal);
-
-  async function syncLocalWithCloud(user) {
-    try {
-      const docRef = doc(db, "users", user.uid);
-      const docSnap = await getDoc(docRef);
-      let cloudHistory = [];
-      if (docSnap.exists() && docSnap.data().history) {
-        cloudHistory = docSnap.data().history;
-      }
-      
-      let localHistory = [];
-      try { localHistory = JSON.parse(localStorage.getItem('prompt_history') || '[]'); } catch(e){}
-
-      const combined = [...cloudHistory, ...localHistory];
-      const unique = [];
-      const seen = new Set();
-      combined.forEach(p => {
-        const id = p.date + p.original;
-        if (!seen.has(id)) { seen.add(id); unique.push(p); }
-      });
-
-      unique.sort((a,b) => new Date(b.date) - new Date(a.date));
-      
-      localStorage.setItem('prompt_history', JSON.stringify(unique.slice(0, 50)));
-      await setDoc(docRef, { history: unique.slice(0, 50) }, { merge: true });
-    } catch(e) {
-      console.warn("Firestore sync skipped:", e.message);
-    }
-  }
-
-  const usernameModal = document.getElementById('username-modal');
-  const usernameInput = document.getElementById('auth-username');
-  const usernameBtn = document.getElementById('auth-username-btn');
-  const usernameError = document.getElementById('username-error');
-  
-  let pendingUser = null;
-
-  async function checkUsernameUnique(username) {
-    const q = query(collection(db, "users"), where("username", "==", username));
-    const querySnapshot = await getDocs(q);
-    return querySnapshot.empty;
-  }
-
-  usernameBtn.addEventListener('click', async () => {
-    const un = usernameInput.value.trim().toLowerCase();
-    if (!un) {
-      usernameError.textContent = "Username cannot be empty";
-      usernameError.classList.remove('hidden');
-      return;
-    }
-    if (un.length < 3) {
-      usernameError.textContent = "Username must be at least 3 characters";
-      usernameError.classList.remove('hidden');
-      return;
-    }
-    
-    usernameBtn.disabled = true;
-    usernameBtn.textContent = "Checking...";
-    
-    try {
-      const isUnique = await checkUsernameUnique(un);
-      if (!isUnique) {
-        usernameError.textContent = "Username is already taken";
-        usernameError.classList.remove('hidden');
-        usernameBtn.disabled = false;
-        usernameBtn.textContent = "Save Username";
-        return;
-      }
-      
-      // Save it
-      await setDoc(doc(db, "users", pendingUser.uid), { username: un }, { merge: true });
-      usernameModal.classList.add('hidden');
-      completeLogin(pendingUser, un);
-    } catch(e) {
-      usernameError.textContent = "Error saving username: " + e.message;
-      usernameError.classList.remove('hidden');
-      usernameBtn.disabled = false;
-      usernameBtn.textContent = "Save Username";
-    }
-  });
-
-  async function completeLogin(user, username = "") {
-    window.isUserLoggedIn = true;
-    
-    let btnHtml = "Sign Out";
-    if (username) {
-      btnHtml = `<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="vertical-align: text-bottom; margin-right: 4px; color: var(--c-primary);"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span style="color:var(--c-primary); margin-right:6px; font-weight:700;">@${username}</span> <span style="opacity:0.5; font-size:0.75rem;">Log Out</span>`;
-    }
-    
-    navAuthBtn.innerHTML = btnHtml;
-    navAuthBtn.title = "Click to log out";
-    if (mobileAuthBtn) mobileAuthBtn.innerHTML = btnHtml;
-    
-    closeModal();
-    await syncLocalWithCloud(user);
-  }
-
-  onAuthStateChanged(auth, async (user) => {
-    if (user) {
-      try {
-        const docRef = doc(db, "users", user.uid);
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists() && docSnap.data().username) {
-          completeLogin(user, docSnap.data().username);
-        } else {
-          closeModal(); // close login modal
-          pendingUser = user;
-          usernameModal.classList.remove('hidden');
-        }
-      } catch (e) {
-        // If Firestore is disabled or permissions fail, still prompt for username
-        // The save will fail visually, alerting the user to the config issue.
-        closeModal(); 
-        pendingUser = user;
-        usernameModal.classList.remove('hidden');
-        console.error("Firestore error on login:", e.message);
-      }
-    } else {
-      window.isUserLoggedIn = false;
-      navAuthBtn.textContent = "Sign In";
-      if (mobileAuthBtn) mobileAuthBtn.textContent = "Sign In";
-      if (usernameModal) usernameModal.classList.add('hidden');
-    }
-  });
-
-  googleBtn.addEventListener('click', async () => {
-    try { await signInWithPopup(auth, new GoogleAuthProvider()); } 
-    catch (e) { errorMsg.textContent = e.message; errorMsg.classList.remove('hidden'); }
-  });
-
-  signinBtn.addEventListener('click', async () => {
-    const email = emailInput.value, password = passInput.value;
-    if(!email || !password) return;
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-    } catch (e) {
-      errorMsg.textContent = e.message; errorMsg.classList.remove('hidden');
-    }
-  });
-
-  signupBtn.addEventListener('click', async () => {
-    const email = emailInput.value, password = passInput.value;
-    if(!email || !password) return;
-    try {
-      await createUserWithEmailAndPassword(auth, email, password);
-    } catch (e) {
-      errorMsg.textContent = e.message; errorMsg.classList.remove('hidden');
-    }
-  });
-
+<script>
   window.addEventListener('scroll', () => {
     const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
     const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
