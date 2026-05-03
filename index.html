@@ -18,8 +18,137 @@
   <link rel="icon" href="favicon.svg?v=4" type="image/svg+xml">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="mask-icon" href="favicon.svg?v=4" color="#c2652a">
+  <style>
+    .lead-gate {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: rgba(250, 245, 238, 0.78);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+    .lead-gate.hidden {
+      display: none;
+    }
+    .lead-gate-card {
+      position: relative;
+      width: 100%;
+      max-width: 560px;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(194, 101, 42, 0.18);
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(58, 48, 42, 0.14);
+      padding: 34px 28px;
+      text-align: center;
+    }
+    .lead-gate-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 34px;
+      height: 34px;
+      z-index: 2;
+      border-radius: 999px;
+      border: 1px solid rgba(194, 101, 42, 0.18);
+      background: rgba(250, 245, 238, 0.92);
+      color: var(--c-text, #3a302a);
+      font-size: 1.2rem;
+      line-height: 1;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+    }
+    .lead-gate-close:hover {
+      background: #fff;
+    }
+    .lead-gate-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(194, 101, 42, 0.12);
+      border: 1px solid rgba(194, 101, 42, 0.24);
+      color: var(--c-text, #3a302a);
+      font-family: var(--f-ui, sans-serif);
+      font-size: 0.85rem;
+      margin-bottom: 18px;
+    }
+    .lead-gate-title {
+      font-family: var(--f-display, Georgia, serif);
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      line-height: 1.1;
+      color: var(--c-text, #3a302a);
+      margin: 0 0 12px;
+    }
+    .lead-gate-copy {
+      color: var(--c-text-sec, #78706a);
+      margin: 0 auto 22px;
+      max-width: 38ch;
+      line-height: 1.6;
+    }
+    .lead-gate-form {
+      display: grid;
+      gap: 14px;
+      max-width: 420px;
+      margin: 0 auto;
+    }
+    .lead-gate-input {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 12px;
+      border: 1px solid rgba(216, 208, 200, 1);
+      background: #fff;
+      color: var(--c-text, #3a302a);
+      text-align: center;
+      font: inherit;
+      outline: none;
+    }
+    .lead-gate-input::placeholder {
+      color: rgba(58, 48, 42, 0.45);
+    }
+    .lead-gate-button {
+      width: 100%;
+      padding: 14px 16px;
+      border: 0;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #c2652a, #d17a44);
+      color: #fff;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .lead-gate-message {
+      min-height: 1.25rem;
+      font-size: 0.95rem;
+      color: #b04a20;
+    }
+    .lead-gate-note {
+      margin-top: 18px;
+      font-size: 0.82rem;
+      color: rgba(58, 48, 42, 0.6);
+    }
+  </style>
 </head>
 <body>
+<div class="lead-gate" id="lead-gate" hidden>
+  <div class="lead-gate-card">
+    <button class="lead-gate-close" id="lead-gate-close" type="button" aria-label="Close subscription gate">&times;</button>
+    <div class="lead-gate-chip">PromptEnhance</div>
+    <h1 class="lead-gate-title">Subscribe to the newsletter</h1>
+    <p class="lead-gate-copy">Enter your email address or a digits-only phone number if you want more features or updates about the website.</p>
+    <form class="lead-gate-form" id="lead-gate-form">
+      <input class="lead-gate-input" id="lead-contact" name="contact" type="text" placeholder="Enter your email or phone number" autocomplete="email" required>
+      <button class="lead-gate-button" type="submit">Subscribe to newsletter</button>
+      <div class="lead-gate-message" id="lead-gate-message" aria-live="polite"></div>
+    </form>
+    <div class="lead-gate-note">We respect your privacy. Unsubscribe anytime.</div>
+  </div>
+</div>
 <div class="scroll-progress" id="scroll-progress" style="position:fixed;top:0;left:0;height:3px;background:var(--c-primary);z-index:9999;width:0%;transition:width 0.1s ease-out;"></div>
 
 <!-- ── Navigation ──────────────────────────────────── -->
@@ -404,6 +533,11 @@
 </footer>
 
 <script>
+const leadGate = document.getElementById('lead-gate');
+const leadGateClose = document.getElementById('lead-gate-close');
+const leadForm = document.getElementById('lead-gate-form');
+const leadInput = document.getElementById('lead-contact');
+const leadMessage = document.getElementById('lead-gate-message');
 const textarea    = document.getElementById('prompt-input');
 const charCount   = document.getElementById('char-count');
 const optimizeBtn = document.getElementById('optimize-btn');
@@ -433,6 +567,76 @@ const claimBtn    = document.getElementById('claim-btn');
 let mode = 'text';
 let currentOptimized = '';
 
+function hasLeadAccess() {
+  return localStorage.getItem('promptenhance_access') === '1';
+}
+
+function unlockSite() {
+  localStorage.setItem('promptenhance_access', '1');
+  leadGate.classList.add('hidden');
+  document.body.style.overflow = '';
+}
+
+function showGate() {
+  leadGate.hidden = false;
+  document.body.style.overflow = 'hidden';
+}
+
+function dismissGate() {
+  leadGate.remove();
+  document.body.style.overflow = '';
+}
+
+if (!hasLeadAccess()) {
+  showGate();
+} else {
+  leadGate.hidden = true;
+}
+
+leadGateClose.addEventListener('click', (event) => {
+  event.preventDefault();
+  dismissGate();
+});
+
+leadGateClose.addEventListener('pointerdown', (event) => {
+  event.preventDefault();
+  dismissGate();
+});
+
+leadForm.addEventListener('submit', async (event) => {
+  event.preventDefault();
+  const contact = leadInput.value.trim();
+  leadMessage.textContent = 'Saving...';
+
+  try {
+    const response = await fetch('/api/lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ contact })
+    });
+
+    const responseText = await response.text();
+    let payload = {};
+
+    if (responseText) {
+      try {
+        payload = JSON.parse(responseText);
+      } catch (parseError) {
+        throw new Error('The lead endpoint did not return JSON. Make sure the site is opened through the server, not as a local file.');
+      }
+    }
+
+    if (!response.ok) {
+      throw new Error(payload.error || 'Unable to save lead.');
+    }
+
+    unlockSite();
+    leadMessage.textContent = '';
+  } catch (error) {
+    leadMessage.textContent = error.message;
+  }
+});
+
 // Mobile menu
 mobileBtn.addEventListener('click', () => {
   const open = mobileMenu.classList.contains('hidden');
@@ -446,6 +650,12 @@ mobileMenu.querySelectorAll('a').forEach(a =>
 // Tab switching
 function setMode(m) {
   mode = m;
+  
+  // Reset input and results to feel like a "new page"
+  textarea.value = '';
+  resultSec.classList.add('hidden');
+  progressSec.classList.add('hidden');
+
   tabText.classList.toggle('active', m === 'text');
   tabImage.classList.toggle('active', m === 'image');
   tabVideo.classList.toggle('active', m === 'video');

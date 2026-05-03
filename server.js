@@ -4,10 +4,32 @@ const cors = require('cors');
 const axios = require('axios');
 const path = require('path');
 const crypto = require('crypto');
+const fs = require('fs');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.use(express.json());
+app.use(express.static(__dirname));
+
+app.post('/api/lead', (req, res) => {
+  const contact = typeof req.body?.contact === 'string' ? req.body.contact.trim() : '';
+  const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact);
+  const isPhone = /^\d{7,15}$/.test(contact);
+
+  if (!contact || (!isEmail && !isPhone)) {
+    return res.status(400).json({ error: 'Please enter a valid email address or digits-only phone number.' });
+  }
+
+  fs.appendFile(path.join(__dirname, 'leads.txt'), `${contact}\n`, (err) => {
+    if (err) {
+      console.error('[LEAD ERROR]', err.message);
+      return res.status(500).json({ error: 'Unable to save lead.' });
+    }
+
+    return res.json({ ok: true });
+  });
+});
 // ── Gemini Prompt Optimizer Endpoint ──────────────────────────────
 app.post('/api/optimize', async (req, res) => {
   const { prompt, mode } = req.body;
