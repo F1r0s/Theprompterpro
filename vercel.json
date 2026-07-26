@@ -6,16 +6,52 @@
       "use": "@vercel/node"
     },
     {
-      "src": "*.css",
+      "src": "*.html",
       "use": "@vercel/static"
     },
     {
-      "src": "*.html",
+      "src": "*.css",
       "use": "@vercel/static"
     },
     {
       "src": "*.svg",
       "use": "@vercel/static"
+    },
+    {
+      "src": "*.xml",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "*.txt",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "*.png",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "*.ico",
+      "use": "@vercel/static"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/sitemap.xml",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/xml; charset=utf-8"
+        }
+      ]
+    },
+    {
+      "source": "/robots.txt",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/plain; charset=utf-8"
+        }
+      ]
     }
   ],
   "rewrites": [
@@ -25,4 +61,3 @@
     }
   ]
 }
-

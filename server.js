@@ -12,6 +12,16 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.static(__dirname));
 
+app.get('/sitemap.xml', (req, res) => {
+  res.header('Content-Type', 'application/xml');
+  res.sendFile(path.join(__dirname, 'sitemap.xml'));
+});
+
+app.get('/robots.txt', (req, res) => {
+  res.header('Content-Type', 'text/plain');
+  res.sendFile(path.join(__dirname, 'robots.txt'));
+});
+
 app.post('/api/lead', (req, res) => {
   const contact = typeof req.body?.contact === 'string' ? req.body.contact.trim() : '';
   const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact);
