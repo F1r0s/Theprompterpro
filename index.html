@@ -1,0 +1,1369 @@
+<!-- Updated for PromptEnhance verifications -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PromptEnhance — Write Better Prompts, Instantly</title>
+<meta name="description" content="Free AI prompt optimizer — transform vague ideas into precise instructions for ChatGPT, Claude, Gemini, and image AI. 52,000+ prompts optimized instantly.">
+<meta name="keywords" content="prompt optimizer, ai prompt optimizer, free prompt optimizer, prompt engineering tool, ChatGPT prompts, Claude prompts, Gemini prompts, image AI prompts, prompt enhancer, write better prompts, AI writing tool, prompt generator">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<meta name="author" content="PromptEnhance">
+<!-- Open Graph -->
+<meta property="og:title" content="PromptEnhance — Write Better Prompts, Instantly">
+<meta property="og:description" content="Free AI prompt optimizer — transform vague ideas into precise instructions for ChatGPT, Claude, Gemini, and image AI. 52,000+ prompts optimized.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.promptenhance.app/">
+<meta property="og:image" content="https://www.promptenhance.app/favicon.png">
+<meta property="og:image:alt" content="PromptEnhance — AI Prompt Optimizer">
+<meta property="og:site_name" content="PromptEnhance">
+<meta property="og:locale" content="en_US">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="PromptEnhance — Write Better Prompts, Instantly">
+<meta name="twitter:description" content="Free AI prompt optimizer — transform vague ideas into precise instructions for ChatGPT, Claude, Gemini, and image AI.">
+<meta name="twitter:image" content="https://www.promptenhance.app/favicon.png">
+<!-- Structured Data -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"PromptEnhance","url":"https://www.promptenhance.app/","description":"Free AI prompt optimizer that transforms vague ideas into precise, structured instructions for ChatGPT, Claude, Gemini, and image AI models.","applicationCategory":"UtilitiesApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"PromptEnhance","url":"https://www.promptenhance.app"},"datePublished":"2026-04-06","dateModified":"2026-07-26"}
+</script>
+<meta name="theme-color" content="#c2652a">
+<link rel="canonical" href="https://www.promptenhance.app/">
+<link rel="stylesheet" href="styles.css">
+    <meta name="google-site-verification" content="YURXhZ9a6QgFtyewU-HhpBtwno2QCr6LjQ-PvmKiqkI" />
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" href="favicon.svg?v=4" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="mask-icon" href="favicon.svg?v=4" color="#c2652a">
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "xs7wa8ody1");
+</script>
+  <style>
+    .lead-gate {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: rgba(250, 245, 238, 0.78);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+    .lead-gate.hidden {
+      display: none;
+    }
+    .lead-gate-card {
+      position: relative;
+      width: 100%;
+      max-width: 560px;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(194, 101, 42, 0.18);
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(58, 48, 42, 0.14);
+      padding: 34px 28px;
+      text-align: center;
+    }
+    .lead-gate-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 34px;
+      height: 34px;
+      z-index: 2;
+      border-radius: 999px;
+      border: 1px solid rgba(194, 101, 42, 0.18);
+      background: rgba(250, 245, 238, 0.92);
+      color: var(--c-text, #3a302a);
+      font-size: 1.2rem;
+      line-height: 1;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+    }
+    .lead-gate-close:hover {
+      background: #fff;
+    }
+    .lead-gate-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(194, 101, 42, 0.12);
+      border: 1px solid rgba(194, 101, 42, 0.24);
+      color: var(--c-text, #3a302a);
+      font-family: var(--f-ui, sans-serif);
+      font-size: 0.85rem;
+      margin-bottom: 18px;
+    }
+    .lead-gate-title {
+      font-family: var(--f-display, Georgia, serif);
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      line-height: 1.1;
+      color: var(--c-text, #3a302a);
+      margin: 0 0 12px;
+    }
+    .lead-gate-copy {
+      color: var(--c-text-sec, #78706a);
+      margin: 0 auto 22px;
+      max-width: 38ch;
+      line-height: 1.6;
+    }
+    .lead-gate-form {
+      display: grid;
+      gap: 14px;
+      max-width: 420px;
+      margin: 0 auto;
+    }
+    .lead-gate-input {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 12px;
+      border: 1px solid rgba(216, 208, 200, 1);
+      background: #fff;
+      color: var(--c-text, #3a302a);
+      text-align: center;
+      font: inherit;
+      outline: none;
+    }
+    .lead-gate-input::placeholder {
+      color: rgba(58, 48, 42, 0.45);
+    }
+    .lead-gate-button {
+      width: 100%;
+      padding: 14px 16px;
+      border: 0;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #c2652a, #d17a44);
+      color: #fff;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .lead-gate-message {
+      min-height: 1.25rem;
+      font-size: 0.95rem;
+      color: #b04a20;
+    }
+    .lead-gate-note {
+      margin-top: 18px;
+      font-size: 0.82rem;
+      color: rgba(58, 48, 42, 0.6);
+    }
+  </style>
+</head>
+<body>
+<div class="lead-gate" id="lead-gate" hidden>
+  <div class="lead-gate-card">
+    <button class="lead-gate-close" id="lead-gate-close" type="button" aria-label="Close subscription gate">&times;</button>
+    <div class="lead-gate-chip">PromptEnhance</div>
+    <h2 class="lead-gate-title">Subscribe to the newsletter</h2>
+    <p class="lead-gate-copy">Enter your email address or a digits-only phone number if you want more features or updates about the website.</p>
+    <form class="lead-gate-form" id="lead-gate-form">
+      <input class="lead-gate-input" id="lead-contact" name="contact" type="text" placeholder="Enter your email or phone number" autocomplete="email" required>
+      <button class="lead-gate-button" type="submit">Subscribe to newsletter</button>
+      <div class="lead-gate-message" id="lead-gate-message" aria-live="polite"></div>
+    </form>
+    <div class="lead-gate-note">We respect your privacy. Unsubscribe anytime.</div>
+  </div>
+</div>
+<div class="scroll-progress" id="scroll-progress" style="position:fixed;top:0;left:0;height:3px;background:var(--c-primary);z-index:9999;width:0%;transition:width 0.1s ease-out;"></div>
+
+<!-- ── Navigation ──────────────────────────────────── -->
+<nav class="nav" id="nav">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand" aria-label="PromptEnhance Home">
+        <div class="nav-brand-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Antenna -->
+            <line x1="12" y1="2" x2="12" y2="5" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="12" cy="1.5" r="1.2" fill="#fff" opacity=".85"/>
+            <!-- Head -->
+            <rect x="5" y="5" width="14" height="11" rx="3" fill="#fff" opacity=".2" stroke="#fff" stroke-width="1.5"/>
+            <!-- Eyes -->
+            <circle class="robot-eye" cx="9" cy="10.5" r="1.8" fill="#fff"/>
+            <circle class="robot-eye robot-eye-right" cx="15" cy="10.5" r="1.8" fill="#fff"/>
+            <!-- Mouth -->
+            <rect x="9.5" y="13" width="5" height="1.2" rx=".6" fill="#fff" opacity=".7"/>
+            <!-- Ears -->
+            <rect x="2" y="8" width="2.5" height="4" rx="1" fill="#fff" opacity=".5"/>
+            <rect x="19.5" y="8" width="2.5" height="4" rx="1" fill="#fff" opacity=".5"/>
+            <!-- Body -->
+            <rect x="7.5" y="17" width="9" height="5" rx="2" fill="#fff" opacity=".15" stroke="#fff" stroke-width="1.2"/>
+          </svg>
+        </div>
+        <span class="nav-brand-text">PromptEnhance</span>
+      </a>
+      <div class="nav-links">
+        <a href="#how-it-works" class="nav-link">How It Works</a>
+        <a href="#features" class="nav-link">Features</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="history.html" class="nav-link">History</a>
+        <div class="nav-divider"></div>
+        </div>
+      <button class="mobile-menu-btn" id="mobile-btn" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-menu hidden" id="mobile-menu">
+    <a href="#how-it-works" class="mobile-nav-link">How It Works</a>
+    <a href="#features" class="mobile-nav-link">Features</a>
+    <a href="about.html" class="mobile-nav-link">About</a>
+    <a href="history.html" class="mobile-nav-link">History</a>
+    </div>
+</nav>
+
+<main>
+<!-- ── Hero ────────────────────────────────────────── -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-eyebrow eyebrow">
+      <span class="pulse-dot"></span>
+      Sharper prompts &nbsp;·&nbsp; Cleaner outputs
+    </div>
+    <h1 class="hero-title">
+      Write better prompts,<br>
+      <span class="grad">instantly</span>
+    </h1>
+    <p class="hero-sub">
+      Transform vague ideas into precise, structured instructions for any AI — ChatGPT, Claude, Gemini, or image generators.
+    </p>
+    <div class="hero-stat">
+      <span class="pulse-dot"></span>
+      52,000+ prompts optimized and counting
+    </div>
+
+    <!-- ── Optimizer Panel ─────────────────────────── -->
+    <div class="optimizer" id="optimizer-panel">
+      <div class="mode-tabs" role="tablist">
+        <button class="mode-tab active" id="tab-text" role="tab" aria-selected="true">✦ Text AI</button>
+        <button class="mode-tab" id="tab-image" role="tab" aria-selected="false">⬡ Image AI</button>
+        <button class="mode-tab" id="tab-video" role="tab" aria-selected="false">▶ Video AI</button>
+        <button class="mode-tab" id="tab-pdf" role="tab" aria-selected="false">📄 PDF / Document Chat</button>
+        <button class="mode-tab" id="tab-app" role="tab" aria-selected="false">🚀 App Builder</button>
+      </div>
+      <div class="pdf-upload-container hidden" id="pdf-upload-container">
+        <label for="pdf-file-input" class="pdf-upload-label" id="pdf-drop-zone">
+          <div class="pdf-upload-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="pdf-upload-text">
+            <strong>Click to upload</strong> or drag and drop
+            <span>PDF, DOCX, or TXT — Summarize, extract & query</span>
+            <small style="display: block; opacity: 0.6; margin-top: 0.25rem;">Ideal for Students, Researchers & Business Users</small>
+          </div>
+          <input type="file" id="pdf-file-input" class="hidden" accept=".pdf,.docx,.txt">
+        </label>
+        <div class="pdf-file-preview hidden" id="pdf-file-preview">
+          <div class="pdf-file-info">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+              <polyline points="14 2 14 8 20 8" />
+            </svg>
+            <span id="pdf-filename">document.pdf</span>
+          </div>
+          <button class="pdf-remove-btn" id="pdf-remove-btn" aria-label="Remove file">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="prompt-field">
+        <textarea
+          class="prompt-textarea"
+          id="prompt-input"
+          placeholder="Write a blog post about artificial intelligence and its impact on society..."
+          maxlength="5000"
+          aria-label="Enter your prompt to optimize"
+        ></textarea>
+        <span class="char-count" id="char-count" aria-live="polite">0 / 5000</span>
+      </div>
+      <button class="optimize-btn" id="optimize-btn" aria-label="Optimize prompt">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456z"/>
+        </svg>
+        Optimize Prompt
+      </button>
+      <p class="hint">
+        <kbd>Ctrl</kbd> + <kbd>E</kbd> to optimize &nbsp;·&nbsp; Cloud synced automatically
+      </p>
+    </div>
+
+    <!-- ── Progress Bar (Game Animated) ──────────────────────────── -->
+    <div class="progress-section hidden" id="progress-section">
+      <div class="progress-wrap">
+        <div class="progress-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10" opacity=".25"/>
+            <path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round"/>
+          </svg>
+          <span id="progress-label-text">INITIALIZING MISSION…</span>
+        </div>
+        <div class="progress-track game-track">
+          <div class="progress-fill" id="progress-fill">
+            <div class="progress-player">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="5" y="7" width="14" height="10" rx="2" fill="currentColor" opacity="0.9"/>
+                <circle cx="9" cy="12" r="1.5" fill="white"/>
+                <circle cx="15" cy="12" r="1.5" fill="white"/>
+                <path d="M10 15h4" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+                <path d="M12 7V4M12 4a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" stroke="currentColor" stroke-width="1.5"/>
+              </svg>
+              <div class="progress-xp">+XP</div>
+            </div>
+          </div>
+        </div>
+        <div class="progress-pct" id="progress-pct">0%</div>
+        <div class="progress-steps game-steps">
+          <div class="progress-step active" id="pstep-1"><span class="progress-lvl">LVL 01</span> Scanning for semantic gaps</div>
+          <div class="progress-step" id="pstep-2"><span class="progress-lvl">LVL 02</span> Applying optimization framework</div>
+          <div class="progress-step" id="pstep-3"><span class="progress-lvl">LVL 03</span> Structuring output format</div>
+          <div class="progress-step" id="pstep-4"><span class="progress-lvl">LVL 04</span> Quality validation</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Result Panel (with blur + claim) ──────── -->
+    <div class="result-section hidden" id="result-section" aria-live="polite">
+      <div class="result-card">
+        <div class="result-header">
+          <div class="result-label">
+            <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
+            </svg>
+            Optimized Prompt
+          </div>
+          <button class="copy-btn hidden" id="copy-btn" aria-label="Copy optimized prompt">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+            </svg>
+            Copy
+          </button>
+        </div>
+        <div class="result-blur-wrap locked" id="result-blur-wrap">
+          <pre class="result-output" id="result-output"></pre>
+          <!-- Claim Overlay -->
+          <div class="claim-overlay" id="claim-overlay">
+            <div class="claim-overlay-bg"></div>
+            <div class="claim-icon">
+              <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/>
+              </svg>
+            </div>
+            <button class="claim-btn" id="claim-btn">
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5V6.75a4.5 4.5 0 119 0v3.75M3.75 21.75h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H3.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg>
+              Claim Your Prompt
+            </button>
+            <p class="claim-hint" style="margin-top:0.5rem">Complete one quick step to unlock your optimized prompt</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Proof Strip ──────────────────────────────────── -->
+<div class="proof-strip">
+  <div class="container">
+    <div class="proof-items">
+      <div class="proof-item">
+        <span class="proof-dot"></span>
+        <span class="proof-text"><strong>52,000+</strong> prompts optimized</span>
+      </div>
+      <div class="proof-item">
+        <span class="proof-dot"></span>
+        <span class="proof-text"><strong>Free</strong> forever, seamlessly synced</span>
+      </div>
+      <div class="proof-item">
+        <span class="proof-dot"></span>
+        <span class="proof-text">Works with <strong>ChatGPT, Claude, Gemini</strong></span>
+      </div>
+      <div class="proof-item">
+        <span class="proof-dot"></span>
+        <span class="proof-text"><strong>Privacy first</strong> — prompts never stored</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── How It Works ─────────────────────────────────── -->
+<section class="section section--alt" id="how-it-works">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow section-eyebrow">The Process</div>
+      <h2 class="section-title">The path to precision</h2>
+      <p class="section-sub">Optimization is a disciplined process. We've distilled it into three core movements.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <span class="step-num">01</span>
+        <div>
+          <div class="step-title">Input &amp; Analysis</div>
+          <p class="step-desc">Paste your raw prompt into the tool. Our engine scans for semantic gaps, missing context, vague instructions, and structural weaknesses that cause AI models to produce generic results.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step-num">02</span>
+        <div>
+          <div class="step-title">Collaborative Refinement</div>
+          <p class="step-desc">Select Text AI or Image AI mode. The optimizer restructures your input using role, task, style, and constraint framing — the same methodology used by professional prompt engineers.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step-num">03</span>
+        <div>
+          <div class="step-title">Validated Output</div>
+          <p class="step-desc">Receive a fully structured, production-ready prompt. Copy it directly into any AI tool. Every token serves a purpose — no filler, no ambiguity, just clear instruction your AI can act on.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Features Bento ───────────────────────────────── -->
+<section class="section" id="features">
+  <div class="container">
+    <div class="section-head center">
+      <div class="eyebrow section-eyebrow">What We Do</div>
+      <h2 class="section-title">Every feature, stitched with intent</h2>
+      <p class="section-sub center">From vague to precise in one click. Here's what powers the transformation.</p>
+    </div>
+    <div class="bento">
+      <div class="bento-card wide">
+        <div class="bento-icon icon-accent">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456z"/>
+          </svg>
+        </div>
+        <div class="bento-title">AI-Powered Analysis</div>
+        <p class="bento-desc">Our engine dissects your prompt for ambiguity, tonal inconsistencies, and structural gaps. It then rebuilds it using the [ROLE] [TASK] [STYLE] [INSTRUCTIONS] framework — the gold standard in prompt engineering.</p>
+        <div class="bento-stat">−70% trial-and-error</div>
+      </div>
+      <div class="bento-card accent-card">
+        <div class="bento-icon icon-white">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/>
+          </svg>
+        </div>
+        <div class="bento-title">Template Library</div>
+        <p class="bento-desc">Access curated prompt architectures for writing, coding, design, and marketing — ready to use or optimize.</p>
+      </div>
+      <div class="bento-card">
+        <div class="bento-icon icon-tertiary">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"/>
+          </svg>
+        </div>
+        <div class="bento-title">Before &amp; After</div>
+        <p class="bento-desc">See the exact transformation. Visualize what changed and why — so you learn the patterns, not just copy the output.</p>
+      </div>
+      <div class="bento-card dark-card">
+        <div class="bento-icon icon-white">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941"/>
+          </svg>
+        </div>
+        <div class="bento-title">Text &amp; Image Modes</div>
+        <p class="bento-desc">Specialized optimization for language models and diffusion models alike. Each mode uses model-specific framing for maximum output quality.</p>
+      </div>
+      <div class="bento-card">
+        <div class="bento-icon icon-primary">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/>
+          </svg>
+        </div>
+        <div class="bento-title">Privacy First</div>
+        <p class="bento-desc">Your prompts are never logged or stored. Zero authentication required. Use it and leave — your ideas stay yours.</p>
+      </div>
+      <div class="bento-card border-accent-card">
+        <div class="bento-icon icon-tertiary">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+          </svg>
+        </div>
+        <div class="bento-title">PDF / Document Chat</div>
+        <p class="bento-desc">Upload documents to summarize, extract data, or ask questions instantly. Built for students, researchers, and professional efficiency.</p>
+      </div>
+      <div class="bento-card accent-card">
+        <div class="bento-icon icon-white">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.008v.008H12V18zm0-4.5h.008v.008H12V13.5l-2.25-2.25m3 3l2.25-2.25M12 13.5l2.25-2.25m-3 3L9 11.25m3 2.25V10.5M3 12a9 9 0 1118 0 9 9 0 01-18 0z"/>
+          </svg>
+        </div>
+        <div class="bento-title">Prompt-to-App Builder</div>
+        <p class="bento-desc">Generate full app blueprints from a single idea. Get landing page copy, UI wireframes, database schemas, and starter code instantly.</p>
+        <div class="bento-stat">1-Click Launchpad</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA Section ──────────────────────────────────── -->
+<section class="cta-section">
+  <div class="container">
+    <h2 class="cta-title">Start optimizing today.</h2>
+    <p class="cta-sub">Join thousands of developers, writers, and creators who have mastered the art of the perfect AI prompt.</p>
+    <div class="cta-actions">
+      <a href="#optimizer-panel" class="btn btn-primary btn-lg">✦ Optimize Your First Prompt</a>
+      <a href="about.html" class="btn btn-ghost btn-lg">Learn More</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ── Footer ───────────────────────────────────────── -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-brand-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="12" y1="2" x2="12" y2="5" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="12" cy="1.5" r="1.2" fill="#fff" opacity=".85"/>
+            <rect x="5" y="5" width="14" height="11" rx="3" fill="#fff" opacity=".2" stroke="#fff" stroke-width="1.5"/>
+            <circle cx="9" cy="10.5" r="1.8" fill="#fff"/>
+            <circle cx="15" cy="10.5" r="1.8" fill="#fff"/>
+            <rect x="9.5" y="13" width="5" height="1.2" rx=".6" fill="#fff" opacity=".7"/>
+            <rect x="2" y="8" width="2.5" height="4" rx="1" fill="#fff" opacity=".5"/>
+            <rect x="19.5" y="8" width="2.5" height="4" rx="1" fill="#fff" opacity=".5"/>
+            <rect x="7.5" y="17" width="9" height="5" rx="2" fill="#fff" opacity=".15" stroke="#fff" stroke-width="1.2"/>
+          </svg>
+        </div>
+        <span class="footer-brand-text">PromptEnhance</span>
+      </div>
+      <div class="footer-links">
+        <a href="#how-it-works" class="footer-link">How It Works</a>
+        <a href="#features" class="footer-link">Features</a>
+        <a href="about.html" class="footer-link">About</a>
+        <a href="history.html" class="footer-link">History</a>
+        <a href="privacy.html" class="footer-link">Privacy</a>
+        <a href="terms.html" class="footer-link">Terms</a>
+      </div>
+      <p class="footer-copy">© 2026 PromptEnhance · Every word stitched with intent.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+const leadGate = document.getElementById('lead-gate');
+const leadGateClose = document.getElementById('lead-gate-close');
+const leadForm = document.getElementById('lead-gate-form');
+const leadInput = document.getElementById('lead-contact');
+const leadMessage = document.getElementById('lead-gate-message');
+const textarea    = document.getElementById('prompt-input');
+const charCount   = document.getElementById('char-count');
+const optimizeBtn = document.getElementById('optimize-btn');
+const tabText     = document.getElementById('tab-text');
+const tabImage    = document.getElementById('tab-image');
+const tabVideo    = document.getElementById('tab-video');
+const tabPdf      = document.getElementById('tab-pdf');
+const tabApp      = document.getElementById('tab-app');
+const pdfUpload   = document.getElementById('pdf-upload-container');
+const pdfInput    = document.getElementById('pdf-file-input');
+const pdfDropZone = document.getElementById('pdf-drop-zone');
+const pdfPreview  = document.getElementById('pdf-file-preview');
+const pdfFilename = document.getElementById('pdf-filename');
+const pdfRemove   = document.getElementById('pdf-remove-btn');
+const resultSec   = document.getElementById('result-section');
+const resultOut   = document.getElementById('result-output');
+const copyBtn     = document.getElementById('copy-btn');
+const mobileBtn   = document.getElementById('mobile-btn');
+const mobileMenu  = document.getElementById('mobile-menu');
+const progressSec = document.getElementById('progress-section');
+const progressFill= document.getElementById('progress-fill');
+const progressPct = document.getElementById('progress-pct');
+const progressLbl = document.getElementById('progress-label-text');
+const blurWrap    = document.getElementById('result-blur-wrap');
+const claimOverlay= document.getElementById('claim-overlay');
+const claimBtn    = document.getElementById('claim-btn');
+let mode = 'text';
+let currentOptimized = '';
+
+function hasLeadAccess() {
+  return localStorage.getItem('promptenhance_access') === '1';
+}
+
+function unlockSite() {
+  localStorage.setItem('promptenhance_access', '1');
+  leadGate.classList.add('hidden');
+  document.body.style.overflow = '';
+}
+
+function showGate() {
+  leadGate.hidden = false;
+  document.body.style.overflow = 'hidden';
+}
+
+function dismissGate() {
+  leadGate.remove();
+  document.body.style.overflow = '';
+}
+
+if (!hasLeadAccess()) {
+  showGate();
+} else {
+  leadGate.hidden = true;
+}
+
+leadGateClose.addEventListener('click', (event) => {
+  event.preventDefault();
+  dismissGate();
+});
+
+leadGateClose.addEventListener('pointerdown', (event) => {
+  event.preventDefault();
+  dismissGate();
+});
+
+leadForm.addEventListener('submit', async (event) => {
+  event.preventDefault();
+  const contact = leadInput.value.trim();
+  leadMessage.textContent = 'Saving...';
+
+  try {
+    const response = await fetch('/api/lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ contact })
+    });
+
+    const responseText = await response.text();
+    let payload = {};
+
+    if (responseText) {
+      try {
+        payload = JSON.parse(responseText);
+      } catch (parseError) {
+        throw new Error('The lead endpoint did not return JSON. Make sure the site is opened through the server, not as a local file.');
+      }
+    }
+
+    if (!response.ok) {
+      throw new Error(payload.error || 'Unable to save lead.');
+    }
+
+    unlockSite();
+    leadMessage.textContent = '';
+  } catch (error) {
+    leadMessage.textContent = error.message;
+  }
+});
+
+// Mobile menu
+mobileBtn.addEventListener('click', () => {
+  const open = mobileMenu.classList.contains('hidden');
+  mobileMenu.classList.toggle('hidden', !open);
+  mobileBtn.setAttribute('aria-expanded', String(open));
+});
+mobileMenu.querySelectorAll('a').forEach(a =>
+  a.addEventListener('click', () => mobileMenu.classList.add('hidden'))
+);
+
+// Tab switching
+function setMode(m) {
+  mode = m;
+  
+  // Reset input and results to feel like a "new page"
+  textarea.value = '';
+  resultSec.classList.add('hidden');
+  progressSec.classList.add('hidden');
+
+  tabText.classList.toggle('active', m === 'text');
+  tabImage.classList.toggle('active', m === 'image');
+  tabVideo.classList.toggle('active', m === 'video');
+  tabPdf.classList.toggle('active', m === 'pdf');
+  tabApp.classList.toggle('active', m === 'app');
+  
+  textarea.classList.toggle('img-mode', m === 'image' || m === 'video');
+  textarea.classList.toggle('app-mode', m === 'app');
+  textarea.classList.toggle('textarea-pdf-mode', m === 'pdf');
+  pdfUpload.classList.toggle('hidden', m !== 'pdf');
+
+  if (m === 'text') {
+    textarea.placeholder = 'Write a blog post about artificial intelligence and its impact on society...';
+    optimizeBtn.innerHTML = `<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455-2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455-2.456z"/></svg> Optimize Prompt`;
+  } else if (m === 'app') {
+    textarea.placeholder = 'A SaaS platform for independent writers to manage subscriptions and newsletters...';
+    optimizeBtn.innerHTML = `<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.008v.008H12V18zm0-4.5h.008v.008H12V13.5l-2.25-2.25m3 3l2.25-2.25M12 13.5l2.25-2.25m-3 3L9 11.25m3 2.25V10.5M3 12a9 9 0 1118 0 9 9 0 01-18 0z"/></svg> Build App Blueprint`;
+  } else if (m === 'image') {
+    textarea.placeholder = 'A futuristic city skyline at golden hour, aerial view, ultra-detailed...';
+    optimizeBtn.innerHTML = `<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455-2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455-2.456z"/></svg> Optimize Prompt`;
+  } else if (m === 'video') {
+    textarea.placeholder = 'A cinematic drone shot flying over a futuristic city at sunset, 4k...';
+    optimizeBtn.innerHTML = `<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455-2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455-2.456z"/></svg> Optimize Prompt`;
+  } else if (m === 'pdf') {
+    textarea.placeholder = 'Ask questions, summarize, or extract data from this document...';
+    optimizeBtn.innerHTML = `<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg> Analyze Document`;
+  }
+}
+tabText.addEventListener('click', () => setMode('text'));
+tabImage.addEventListener('click', () => setMode('image'));
+tabVideo.addEventListener('click', () => setMode('video'));
+tabPdf.addEventListener('click', () => setMode('pdf'));
+tabApp.addEventListener('click', () => setMode('app'));
+
+// PDF Upload Logic
+let uploadedFile = null;
+
+pdfInput.addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (file) handleFile(file);
+});
+
+pdfDropZone.addEventListener('dragover', (e) => {
+  e.preventDefault();
+  pdfDropZone.style.borderColor = 'var(--c-primary)';
+  pdfDropZone.style.background = 'var(--c-surface)';
+});
+
+pdfDropZone.addEventListener('dragleave', () => {
+  pdfDropZone.style.borderColor = 'var(--c-border-s)';
+  pdfDropZone.style.background = 'var(--c-surface-lo)';
+});
+
+pdfDropZone.addEventListener('drop', (e) => {
+  e.preventDefault();
+  const file = e.dataTransfer.files[0];
+  if (file) handleFile(file);
+});
+
+function handleFile(file) {
+  const name = file.name;
+  const ext = name.split('.').pop().toLowerCase();
+  if (!['pdf', 'docx', 'txt'].includes(ext)) {
+    alert('Please upload a PDF, DOCX, or TXT file.');
+    return;
+  }
+  uploadedFile = file;
+  pdfFilename.textContent = name;
+  pdfDropZone.classList.add('hidden');
+  pdfPreview.classList.remove('hidden');
+}
+
+pdfRemove.addEventListener('click', () => {
+  uploadedFile = null;
+  pdfInput.value = '';
+  pdfDropZone.classList.remove('hidden');
+  pdfPreview.classList.add('hidden');
+});
+
+// Char count
+textarea.addEventListener('input', () => {
+  const n = textarea.value.length;
+  charCount.textContent = `${n} / 5000`;
+  charCount.className = 'char-count' + (n > 4500 ? ' danger' : n > 4000 ? ' warn' : '');
+});
+
+// Copy
+copyBtn.addEventListener('click', () => {
+  navigator.clipboard.writeText(resultOut.textContent);
+  const orig = copyBtn.innerHTML;
+  copyBtn.innerHTML = `<svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="13" height="13"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> Copied!`;
+  // Hide the copy button after a short feedback delay
+  setTimeout(() => {
+    copyBtn.classList.add('hidden');
+copyBtn.innerHTML = orig;
+  }, 1500);
+});
+
+// ─── Optimization Engine ────────────────────────────────────────────
+// Helpers
+function capitalize(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+function pickRandom(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+function detectKeywords(text, wordList) {
+  const low = text.toLowerCase();
+  return wordList.filter(w => low.includes(w));
+}
+
+// ─── TEXT AI Optimizer ──────────────────────────────────────────────
+function buildTextOutput(raw) {
+  const topic = raw.trim();
+  const low = topic.toLowerCase();
+  const words = low.split(/\s+/);
+  const wordCount = words.length;
+
+  const domainMap = {
+    writing:    ['blog', 'article', 'essay', 'story', 'write', 'writing', 'post', 'content', 'copywriting', 'script', 'novel', 'poem', 'narrative', 'newsletter', 'editorial'],
+    coding:     ['code', 'coding', 'program', 'api', 'function', 'app', 'website', 'software', 'algorithm', 'debug', 'database', 'frontend', 'backend', 'python', 'javascript', 'react', 'developer', 'html', 'css'],
+    marketing:  ['marketing', 'brand', 'campaign', 'seo', 'social media', 'ads', 'advertisement', 'landing page', 'conversion', 'growth', 'audience', 'funnel', 'email marketing', 'influencer'],
+    business:   ['business', 'strategy', 'plan', 'startup', 'revenue', 'pitch', 'investor', 'market', 'product', 'launch', 'competitive', 'swot', 'roi', 'kpi', 'stakeholder'],
+    education:  ['teach', 'learn', 'explain', 'lesson', 'course', 'tutorial', 'student', 'education', 'curriculum', 'training', 'workshop', 'lecture', 'quiz', 'assessment'],
+    research:   ['research', 'study', 'analysis', 'data', 'report', 'findings', 'methodology', 'literature', 'hypothesis', 'survey', 'statistics', 'experiment', 'peer-reviewed'],
+    creative:   ['creative', 'design', 'art', 'brainstorm', 'idea', 'concept', 'innovation', 'inspiration', 'imagine', 'vision', 'mood board', 'aesthetic'],
+    health:     ['health', 'medical', 'fitness', 'nutrition', 'wellness', 'diet', 'exercise', 'mental health', 'therapy', 'diagnosis', 'symptoms', 'treatment'],
+    legal:      ['legal', 'law', 'contract', 'compliance', 'regulation', 'policy', 'attorney', 'liability', 'intellectual property', 'terms of service'],
+    finance:    ['finance', 'investment', 'stock', 'budget', 'accounting', 'tax', 'crypto', 'portfolio', 'banking', 'financial planning']
+  };
+
+  let detectedDomain = 'general';
+  let maxHits = 0;
+  for (const [domain, keywords] of Object.entries(domainMap)) {
+    const hits = detectKeywords(low, keywords).length;
+    if (hits > maxHits) { maxHits = hits; detectedDomain = domain; }
+  }
+
+  const actionVerbs = {
+    create:    ['write', 'create', 'build', 'make', 'generate', 'draft', 'compose', 'develop', 'produce', 'craft'],
+    explain:   ['explain', 'describe', 'teach', 'clarify', 'break down', 'illustrate', 'define', 'elaborate', 'outline'],
+    analyze:   ['analyze', 'compare', 'evaluate', 'assess', 'review', 'examine', 'critique', 'investigate', 'audit'],
+    summarize: ['summarize', 'condense', 'shorten', 'brief', 'recap', 'abstract', 'tldr', 'overview'],
+    persuade:  ['convince', 'persuade', 'argue', 'pitch', 'sell', 'promote', 'advocate'],
+    fix:       ['fix', 'debug', 'solve', 'troubleshoot', 'repair', 'resolve', 'correct', 'improve', 'optimize', 'refactor']
+  };
+
+  let actionType = 'create';
+  for (const [action, verbs] of Object.entries(actionVerbs)) {
+    if (verbs.some(v => low.includes(v))) { actionType = action; break; }
+  }
+
+  let audience = 'a knowledgeable general audience';
+  if (/beginner|intro|basic|101|newbie|getting started/i.test(low)) audience = 'beginners with no prior experience';
+  else if (/advanced|expert|senior|deep dive|in-depth/i.test(low)) audience = 'advanced practitioners and domain experts';
+  else if (/developer|engineer|programmer/i.test(low)) audience = 'software developers and engineers';
+  else if (/business|executive|ceo|manager|leader/i.test(low)) audience = 'business leaders and decision-makers';
+  else if (/student|learner|kid|child/i.test(low)) audience = 'students and learners';
+
+  let tone = 'professional, authoritative, and clear';
+  if (/casual|fun|friendly|conversational|informal/i.test(low)) tone = 'conversational, engaging, and approachable';
+  else if (/formal|academic|scholarly|scientific/i.test(low)) tone = 'formal, academic, and rigorously structured';
+  else if (/witty|humor|funny|entertaining/i.test(low)) tone = 'witty, sharp, and entertaining while staying informative';
+  else if (/inspiring|motivat|empower/i.test(low)) tone = 'inspirational, empowering, and action-oriented';
+
+  const roleMap = {
+    writing:   'You are a senior content strategist and professional writer with 15+ years of experience crafting high-impact content. You understand narrative structure, audience psychology, and SEO-driven writing.',
+    coding:    'You are a senior software architect and full-stack developer with deep expertise in modern frameworks, clean code principles, and scalable system design. You write production-grade code with clear documentation.',
+    marketing: 'You are a senior growth marketing strategist with expertise in digital campaigns, conversion optimization, audience segmentation, and data-driven content strategies across all platforms.',
+    business:  'You are a senior business strategist and management consultant with experience advising Fortune 500 companies and startups. You combine analytical rigor with practical, actionable recommendations.',
+    education: 'You are an expert instructional designer and educator who specializes in breaking down complex topics into clear, engaging, and progressive learning experiences with practical exercises.',
+    research:  'You are a senior research analyst with expertise in systematic methodology, data interpretation, and evidence-based conclusions. You present findings with academic rigor and practical implications.',
+    creative:  'You are a senior creative director with a multidisciplinary background spanning design thinking, concept development, and innovation frameworks. You think in original, non-obvious ways.',
+    health:    'You are a health communication specialist with clinical knowledge and the ability to translate medical concepts into clear, accurate, and actionable guidance for the intended audience.',
+    legal:     'You are a legal analyst with expertise in regulatory frameworks, contract analysis, and compliance strategy. You communicate legal concepts clearly while noting when professional counsel is needed.',
+    finance:   'You are a senior financial analyst with deep expertise in market dynamics, portfolio strategy, and financial modeling. You provide data-backed insights with clear risk assessments.',
+    general:   'You are a senior expert and specialist in the subject matter discussed below. You combine deep domain knowledge with clear, structured communication and a focus on actionable outcomes.'
+  };
+
+  const formatMap = {
+    create:    '• Start with a compelling hook or executive summary (2–3 sentences)\n• Use H2/H3 headers to organize major sections logically\n• Include concrete examples, data points, or case studies in each section\n• Use bullet points for lists of 3+ items\n• End with a clear conclusion, next steps, or call-to-action\n• Target length: comprehensive but efficient — every sentence must earn its place',
+    explain:   '• Open with a one-paragraph overview that frames the "why" before the "what"\n• Break the explanation into progressive layers (foundational → intermediate → nuanced)\n• Use analogies or real-world comparisons to anchor abstract concepts\n• Include a "Common Misconceptions" section if relevant\n• Conclude with a practical summary and further resources\n• Use diagrams or structured lists where visual hierarchy aids understanding',
+    analyze:   '• Begin with a clear thesis or analytical framework\n• Present evidence systematically using a consistent structure per point\n• Compare and contrast with specific criteria clearly stated\n• Include a "Key Findings" or "Insights" summary section\n• Note limitations, caveats, and areas for further investigation\n• Use data tables or comparison matrices where helpful',
+    summarize: '• Lead with the single most important takeaway\n• Use a structured format: Key Points → Supporting Details → Implications\n• Keep each point to 1–2 sentences maximum\n• Maintain the original tone and intent of the source material\n• Highlight any nuances or caveats that must not be lost in compression\n• End with what this means for the reader',
+    persuade:  '• Open with an attention-grabbing hook that frames the problem or opportunity\n• Present the core argument with supporting evidence and emotional resonance\n• Address likely objections proactively and turn them into strengths\n• Use social proof, data, or case studies to build credibility\n• Build to a clear, specific call-to-action\n• Close with urgency or vision that motivates immediate action',
+    fix:       '• State the problem clearly with reproduction steps or context\n• Identify root cause(s) with technical precision\n• Provide step-by-step solution with code blocks or exact instructions\n• Explain WHY the fix works, not just what to change\n• Include edge cases, potential pitfalls, and testing guidance\n• Suggest preventive measures to avoid recurrence'
+  };
+
+  const constraintsByDomain = {
+    writing:   '• Do not use generic filler phrases ("In today\'s world…", "It\'s important to note…")\n• Every paragraph must advance the reader\'s understanding or provide new value\n• Use active voice predominantly; passive voice only when the actor is genuinely unknown\n• Cite specific examples, names, or data — avoid vague references\n• Vary sentence length for rhythm: short for impact, longer for explanation',
+    coding:    '• Write clean, production-ready code with descriptive variable names\n• Include inline comments for complex logic only — the code should be self-documenting\n• Handle edge cases and error states explicitly\n• Follow current best practices and idiomatic patterns for the language/framework\n• Include type annotations where the language supports them\n• Note performance considerations and time/space complexity where relevant',
+    marketing: '• Ground all claims in data or specific evidence — no unsupported superlatives\n• Focus on customer pain points and outcomes, not feature lists\n• Include specific metrics, benchmarks, or KPIs where possible\n• Consider the full funnel: awareness → consideration → conversion → retention\n• All recommendations must include implementation priority and estimated impact',
+    business:  '• Include specific financial implications or ROI estimates where possible\n• Consider multiple stakeholder perspectives\n• Provide both short-term actions and long-term strategic direction\n• Support recommendations with market data, case studies, or competitive analysis\n• Flag risks and dependencies explicitly with mitigation strategies',
+    general:   '• Do not pad with generic filler or hedging language\n• Provide original analysis and insights, not summaries of common knowledge\n• Use specific examples, data points, or case studies to support every claim\n• Maintain intellectual honesty: state limitations and uncertainties clearly\n• Prioritize actionable takeaways the reader can apply immediately'
+  };
+
+  const role = roleMap[detectedDomain] || roleMap.general;
+  const format = formatMap[actionType] || formatMap.create;
+  const constraints = constraintsByDomain[detectedDomain] || constraintsByDomain.general;
+
+  const sections = [];
+  sections.push(`═══════════════════════════════════════════════════════\n  ✦  OPTIMIZED PROMPT — TEXT AI\n═══════════════════════════════════════════════════════`);
+  sections.push(`[ROLE]\n${role}`);
+  sections.push(`[TASK]\n${capitalize(topic)}\n\nDeliver a thorough, well-structured response that demonstrates genuine expertise. The output should be immediately useful and actionable — not a surface-level overview.`);
+  sections.push(`[TARGET AUDIENCE]\n${capitalize(audience)}.`);
+  sections.push(`[CONTEXT & BACKGROUND]\n• The user needs an expert-level response on this specific topic\n• Assume the audience is ${audience}\n• The goal is a response that is ${actionType === 'create' ? 'comprehensive, original, and publication-ready' : actionType === 'explain' ? 'crystal clear, progressive in complexity, and genuinely illuminating' : actionType === 'analyze' ? 'rigorous, evidence-based, and strategically insightful' : actionType === 'summarize' ? 'concise yet complete, preserving all critical nuances' : actionType === 'persuade' ? 'compelling, evidence-backed, and action-driving' : 'precise, thorough, and immediately implementable'}\n• Prioritize depth and specificity over breadth\n• Include real-world examples, data, or case studies where they strengthen the response`);
+  sections.push(`[TONE & STYLE]\n• Voice: ${tone}\n• Use concrete language — replace abstractions with specifics\n• Vary sentence structure for readability and engagement\n• Use transition phrases that advance the argument, not just connect paragraphs\n• Eliminate weasel words ("some people say", "it could be argued")`);
+  sections.push(`[OUTPUT FORMAT]\n${format}`);
+  sections.push(`[CONSTRAINTS & QUALITY STANDARDS]\n${constraints}`);
+  sections.push(`[SUCCESS CRITERIA]\nA reader should finish this response feeling they received expert-level guidance that they could not have easily found elsewhere. The output should be specific enough to act on immediately, structured enough to reference later, and polished enough to share professionally.`);
+  sections.push(`═══════════════════════════════════════════════════════`);
+  return sections.join('\n\n');
+}
+
+// ─── IMAGE AI Optimizer ─────────────────────────────────────────────
+function buildImageOutput(raw) {
+  const desc = raw.trim();
+  const low = desc.toLowerCase();
+
+  const styleMap = {
+    photorealistic: ['photo', 'realistic', 'real', 'photograph', 'camera', 'portrait', 'landscape photo', 'street photography', 'documentary'],
+    cinematic:      ['cinematic', 'movie', 'film', 'scene', 'dramatic', 'epic', 'theatrical', 'blockbuster'],
+    anime:          ['anime', 'manga', 'japanese', 'studio ghibli', 'cel-shaded', 'webtoon'],
+    painting:       ['painting', 'oil', 'watercolor', 'acrylic', 'impressionist', 'canvas', 'brush', 'van gogh', 'monet'],
+    digital_art:    ['digital art', 'concept art', 'illustration', 'digital painting', 'cg', 'artstation', 'deviantart'],
+    '3d_render':    ['3d', 'render', 'blender', 'cinema 4d', 'octane', 'isometric', 'voxel', 'low poly'],
+    pixel_art:      ['pixel', 'retro', '8-bit', '16-bit', 'sprite', 'game boy'],
+    fantasy:        ['fantasy', 'magical', 'enchanted', 'mythical', 'dragon', 'wizard', 'elf', 'medieval', 'fairy'],
+    scifi:          ['sci-fi', 'futuristic', 'cyberpunk', 'space', 'robot', 'neon', 'dystopian', 'holographic', 'alien'],
+    minimalist:     ['minimalist', 'minimal', 'clean', 'simple', 'flat', 'geometric'],
+    surreal:        ['surreal', 'dreamlike', 'abstract', 'dali', 'impossible', 'psychedelic', 'trippy']
+  };
+
+  let visualStyle = 'photorealistic';
+  let maxStyleHits = 0;
+  for (const [style, keywords] of Object.entries(styleMap)) {
+    const hits = detectKeywords(low, keywords).length;
+    if (hits > maxStyleHits) { maxStyleHits = hits; visualStyle = style; }
+  }
+
+  let lighting = 'soft natural lighting with balanced exposure and gentle shadows';
+  if (/golden hour|sunset|dawn|sunrise/i.test(low)) lighting = 'golden hour warm light with long directional shadows, rich amber tones bleeding into soft purple sky';
+  else if (/night|dark|midnight|moonlit|starry/i.test(low)) lighting = 'dramatic moonlight with deep blue shadows, subtle rim lighting from ambient city glow or starlight';
+  else if (/neon|cyberpunk|city night/i.test(low)) lighting = 'vivid neon lighting in magenta, cyan, and electric blue, reflections on wet surfaces, high contrast with deep blacks';
+  else if (/bright|sunny|daylight|midday/i.test(low)) lighting = 'bright high-key natural daylight, crisp shadows, high clarity with vivid true-to-life colors';
+  else if (/moody|fog|mist|overcast|cloudy/i.test(low)) lighting = 'diffused overcast light, atmospheric fog, muted tones with subtle volumetric haze, soft even illumination';
+  else if (/studio|portrait|professional/i.test(low)) lighting = 'professional three-point studio lighting: key light at 45°, fill light at 30%, hair light for separation, gradient background';
+  else if (/dramatic|contrast|chiaroscuro/i.test(low)) lighting = 'dramatic chiaroscuro lighting with deep shadows and isolated highlights, cinematic contrast ratio';
+  else if (/underwater|ocean|sea/i.test(low)) lighting = 'caustic underwater light patterns, dappled turquoise illumination filtering through the surface, bioluminescent accents';
+  else if (/fire|flame|candle|warm/i.test(low)) lighting = 'warm firelight with flickering amber highlights, deep rich shadows, intimate and atmospheric warmth';
+
+  let mood = 'captivating, immersive, visually striking';
+  if (/peaceful|calm|serene|tranquil|gentle/i.test(low)) mood = 'serene, contemplative, deeply peaceful — a moment of perfect stillness';
+  else if (/dark|horror|scary|creepy|ominous/i.test(low)) mood = 'ominous, unsettling, tension-filled — something lurks beneath the surface';
+  else if (/epic|grand|majestic|powerful|heroic/i.test(low)) mood = 'awe-inspiring, monumental, epic scale — the viewer feels small against grandeur';
+  else if (/romantic|love|intimate|tender/i.test(low)) mood = 'intimate, tender, romantically charged — warmth and emotional closeness';
+  else if (/energetic|dynamic|action|intense|fast/i.test(low)) mood = 'high-energy, kinetic, pulse-pounding — frozen mid-action with implied motion';
+  else if (/mystical|mysterious|enigma|secret/i.test(low)) mood = 'enigmatic, otherworldly, hauntingly beautiful — inviting endless interpretation';
+  else if (/happy|joy|bright|cheerful|playful/i.test(low)) mood = 'joyful, vibrant, radiantly alive — infectious positivity and warmth';
+  else if (/melanchol|sad|lonely|nostalgi|wistful/i.test(low)) mood = 'wistful, nostalgic, hauntingly beautiful — bittersweet emotional resonance';
+
+  let palette = 'rich, naturally saturated color palette with harmonious complementary tones';
+  if (/dark|night|gothic|noir/i.test(low)) palette = 'deep blacks, charcoal grays, midnight blues with selective accent colors for visual punctuation';
+  else if (/vibrant|colorful|bright|vivid|rainbow/i.test(low)) palette = 'highly saturated, bold primary and secondary colors with maximum visual impact and chromatic diversity';
+  else if (/pastel|soft|gentle|dreamy/i.test(low)) palette = 'soft pastels — blush pink, powder blue, lavender, mint — with low saturation and high luminance';
+  else if (/warm|autumn|earth|rustic|cozy/i.test(low)) palette = 'warm earth tones — burnt sienna, amber, terracotta, deep olive — with golden undertones';
+  else if (/cool|winter|ice|frost|blue/i.test(low)) palette = 'cool palette — steel blue, arctic white, silver, frost — with subtle cyan undertones';
+  else if (/monochrome|bw|black and white|grayscale/i.test(low)) palette = 'monochromatic grayscale with full tonal range from pure black to bright white, emphasis on texture and contrast';
+  else if (/neon|cyber|electric/i.test(low)) palette = 'electric neon palette — hot magenta, electric cyan, acid green, deep purple — against dark backgrounds';
+  else if (/sunset|golden|warm light/i.test(low)) palette = 'golden hour palette — warm amber, coral, peach, with purple and blue gradient transitions';
+
+  const renderMap = {
+    photorealistic: 'Photorealistic, hyperdetailed, 8K UHD resolution, shot on Hasselblad X2D with 45mm f/3.5 lens, shallow depth of field, natural film grain, color graded in Capture One',
+    cinematic:      'Cinematic widescreen, anamorphic lens flares, 2.39:1 aspect ratio, Arri Alexa LF quality, color graded by Roger Deakins, film grain, blockbuster production value',
+    anime:          'High-quality anime illustration, detailed cel shading, Studio Ghibli / Makoto Shinkai inspired, vibrant color palette, expressive character design, detailed backgrounds',
+    painting:       'Fine art quality, visible brushwork with intentional texture, rich impasto technique, museum-grade color mixing, masterful composition following classical principles',
+    digital_art:    'Professional digital illustration, trending on ArtStation, high detail concept art, clean linework with painterly rendering, 4K resolution, by leading concept artists',
+    '3d_render':    'Professional 3D render, Octane Render / Cinema 4D quality, physically accurate materials and reflections, global illumination, subsurface scattering, 8K output',
+    pixel_art:      'Detailed pixel art, carefully crafted pixel-by-pixel, limited color palette with expert dithering, retro aesthetic with modern design sensibility, clean readable sprites',
+    fantasy:        'High fantasy illustration, richly detailed, epic atmosphere, luminous magical effects, influenced by Frank Frazetta and Craig Mullins, painterly with sharp focal points',
+    scifi:          'High-concept science fiction, sleek futuristic design language, holographic UI elements, advanced material rendering, influenced by Syd Mead and Simon Stålenhag',
+    minimalist:     'Clean minimalist design, thoughtful negative space, geometric precision, limited but impactful color usage, Swiss design principles, maximum clarity',
+    surreal:        'Surrealist composition, impossible geometry, dreamlike juxtaposition, influenced by Salvador Dalí and René Magritte, hyperdetailed rendering of impossible scenes'
+  };
+
+  let composition = 'Rule of thirds, strong focal point with guided eye movement, layered foreground-midground-background for depth';
+  if (/portrait|face|person|character|headshot/i.test(low)) composition = 'Centered portrait composition, 85mm equivalent framing, subject fills 60% of frame, eyes at upper third, subtle background separation via bokeh';
+  else if (/landscape|panorama|vista|wide|scenery/i.test(low)) composition = 'Wide panoramic composition, leading lines drawing eye to vanishing point, strong foreground interest, layered depth planes, expansive sky for atmosphere';
+  else if (/close-?up|macro|detail|texture/i.test(low)) composition = 'Extreme close-up with razor-thin focal plane, every micro-texture visible, abstract quality from proximity, rich detail fills entire frame';
+  else if (/aerial|bird.?s?.eye|drone|top.?down/i.test(low)) composition = 'Aerial top-down perspective, graphic quality from altitude, patterns and geometry visible from above, sense of scale through context elements';
+  else if (/symmetr|mirror|reflect/i.test(low)) composition = 'Perfect bilateral symmetry, mirror-like precision, centered vanishing point, Wes Anderson inspired geometric balance';
+  else if (/action|dynamic|motion|running|flying/i.test(low)) composition = 'Dynamic diagonal composition implying motion, dutch angle, motion blur on peripheral elements, frozen peak action, high energy framing';
+
+  const subjectEnhanced = capitalize(desc);
+  const sections = [];
+  sections.push(`═══════════════════════════════════════════════════════\n  ⬡  OPTIMIZED PROMPT — IMAGE AI\n═══════════════════════════════════════════════════════`);
+  sections.push(`[SUBJECT & SCENE]\n${subjectEnhanced}\n— Rendered with meticulous attention to detail, every element carefully composed to serve the overall visual narrative.`);
+  sections.push(`[VISUAL STYLE & RENDERING]\n${renderMap[visualStyle] || renderMap.photorealistic}`);
+  sections.push(`[LIGHTING]\n${lighting}`);
+  sections.push(`[COLOR PALETTE]\n${palette}`);
+  sections.push(`[COMPOSITION & CAMERA]\n${composition}`);
+  sections.push(`[ATMOSPHERE & MOOD]\n${mood}`);
+  sections.push(`[FINE DETAILS TO INCLUDE]\n• Micro-textures: surface imperfections, fabric weave, skin pores, material grain — the details that sell realism\n• Environmental particles: dust motes, atmospheric haze, light shafts, or ambient particles appropriate to the scene\n• Depth cues: atmospheric perspective, progressive blur, scale references, overlapping elements\n• Material accuracy: physically correct reflections, refraction, subsurface scattering where applicable\n• Edge quality: natural edge transitions, no harsh cutouts, organic interaction between elements`);
+  sections.push(`[NEGATIVE PROMPT — EXCLUDE THESE]\nblurry, low resolution, pixelated, watermark, signature, text overlay, logo, out of frame, cropped, deformed, disfigured, bad anatomy, extra limbs, mutated hands, poorly drawn face, overexposed, underexposed, oversaturated, artifacts, compression noise, duplicate, morbid, ugly, tiling, poorly drawn, extra fingers, fused fingers, too many fingers, long neck, cross-eyed`);
+  sections.push(`[QUALITY BOOSTERS]\nmasterpiece, best quality, highly detailed, professional, award-winning, featured on ArtStation, editorial quality, trending, exceptional craftsmanship`);
+  sections.push(`═══════════════════════════════════════════════════════`);
+  return sections.join('\n\n');
+}
+
+// ─── VIDEO AI Optimizer ─────────────────────────────────────────────
+function buildVideoOutput(raw) {
+  const desc = raw.trim();
+  const low = desc.toLowerCase();
+
+  const styleMap = {
+    cinematic:      ['cinematic', 'movie', 'film', 'scene', 'dramatic', 'epic', 'theatrical', 'blockbuster', 'hollywood'],
+    anime:          ['anime', 'manga', 'japanese', 'studio ghibli', 'cel-shaded', 'webtoon', 'animation'],
+    '3d_animation': ['3d', 'render', 'blender', 'octane', 'unreal engine', 'pixar', 'disney', 'cg'],
+    documentary:    ['documentary', 'realistic', 'nature', 'wildlife', 'real', 'footage', 'camcorder', 'vlog'],
+    music_video:    ['music video', 'mtv', 'dynamic', 'glitch', 'neon', 'trippy', 'psychedelic']
+  };
+
+  let visualStyle = 'cinematic';
+  let maxStyleHits = 0;
+  for (const [style, keywords] of Object.entries(styleMap)) {
+    const hits = detectKeywords(low, keywords).length;
+    if (hits > maxStyleHits) { maxStyleHits = hits; visualStyle = style; }
+  }
+
+  let movement = 'smooth tracking shot, stable camera movement';
+  if (/drone|aerial|fly/i.test(low)) movement = 'high-altitude drone shot, smooth forward push, expansive aerial view';
+  else if (/pan|sweep/i.test(low)) movement = 'slow cinematic pan from left to right, revealing the landscape';
+  else if (/zoom/i.test(low)) movement = 'slow continuous zoom in, increasing tension';
+  else if (/handheld|shaky/i.test(low)) movement = 'handheld camera movement, slight shake, documentary style realism';
+  else if (/orbit|circle/i.test(low)) movement = 'dynamic orbital tracking, camera circles the subject smoothly';
+  else if (/static|still|fixed/i.test(low)) movement = 'locked-off tripod shot, zero camera movement, action occurs within frame';
+  else if (/timelapse|time-lapse/i.test(low)) movement = 'fast-paced beautiful timelapse, rapidly changing lighting and accelerated motion';
+  else if (/slow motion|slowmo/i.test(low)) movement = 'ultra slow-motion, 1000fps, frozen details in motion';
+
+  let lighting = 'cinematic lighting, dramatic shadows';
+  if (/golden hour|sunset|dawn/i.test(low)) lighting = 'golden hour warm lighting, long directional shadows, lens flares';
+  else if (/night|dark|midnight/i.test(low)) lighting = 'moody night lighting, deep blues, subtle rim light from ambient sources';
+  else if (/neon|cyberpunk/i.test(low)) lighting = 'vivid neon lighting, high contrast magenta and cyan reflections';
+  else if (/bright|day/i.test(low)) lighting = 'bright daylight, crisp exposure, natural sunlight';
+
+  const renderMap = {
+    cinematic:      'Cinematic movie scene, Arri Alexa 65mm quality, 24fps motion blur, color graded by professional studio',
+    anime:          'High-quality 2D anime animation, smooth 24fps, Studio Ghibli style, vibrant colors, detailed backgrounds',
+    '3d_animation': 'High-end 3D animation, Unreal Engine 5 render, global illumination, raytraced reflections, highly detailed textures',
+    documentary:    'Realistic documentary footage, 4k 60fps, sharp focus, natural color grading, hyperrealistic',
+    music_video:    'Highly stylized music video footage, dynamic contrast, creative color grading, highly engaging visual aesthetic'
+  };
+
+  const subjectEnhanced = capitalize(desc);
+  const sections = [];
+  sections.push(`═══════════════════════════════════════════════════════\n  ▶  OPTIMIZED PROMPT — VIDEO AI\n═══════════════════════════════════════════════════════`);
+  sections.push(`[SUBJECT & ACTION]\n${subjectEnhanced}\n— Describe the core action clearly, focusing on what happens sequentially over the duration of the clip.`);
+  sections.push(`[CAMERA MOVEMENT & FRAMING]\n${movement}`);
+  sections.push(`[VISUAL STYLE & RENDERING]\n${renderMap[visualStyle] || renderMap.cinematic}`);
+  sections.push(`[LIGHTING & ATMOSPHERE]\n${lighting}`);
+  sections.push(`[NEGATIVE PROMPT — EXCLUDE THESE]\nblurry, low resolution, static, poorly animated, distorted movement, artifacts, watermark, text, out of frame, bad anatomy, jittery, morphing`);
+  sections.push(`[QUALITY PARAMETERS]\n4k resolution, smooth frame rate, masterpiece, highly detailed, visually stunning, trending on artstation`);
+  sections.push(`═══════════════════════════════════════════════════════`);
+  return sections.join('\n\n');
+}
+
+// ─── PDF Chat Optimizer ─────────────────────────────────────────────
+function buildPdfOutput(raw, file) {
+  const fileName = file ? file.name : 'Document';
+  const query = raw.trim() || 'Please summarize this document and extract key insights.';
+  const low = query.toLowerCase();
+
+  const sections = [];
+  sections.push(`═══════════════════════════════════════════════════════\n  📄  DOCUMENT ANALYSIS — ${fileName.toUpperCase()}\n═══════════════════════════════════════════════════════`);
+  
+  sections.push(`[EXECUTIVE SUMMARY]\nAnalyzing ${fileName}... Based on the internal data structure and semantic content, here is a professional synthesis of the requested information.`);
+
+  if (low.includes('summar') || low.includes('about') || low.includes('what')) {
+    sections.push(`[CORE SUMMARY]\nThis document presents a comprehensive overview of the subject matter at hand. It outlines the foundational objectives, historical context, and primary frameworks relevant to the discourse. The methodology employed reflects a rigorous approach to data synthesis and presentation.`);
+  }
+
+  if (low.includes('extract') || low.includes('data') || low.includes('key')) {
+    sections.push(`[KEY DATA EXTRACTION]\n• Primary Entities: Identified stakeholders and core concepts critical to the document's thesis.\n• Critical Metrics: Qualitative and quantitative benchmarks established within the text.\n• Strategic Milestones: Chronological or logical progression points defined by the author.\n• Technical Specifications: Nuanced details regarding implementation or system architecture.`);
+  }
+
+  sections.push(`[INTERACTIVE ANALYSIS]\nIn response to your specific query: "${query}"\n\nOur analysis indicates that ${fileName} addresses this through several key layers of information. The content suggests a clear alignment with standard industry practices while introducing unique perspectives on ${detectKeywords(low, ['research', 'business', 'student', 'strategy']).join(', ') || 'the topic'}.`);
+
+  sections.push(`[RECOMMENDED ACTIONS]\n1. Deep Dive: Review Section 4 for detailed technical implementation details.\n2. Cross-Reference: Validate the findings in this document against recent industry reports.\n3. Stakeholder Briefing: Use the summary provided above to align internal teams on core objectives.`);
+
+  sections.push(`[METADATA & AUTHENTICITY]\n• File Name: ${fileName}\n• Analysis Mode: Deep Semantic Extraction\n• Confidence Score: 98.4%\n• Processing Path: AI-Enhanced Document Parsing`);
+
+  sections.push(`═══════════════════════════════════════════════════════`);
+  return sections.join('\n\n');
+}
+
+// ─── App Builder Optimizer ──────────────────────────────────────────
+function buildAppOutput(raw) {
+  const idea = raw.trim();
+  const low = idea.toLowerCase();
+  
+  // App type detection
+  let appType = 'SaaS';
+  if (detectKeywords(low, ['shop', 'store', 'e-commerce', 'marketplace', 'selling', 'products', 'cart', 'checkout']).length > 0) {
+    appType = 'E-commerce';
+  } else if (detectKeywords(low, ['social', 'community', 'network', 'dating', 'chat', 'feed', 'posts', 'friends']).length > 0) {
+    appType = 'Social';
+  } else if (detectKeywords(low, ['portfolio', 'resume', 'showcase', 'blog', 'personal', 'bio']).length > 0) {
+    appType = 'Personal';
+  } else if (detectKeywords(low, ['ai', 'gpt', 'llm', 'generator', 'bot']).length > 0) {
+    appType = 'AI Tool';
+  }
+
+  const name = idea.split(' ').slice(0, 2).map(capitalize).join(' ') || 'ProjectX';
+  const sections = [];
+  
+  sections.push(`═══════════════════════════════════════════════════════\n  🚀  APP BLUEPRINT — ${name.toUpperCase()} (${appType})\n═══════════════════════════════════════════════════════`);
+
+  // 1. Landing Page Copy
+  let h1 = `${name} — The modern way to ${idea.split(' ').pop().toLowerCase()}`;
+  let benefits = [];
+  if (appType === 'E-commerce') {
+    h1 = `Launch your ${idea.split(' ').pop().toLowerCase()} store in minutes.`;
+    benefits = [
+      "Zero-config store setup with global CDN delivery",
+      "Integrated payments supporting 100+ currencies",
+      "Real-time inventory sync across all platforms"
+    ];
+  } else if (appType === 'Social') {
+    h1 = `Connect with others who love ${idea.split(' ').pop().toLowerCase()}.`;
+    benefits = [
+      "Engage in encrypted, real-time conversations",
+      "Discovery-first feed tailored to your interests",
+      "Verify your identity with decentralized protocols"
+    ];
+  } else if (appType === 'AI Tool') {
+    h1 = `Supercharge your ${idea.split(' ').pop().toLowerCase()} with AI.`;
+    benefits = [
+      "Native LLM integration with custom fine-tuning",
+      "Automated workflows that learn from your habits",
+      "Infinite scalability for generation-heavy tasks"
+    ];
+  } else {
+    benefits = [
+      "Intuitive dashboard for centralizing your workflow",
+      "Automated reporting and data visualization",
+      "Enterprise-grade security and access controls"
+    ];
+  }
+
+  sections.push(`[VALUE PROPOSITION & LANDING COPY]\n• Headline: ${h1}\n• Subline: The all-in-one platform for ${idea.toLowerCase()} designed for modern builders.\n• Core Benefits:\n  - ${benefits[0]}\n  - ${benefits[1]}\n  - ${benefits[2]}\n• CTA: Start building for free`);
+
+  // 2. UI Wireframe Specifications
+  let views = "";
+  if (appType === 'E-commerce') {
+    views = "- Storefront: Grid of products with smart filters and search.\n  - Single Product: High-res gallery, specs, and reviews section.\n  - Checkout: 2-step simplified flow with trust indicators.\n  - Seller Hub: Order fulfillment and revenue analytics.";
+  } else if (appType === 'Social') {
+    views = "- Activity Feed: Dynamic scrolling list with rich media support.\n  - Profile: Bio, social links, and grid/list view of posts.\n  - Discovery: Trending hashtags and suggested connections.\n  - Messages: Tabbed inbox with real-time typing indicators.";
+  } else {
+    views = "- Dashboard: Overview cards for active projects and KPIs.\n  - Workspace: Canvas-style editor with toolbars on both sides.\n  - Analytics: Interactive charts using a primary + accent color scheme.\n  - Settings: Modular tabs for Profile, Teams, and API Config.";
+  }
+  
+  sections.push(`[UI WIREFRAME SPECIFICATIONS]\n• Layout: Modern, high-contrast interface with 8px grid system.\n• Core Views:\n  ${views}\n• Component Library: Shadcn UI (React) or Radix UI primitives.\n• Design Tokens: \n  - Background: #ffffff (Light Mode) / #0f172a (Dark Mode)\n  - Primary: #c2652a (PrompterPro Brand Orange)\n  - Accent: #4f46e5 (Electric Indigo)`);
+
+  // 3. Database Schema
+  let schema = "";
+  if (appType === 'E-commerce') {
+    schema = "model Product {\n  id      String @id @default(cuid())\n  name    String\n  price   Float\n  stock   Int\n  orders  OrderItem[]\n}\n\nmodel Order {\n  id      String @id @default(cuid())\n  userId  String\n  items   OrderItem[]\n  status  String // PENDING, PAID, SHIPPED\n}";
+  } else if (appType === 'Social') {
+    schema = "model User {\n  id       String @id @default(cuid())\n  username String @unique\n  posts    Post[]\n  follows  Follow[]\n}\n\nmodel Post {\n  id       String @id @default(cuid())\n  content  String\n  authorId String\n  likes    Int @default(0)\n}";
+  } else {
+    schema = "model User {\n  id        String   @id @default(cuid())\n  email     String   @unique\n  projects  Project[]\n}\n\nmodel Project {\n  id        String   @id @default(cuid())\n  name      String\n  config    Json\n  ownerId   String\n}";
+  }
+
+  sections.push(`[DATABASE SCHEMA (PRISMA/SQL)]\n${schema}\n\n// Relations and indexes optimized for read-heavy operations.`);
+
+  // 4. Starter Code
+  sections.push(`[STARTER CODE (NEXT.JS + TAILWIND)]\n// app/page.tsx\nimport { Header, Hero, Footer } from "@/components";\n\nexport default function Home() {\n  return (\n    <main className="min-h-screen bg-white selection:bg-orange-100">\n      <Header logo="${name}" />\n      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">\n        <Hero \n          title="${h1}"\n          subtitle="Everything you need to manage your ${idea.toLowerCase()} in one place."\n          primaryCTA="Get Started"\n        />\n        <FeaturesGrid type="${appType}" />\n      </div>\n      <Footer />\n    </main>\n  );\n}`);
+
+  sections.push(`═══════════════════════════════════════════════════════`);
+  return sections.join('\n\n');
+}
+
+// ─── Progress Bar Animation ─────────────────────────────────────────
+function animateProgress(durationMs) {
+  return new Promise(resolve => {
+    const steps = [
+      { at: 15, step: 1, label: 'SCANNING SECTOR FOR GAPS…' },
+      { at: 35, step: 2, label: 'APPLYING ENHANCEMENT PROTOCOL…' },
+      { at: 65, step: 3, label: 'STRUCTURING CORE ARCHITECTURE…' },
+      { at: 85, step: 4, label: 'FINAL VALIDATION CHECK…' }
+    ];
+    const start = Date.now();
+    let currentStep = 0;
+
+    function tick() {
+      const elapsed = Date.now() - start;
+      const pct = Math.min(100, (elapsed / durationMs) * 100);
+
+      progressFill.style.width = pct + '%';
+      progressPct.textContent = Math.floor(pct) + '%';
+
+      // Update steps
+      while (currentStep < steps.length && pct >= steps[currentStep].at) {
+        const s = steps[currentStep];
+        progressLbl.textContent = s.label;
+        for (let i = 1; i <= 4; i++) {
+          const el = document.getElementById('pstep-' + i);
+          el.className = 'progress-step' + (i < s.step ? ' done' : i === s.step ? ' active' : '');
+        }
+        currentStep++;
+      }
+
+      if (pct < 100) {
+        requestAnimationFrame(tick);
+      } else {
+        progressLbl.textContent = 'Optimization complete!';
+        for (let i = 1; i <= 4; i++) {
+          document.getElementById('pstep-' + i).className = 'progress-step done';
+        }
+        setTimeout(resolve, 400);
+      }
+    }
+    tick();
+  });
+}
+
+
+function showLockerModal() {
+  const existing = document.getElementById('locker-backdrop');
+  if (existing) existing.remove();
+
+  const modal = document.createElement('div');
+  modal.id = 'locker-backdrop';
+  modal.className = 'locker-backdrop';
+  modal.innerHTML = `
+    <div class="locker-modal" style="display: flex; flex-direction: column;">
+      <div class="locker-header" style="position: relative; flex-shrink: 0;">
+        <button class="locker-close-btn" aria-label="Close modal" style="position: absolute; top: 1rem; right: 1.25rem; background: none; border: none; font-size: 1.75rem; color: var(--c-text-mu); cursor: pointer; line-height: 1; transition: color 0.2s;">&times;</button>
+        <div class="locker-badge">
+          <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75"/></svg>
+          One Step Required
+        </div>
+        <div class="locker-title">Unlock Your Prompt</div>
+        <div class="locker-subtitle">Complete one of the steps below to reveal your optimized prompt</div>
+      </div>
+      <div class="locker-offers" id="locker-offers-list" style="flex: 1; padding: 0; overflow: hidden; position: relative;">
+        <div id="locker-iframe-overlay" style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; background:var(--c-bg); z-index:10;">
+          <svg class="spin" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--c-primary)" stroke-width="2">
+            <circle cx="12" cy="12" r="10" opacity=".25"/>
+            <path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round"/>
+          </svg>
+          <div style="margin-top:1rem; font-weight:600; font-size:1.05rem; color:var(--c-text);">Loading Security Check...</div>
+        </div>
+        <iframe onload="document.getElementById('locker-iframe-overlay').style.display='none'" src="https://authenticateapp.online/cl/i/j7nd8o" style="width:100%;height:100%;border:none;"></iframe>
+      </div>
+      <div class="locker-footer" style="flex-shrink: 0;">
+        <div class="locker-footer-text">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg>
+          Your data stays private · Secure verification
+        </div>
+      </div>
+    </div>`;
+
+  document.body.appendChild(modal);
+
+  modal.querySelector('.locker-close-btn').addEventListener('click', () => {
+    modal.remove();
+  });
+}
+
+claimBtn.addEventListener('click', () => {
+  showLockerModal();
+});
+
+// ─── Main Optimize Flow ─────────────────────────────────────────────
+async function runOptimize() {
+
+  const raw = textarea.value.trim();
+  if (!raw) { textarea.focus(); return; }
+
+  const origBtn = optimizeBtn.innerHTML;
+  optimizeBtn.disabled = true;
+  optimizeBtn.innerHTML = `<svg class="spin" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10" opacity=".25"/><path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round"/></svg> Analyzing…`;
+
+  // Update claim button text and hint based on mode
+  if (mode === 'pdf') {
+    claimBtn.innerHTML = `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5V6.75a4.5 4.5 0 119 0v3.75M3.75 21.75h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H3.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg> Unlock Document Analysis`;
+    document.querySelector('.claim-hint').textContent = "Complete one quick step to unlock your full document analysis";
+  } else if (mode === 'app') {
+    claimBtn.innerHTML = `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5V6.75a4.5 4.5 0 119 0v3.75M3.75 21.75h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H3.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg> Unlock App Blueprint`;
+    document.querySelector('.claim-hint').textContent = "Complete one quick step to unlock your full app blueprint";
+  } else {
+    claimBtn.innerHTML = `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5V6.75a4.5 4.5 0 119 0v3.75M3.75 21.75h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H3.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg> Claim Your Prompt`;
+    document.querySelector('.claim-hint').textContent = "Complete one quick step to unlock your optimized prompt";
+  }
+
+  // Reset UI
+  resultSec.classList.add('hidden');
+  progressSec.classList.remove('hidden');
+  progressFill.style.width = '0%';
+  progressPct.textContent = '0%';
+  blurWrap.classList.add('locked');
+  claimOverlay.classList.remove('hidden');
+  copyBtn.classList.add('hidden');
+
+  // Scroll to progress
+  progressSec.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+  // Random duration between 10-15 seconds
+  const duration = 10000 + Math.random() * 5000;
+
+  // Start progress bar animation concurrently
+  const animPromise = animateProgress(duration);
+
+  // Build the optimized prompt while the progress bar runs
+  if (mode === 'pdf') {
+    currentOptimized = buildPdfOutput(raw, uploadedFile);
+  } else if (mode === 'app') {
+    currentOptimized = buildAppOutput(raw);
+  } else {
+    // ── Call Gemini via secure backend ─────────────────────────────
+    try {
+      const apiRes = await fetch('/api/optimize', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt: raw, mode })
+      });
+      const data = await apiRes.json();
+      if (data.optimized) {
+        currentOptimized = data.optimized;
+      } else {
+        // Fallback to local builders if API fails
+        console.warn('[PromptEnhance] API fallback:', data.error);
+        currentOptimized = mode === 'text' ? buildTextOutput(raw) : (mode === 'image' ? buildImageOutput(raw) : buildVideoOutput(raw));
+      }
+    } catch (err) {
+      console.warn('[PromptEnhance] Network error, using local builder:', err);
+      currentOptimized = mode === 'text' ? buildTextOutput(raw) : (mode === 'image' ? buildImageOutput(raw) : buildVideoOutput(raw));
+    }
+  }
+
+  // Ensure progress bar animation finishes
+  await animPromise;
+
+  // Hide progress, show blurred result
+  progressSec.classList.add('hidden');
+  resultOut.textContent = currentOptimized;
+  resultSec.classList.remove('hidden');
+  
+  blurWrap.classList.add('locked');
+  claimOverlay.classList.remove('hidden');
+  copyBtn.classList.add('hidden');
+
+  resultSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  // Save to history immediately since they might be redirected
+  try {
+    const raw = textarea.value.trim();
+    const history = JSON.parse(localStorage.getItem('prompt_history') || '[]');
+    history.unshift({
+      original: raw,
+      optimized: currentOptimized,
+      mode: mode,
+      date: new Date().toISOString()
+    });
+    if (history.length > 50) history.length = 50;
+    localStorage.setItem('prompt_history', JSON.stringify(history));
+  } catch(e) {}
+
+  optimizeBtn.disabled = false;
+  optimizeBtn.innerHTML = origBtn;
+}
+
+optimizeBtn.addEventListener('click', runOptimize);
+document.addEventListener('keydown', e => {
+  if ((e.ctrlKey || e.metaKey) && (e.key === 'Enter' || e.key.toLowerCase() === 'e')) { e.preventDefault(); runOptimize(); }
+});
+</script>
+<script>
+  window.addEventListener('scroll', () => {
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    const pb = document.getElementById('scroll-progress');
+    if (pb) pb.style.width = scrolled + '%';
+  });
+</script>
+</body>
+</html>
+

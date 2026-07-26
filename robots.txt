@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /server.js
+Disallow: /index.php
+Disallow: /package.json
+Disallow: /package-lock.json
+Disallow: /vercel.json
+Disallow: /test.png
+Disallow: /.gitignore
+Sitemap: https://www.promptenhance.app/sitemap.xml
